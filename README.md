@@ -3,704 +3,554 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Can ❤️ Aylin — Unsere gemeinsame Seite</title>
+  <title>Can ❤ Aylin — Unsere gemeinsame Seite</title>
   <meta name="description" content="Ein privater Ort nur für uns zwei — Erinnerungen, Fotos, kleine Momente." />
+
+  <!-- nicer font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --bg0:#07070b;
-      --bg1:#0b0b13;
-      --card:rgba(255,255,255,.06);
+      --bg0:#090612;
+      --bg1:#120a25;
+
+      --card:rgba(255,255,255,.07);
+      --card2:rgba(255,255,255,.10);
       --stroke:rgba(255,255,255,.12);
+      --stroke2:rgba(255,255,255,.20);
+
       --text:rgba(255,255,255,.92);
       --muted:rgba(255,255,255,.68);
-      --muted2:rgba(255,255,255,.52);
-      --pink:#ff4da6;
-      --violet:#8a5cff;
-      --cyan:#4dd7ff;
-      --good:#61ffa0;
+      --muted2:rgba(255,255,255,.50);
+
+      --pink:#ff4fd8;
+      --violet:#9b5cff;
+      --cyan:#4dd6ff;
+      --good:#61ffb0;
+      --warn:#ffd166;
       --bad:#ff6b6b;
-      --shadow: 0 20px 60px rgba(0,0,0,.55);
-      --shadow2: 0 10px 30px rgba(0,0,0,.45);
-      --r: 22px;
-      --max: 1100px;
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --shadow2: 0 10px 25px rgba(0,0,0,.35);
+      --r:18px;
+      --r2:26px;
+      --focus: 0 0 0 3px rgba(155,92,255,.35);
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family:var(--font);
       color:var(--text);
-      background: radial-gradient(1000px 600px at 20% 10%, rgba(138,92,255,.18), transparent 60%),
-                  radial-gradient(900px 600px at 80% 20%, rgba(255,77,166,.16), transparent 55%),
-                  radial-gradient(800px 600px at 60% 80%, rgba(77,215,255,.14), transparent 55%),
-                  linear-gradient(180deg, var(--bg0), var(--bg1));
+      font: 600 15px/1.5 "Manrope", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(155,92,255,.38), transparent 60%),
+        radial-gradient(900px 600px at 90% 5%, rgba(255,79,216,.28), transparent 55%),
+        radial-gradient(700px 500px at 60% 110%, rgba(77,214,255,.18), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1) 55%, #07050f);
       overflow-x:hidden;
     }
-    .noise{
-      position:fixed; inset:0; pointer-events:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
-      mix-blend-mode:overlay; opacity:.4;
+
+    a{color:inherit}
+
+    .wrap{max-width:1100px;margin:0 auto;padding:22px 16px 44px}
+
+    /* top bar */
+    .top{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(9,6,18,.78), rgba(9,6,18,.40));
+      border-bottom:1px solid rgba(255,255,255,.08);
     }
-    .glow{
-      position:fixed; inset:-200px; pointer-events:none;
-      background:
-        radial-gradient(900px 500px at 15% 25%, rgba(255,77,166,.10), transparent 60%),
-        radial-gradient(900px 600px at 85% 35%, rgba(138,92,255,.10), transparent 60%),
-        radial-gradient(800px 600px at 60% 85%, rgba(77,215,255,.08), transparent 60%);
-      filter: blur(30px); opacity:.9;
-    }
-    header{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(12px);
-      background: linear-gradient(180deg, rgba(7,7,11,.72), rgba(7,7,11,.38));
-      border-bottom:1px solid rgba(255,255,255,.06);
-    }
-    .wrap{max-width:var(--max); margin:0 auto; padding:18px 18px}
-    .row{display:flex; align-items:center; justify-content:space-between; gap:14px}
-    .brand{display:flex; align-items:center; gap:12px; user-select:none;}
+    .topInner{max-width:1100px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px;min-width:220px}
     .logo{
-      width:38px; height:38px; border-radius:14px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,77,166,.9), rgba(138,92,255,.9));
-      box-shadow: 0 12px 30px rgba(255,77,166,.16);
-      position:relative;
+      width:38px;height:38px;border-radius:14px;
+      background: radial-gradient(circle at 35% 25%, rgba(255,79,216,.95), rgba(155,92,255,.95) 55%, rgba(77,214,255,.45));
+      box-shadow: 0 10px 26px rgba(155,92,255,.22), 0 10px 26px rgba(255,79,216,.14);
+      border:1px solid rgba(255,255,255,.16);
+      flex:0 0 auto;
     }
-    .logo:after{
-      content:""; position:absolute; inset:2px; border-radius:12px;
-      background: radial-gradient(circle at 70% 30%, rgba(77,215,255,.85), transparent 55%);
-      opacity:.9;
+    .brand h1{margin:0;font-size:14px;letter-spacing:.2px}
+    .brand p{margin:0;color:var(--muted);font-size:12px;font-weight:600}
+
+    .nav{
+      margin-left:auto;
+      display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end
     }
-    .brand h1{font-size:14px; margin:0; letter-spacing:.2px}
-    .brand p{margin:0; font-size:12px; color:var(--muted)}
-    nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
-    .chip{
-      padding:9px 12px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      border-radius:999px;
-      font-size:12px;
-      color:rgba(255,255,255,.86);
+    .pill{
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      color:var(--text);
+      padding:8px 11px;border-radius:999px;
       cursor:pointer;
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+      user-select:none;
+      display:inline-flex;align-items:center;gap:8px;
+      font-weight:800;
     }
-    .chip:hover{transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.16)}
-    .chip.primary{
-      background: linear-gradient(90deg, rgba(255,77,166,.22), rgba(138,92,255,.18));
-      border-color: rgba(255,77,166,.22);
-    }
-    main{padding:26px 0 80px}
-    .hero{padding:22px 0 8px;}
-    .heroGrid{display:grid; grid-template-columns: 1.05fr .95fr; gap:18px; align-items:stretch;}
-    @media (max-width: 920px){ .heroGrid{grid-template-columns: 1fr;} nav{justify-content:flex-start} }
+    .pill:hover{transform: translateY(-1px);border-color:var(--stroke2)}
+    .pill:focus{outline:none;box-shadow:var(--focus)}
+    .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--pink);box-shadow:0 0 0 4px rgba(255,79,216,.16)}
+    .pill.secondary .dot{background:var(--cyan);box-shadow:0 0 0 4px rgba(77,214,255,.14)}
+    .pill.warn .dot{background:var(--warn);box-shadow:0 0 0 4px rgba(255,209,102,.14)}
+    .pill.lock .dot{background:var(--muted2);box-shadow:0 0 0 4px rgba(255,255,255,.12)}
+
+    /* layout */
+    .grid{display:grid;grid-template-columns: 1.1fr .9fr; gap:14px; margin-top:18px}
+    @media (max-width: 860px){.grid{grid-template-columns:1fr}}
+
     .card{
-      background: var(--card);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius: var(--r);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid var(--stroke);
+      border-radius: var(--r2);
       box-shadow: var(--shadow2);
       overflow:hidden;
       position:relative;
     }
-    .card.pad{padding:18px}
-    .cardHeader{display:flex; gap:10px; align-items:flex-start; justify-content:space-between;}
-    .kicker{display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
-    .pill{
-      font-size:11px; padding:6px 10px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color: rgba(255,255,255,.82);
+    .card::before{
+      content:"";
+      position:absolute;inset:-2px;
+      background: radial-gradient(520px 180px at 15% 0%, rgba(155,92,255,.18), transparent 60%),
+                  radial-gradient(520px 180px at 85% 0%, rgba(255,79,216,.14), transparent 55%);
+      pointer-events:none;
+      opacity:.95;
     }
-    .pill.good{border-color: rgba(97,255,160,.30); background: rgba(97,255,160,.08)}
-    .pill.bad{border-color: rgba(255,107,107,.28); background: rgba(255,107,107,.08)}
-    .grad{
-      background: linear-gradient(90deg, var(--pink), var(--violet), var(--cyan));
-      -webkit-background-clip:text; background-clip:text; color:transparent;
+    .cardInner{position:relative;padding:16px}
+    .titleRow{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+    .badge{
+      font-size:12px;font-weight:800;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color:var(--muted);
+      backdrop-filter: blur(8px);
     }
-    .title{font-size:32px; line-height:1.12; margin:10px 0 8px; letter-spacing:.2px;}
-    .sub{margin:0; color:var(--muted); font-size:14px; line-height:1.55; max-width:52ch;}
-    .actions{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;}
+    .h2{margin:0;font-size:18px;letter-spacing:.2px}
+    .small{color:var(--muted);font-size:13px;font-weight:600}
+    .hr{height:1px;background:rgba(255,255,255,.10);margin:12px 0}
+
     .btn{
-      border:none; cursor:pointer;
-      padding:11px 14px; border-radius: 14px;
-      font-size:13px; color: rgba(255,255,255,.92);
-      background: rgba(255,255,255,.06);
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(155,92,255,.28), rgba(155,92,255,.10));
+      padding:10px 12px;border-radius:14px;
+      color:var(--text);
+      cursor:pointer;
+      transition: transform .16s ease, border-color .16s ease, filter .16s ease;
+      display:inline-flex;align-items:center;gap:8px;
+      box-shadow: 0 10px 26px rgba(155,92,255,.14);
+      font-weight:900;
+    }
+    .btn:hover{transform: translateY(-1px);border-color:rgba(155,92,255,.45);filter:saturate(1.05)}
+    .btn:focus{outline:none;box-shadow:var(--focus)}
+    .btn.gray{
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      box-shadow:none;
+    }
+    .btn.good{background: linear-gradient(180deg, rgba(97,255,176,.22), rgba(97,255,176,.08));}
+    .btn.bad{background: linear-gradient(180deg, rgba(255,107,107,.20), rgba(255,107,107,.08));}
+
+    .kpis{display:grid;grid-template-columns: repeat(3,1fr); gap:10px; margin-top:10px}
+    .kpi{
+      padding:12px;border-radius:18px;
       border:1px solid rgba(255,255,255,.12);
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
-    }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18)}
-    .btn.big{
-      padding:12px 16px;
-      background: linear-gradient(90deg, rgba(255,77,166,.24), rgba(138,92,255,.20));
-      border-color: rgba(255,77,166,.24);
-    }
-    .btn.ghost{background: transparent;}
-    .statGrid{display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-top:14px;}
-    @media (max-width: 520px){ .statGrid{grid-template-columns: 1fr} }
-    .stat{
-      padding:14px; border-radius: 18px;
-      border:1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.16);
     }
-    .stat .n{font-size:18px; font-weight:700; letter-spacing:.2px}
-    .stat .l{font-size:12px; color:var(--muted); margin-top:4px}
-    .rightPanel{padding:0; display:flex; flex-direction:column; min-height: 320px;}
-    .photoTop{padding:16px 16px 0; display:flex; align-items:center; justify-content:space-between; gap:10px;}
-    .photoTop h3{margin:0; font-size:14px; letter-spacing:.2px; color: rgba(255,255,255,.88);}
-    .photoTop .meta{font-size:12px; color:var(--muted)}
-    .grid{padding:14px 16px 16px; display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; flex:1;}
+    .kpi .n{font-size:20px;font-weight:900;letter-spacing:.2px}
+    .kpi .l{font-size:12px;color:var(--muted);font-weight:700}
+
+    /* gallery */
+    .gallery{display:grid;grid-template-columns: repeat(3, 1fr); gap:10px}
+    @media (max-width: 520px){.gallery{grid-template-columns: repeat(2, 1fr)}}
+
     .thumb{
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.14));
-      overflow:hidden; position:relative; cursor:pointer; min-height: 150px;
+      position:relative;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      aspect-ratio: 1/1;
+      cursor:pointer;
+      transition: transform .16s ease, border-color .16s ease;
     }
-    .thumb img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.08) contrast(1.04); transform: scale(1.02); transition: transform .25s ease, opacity .25s ease; opacity:.95;}
-    .thumb:hover img{transform: scale(1.06); opacity:1}
+    .thumb:hover{transform: translateY(-2px);border-color:rgba(255,255,255,.22)}
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .thumb .ph{
+      position:absolute;inset:0;display:grid;place-items:center;
+      color:rgba(255,255,255,.60);
+      font-size:12px;font-weight:800;
+      background: radial-gradient(circle at 30% 20%, rgba(255,79,216,.12), transparent 60%),
+                  radial-gradient(circle at 70% 20%, rgba(155,92,255,.12), transparent 60%),
+                  rgba(0,0,0,.18);
+      text-align:center;
+      padding:10px;
+    }
     .thumb .cap{
-      position:absolute; left:10px; right:10px; bottom:10px;
-      font-size:11px; color: rgba(255,255,255,.86);
-      text-shadow: 0 6px 24px rgba(0,0,0,.65);
-      display:flex; justify-content:space-between; gap:10px; align-items:center;
+      position:absolute;left:8px;right:8px;bottom:8px;
+      padding:6px 8px;border-radius:12px;
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.12);
+      font-size:11px;color:rgba(255,255,255,.80);
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      backdrop-filter: blur(8px);
+      font-weight:800;
     }
-    .cap .dot{width:8px; height:8px; border-radius:999px; background: linear-gradient(90deg, var(--pink), var(--violet)); box-shadow: 0 10px 20px rgba(255,77,166,.15); flex:0 0 auto;}
-    section{margin-top:18px}
-    .two{display:grid; grid-template-columns: 1fr 1fr; gap:18px; align-items:stretch;}
-    @media (max-width: 920px){ .two{grid-template-columns: 1fr} }
-    .secTitle{font-size:14px; margin:0 0 10px; color: rgba(255,255,255,.88); letter-spacing:.2px; display:flex; align-items:center; gap:10px;}
-    .secTitle .spark{width:10px; height:10px; border-radius:999px; background: linear-gradient(90deg, var(--cyan), var(--violet)); box-shadow: 0 10px 20px rgba(77,215,255,.12);}
-    .letter{line-height:1.75; color: rgba(255,255,255,.86); font-size:14px; margin:0; white-space: pre-line;}
-    .smallNote{margin-top:12px; color: var(--muted); font-size:12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
-    .divider{height:1px; background: rgba(255,255,255,.10); margin:14px 0;}
 
-    /* Lightbox */
-    .lightbox{position:fixed; inset:0; background: rgba(0,0,0,.68); display:none; align-items:center; justify-content:center; z-index:2000; padding:18px; backdrop-filter: blur(10px);}
-    .lightbox.on{display:flex}
-    .lbCard{width:min(980px, 96vw); background: rgba(20,20,30,.72); border:1px solid rgba(255,255,255,.12); border-radius: 26px; box-shadow: var(--shadow); overflow:hidden; position:relative;}
-    .lbTop{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 14px; border-bottom:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04);}
-    .lbTop .t{display:flex; gap:10px; align-items:center; min-width:0;}
-    .lbTop .t strong{font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
-    .lbTop .t span{color:var(--muted); font-size:12px; white-space:nowrap;}
-    .lbTop .x{border:none; background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.92); padding:8px 10px; border-radius: 12px; cursor:pointer;}
-    .lbImgWrap{background: rgba(0,0,0,.24); display:flex; align-items:center; justify-content:center; min-height: 56vh;}
-    .lbImgWrap img{width:100%; height:auto; max-height: 80vh; object-fit:contain; display:block;}
-    .lbBottom{display:flex; gap:10px; justify-content:space-between; align-items:center; padding:12px 14px; border-top:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.03); flex-wrap:wrap;}
-    .lbBottom .hint{color: var(--muted); font-size:12px;}
-    .navBtn{border:none; cursor:pointer; padding:10px 12px; border-radius: 14px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.92);}
+    /* overlay modal */
+    .overlay{
+      position:fixed;inset:0;z-index:200;
+      background: rgba(0,0,0,.62);
+      display:none;
+      align-items:center;justify-content:center;
+      padding:18px;
+    }
+    .overlay.show{display:flex}
 
-    /* Password overlay */
-    .lock{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:3000; padding:18px; background: rgba(0,0,0,.62); backdrop-filter: blur(14px);}
-    .lock.off{display:none}
-    .lockCard{width:min(560px, 96vw); border-radius: 28px; background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04)); border:1px solid rgba(255,255,255,.12); box-shadow: var(--shadow); padding:18px; position:relative; overflow:hidden;}
-    .lockCard:before{content:""; position:absolute; inset:-100px; background: radial-gradient(280px 240px at 20% 20%, rgba(255,77,166,.20), transparent 65%), radial-gradient(280px 240px at 80% 25%, rgba(138,92,255,.18), transparent 65%), radial-gradient(280px 240px at 55% 80%, rgba(77,215,255,.14), transparent 65%); filter: blur(18px); opacity:.95; pointer-events:none;}
-    .lockInner{position:relative}
-    .lockTitle{font-size:26px; margin:10px 0 6px; letter-spacing:.2px; line-height:1.15;}
-    .lockSub{margin:0 0 14px; color: var(--muted); line-height:1.6; font-size:14px;}
-    .pwRow{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:6px;}
-    .pwRow input{flex:1 1 260px; padding:12px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background: rgba(0,0,0,.18); color: rgba(255,255,255,.92); outline:none; font-size:14px;}
-    .pwRow input::placeholder{color: rgba(255,255,255,.45)}
-    .pwErr{display:none; color: rgba(255,120,180,.95); font-size:12px; margin-top:10px}
-    .pwErr.on{display:block}
-    .lockHint{margin-top:12px; color: var(--muted2); font-size:12px; line-height:1.55;}
+    .modal{
+      width:min(980px, 96vw);
+      max-height: 88vh;
+      overflow:auto;
+      border-radius: 26px;
+      border:1px solid rgba(255,255,255,.16);
+      background:
+        radial-gradient(900px 260px at 15% 0%, rgba(155,92,255,.20), transparent 60%),
+        radial-gradient(900px 260px at 85% 0%, rgba(255,79,216,.14), transparent 55%),
+        rgba(14,10,26,.92);
+      box-shadow: var(--shadow);
+      transform: translateY(10px) scale(.98);
+      opacity: 0;
+      transition: transform .18s ease, opacity .18s ease;
+      position:relative;
+    }
+    .overlay.show .modal{transform: translateY(0) scale(1);opacity:1}
 
-    /* Toast */
-    .toast{position: fixed; left:50%; bottom:18px; transform: translateX(-50%); background: rgba(20,20,30,.86); border:1px solid rgba(255,255,255,.12); border-radius: 999px; padding:10px 14px; color: rgba(255,255,255,.88); font-size:12px; box-shadow: var(--shadow2); display:none; z-index:4000; max-width:min(680px, 92vw); text-align:center;}
-    .toast.on{display:block}
+    .modalHead{
+      position:sticky;top:0;z-index:5;
+      padding:14px 14px 10px;
+      display:flex;align-items:center;gap:10px;justify-content:space-between;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(14,10,26,.92), rgba(14,10,26,.70));
+      backdrop-filter: blur(10px);
+    }
+    .modalTitle{font-weight:900}
+    .close{
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      padding:8px 10px;border-radius:999px;cursor:pointer;
+      font-weight:900;
+    }
+    .close:hover{border-color:rgba(255,255,255,.26)}
+    .modalBody{padding:14px}
 
-    /* Floating hearts */
-    .heart{position:fixed; left:0; top:0; pointer-events:none; z-index:3500; font-size:16px; filter: drop-shadow(0 10px 20px rgba(255,77,166,.18)); will-change: transform, opacity; opacity:0;}
+    /* lightbox */
+    .lightbox{display:grid;gap:10px}
+    .lbFrame{
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      overflow:hidden;
+      min-height: 280px;
+      display:grid;place-items:center;
+    }
+    .lbFrame img{
+      max-width:100%;
+      max-height:68vh;
+      object-fit:contain;
+      display:block;
+      background: transparent;
+    }
+    .lbBar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between}
+    .lbMeta{color:rgba(255,255,255,.80);font-size:12px;font-weight:800}
+    .lbControls{display:flex;gap:8px;flex-wrap:wrap}
 
-    footer{margin-top:26px; padding:16px 0 0; color: var(--muted2); font-size:12px; text-align:center;}
-    .mini{font-family:var(--mono); font-size:11px; color: rgba(255,255,255,.60);}
+    /* toast */
+    .toast{
+      position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+      background: rgba(0,0,0,.74);
+      border:1px solid rgba(255,255,255,.16);
+      color:rgba(255,255,255,.92);
+      padding:10px 12px;border-radius:14px;
+      box-shadow: var(--shadow2);
+      display:none;
+      z-index:250;
+      font-weight:900;
+    }
+    .toast.show{display:block;animation: pop .18s ease}
+    @keyframes pop{from{transform:translateX(-50%) translateY(8px);opacity:0}to{transform:translateX(-50%) translateY(0);opacity:1}}
+
+    /* password gate */
+    .gate{
+      position:fixed;inset:0;z-index:300;
+      background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(155,92,255,.40), transparent 60%),
+        radial-gradient(900px 600px at 90% 5%, rgba(255,79,216,.30), transparent 55%),
+        radial-gradient(700px 500px at 60% 110%, rgba(77,214,255,.22), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1) 55%, #07050f);
+      display:flex;align-items:center;justify-content:center;
+      padding:16px;
+    }
+    .gateBox{
+      width:min(560px, 96vw);
+      border-radius: 30px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(14,10,26,.84);
+      box-shadow: var(--shadow);
+      padding:18px;
+    }
+    .gateBox h2{margin:0 0 6px;font-size:20px;font-weight:900}
+    .gateBox p{margin:0;color:var(--muted);font-weight:700}
+    .field{margin-top:14px;display:flex;gap:10px}
+    .inp{
+      flex:1;
+      border-radius:14px;
+      padding:12px 12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      color:var(--text);
+      outline:none;
+      font-weight:800;
+    }
+    .inp:focus{box-shadow:var(--focus);border-color:rgba(155,92,255,.45)}
+    .hint{margin-top:10px;color:rgba(255,255,255,.62);font-size:12px;font-weight:700}
+    .tiny{font-size:12px;color:rgba(255,255,255,.55);font-weight:700}
+    .sep{height:1px;background:rgba(255,255,255,.12);margin:14px 0}
+
+    .statusLine{
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+      padding:10px 12px;border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+    }
+    .statusDot{width:9px;height:9px;border-radius:50%;}
+    .statusText{font-size:12px;font-weight:900;color:rgba(255,255,255,.80)}
   </style>
 </head>
 
 <body>
-  <div class="glow"></div>
-  <div class="noise"></div>
 
-  <!-- 🔐 PASSWORT-SPERRE -->
-  <div class="lock" id="lock">
-    <div class="lockCard">
-      <div class="lockInner">
-        <div class="kicker">
-          <span class="pill">Can ❤️ Aylin</span>
-          <span class="pill">Privat</span>
-          <span class="pill good">Nur wir zwei</span>
+  <!-- Passwort-Schutz -->
+  <div class="gate" id="gate" aria-hidden="true">
+    <div class="gateBox">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h2>Nur für uns zwei ❤</h2>
+          <p>Gib das Passwort ein — dann öffnet sich unsere gemeinsame Seite.</p>
         </div>
+      </div>
 
-        <h2 class="lockTitle"><span class="grad">Unsere gemeinsame Seite</span></h2>
-        <p class="lockSub">
-          Ein kleiner Ort nur für uns — mit Fotos, Erinnerungen und Momenten, die wir nie vergessen wollen. 💞
-        </p>
+      <div class="field">
+        <input class="inp" id="pw" type="password" inputmode="text" placeholder="Passwort…" autocomplete="current-password" />
+        <button class="btn good" id="unlockBtn">Öffnen ✨</button>
+      </div>
 
-        <div class="pwRow">
-          <input id="pw" type="password" autocomplete="off" placeholder="Passwort eingeben…" />
-          <button class="btn big" id="pwBtn">Öffnen 🔐</button>
-          <button class="btn ghost" id="pwHintBtn">Tipp ✨</button>
-        </div>
+      <div class="hint">
+        Tipp: Nutzt etwas, das nur ihr kennt (z. B. ein kleines Codewort). Du kannst es unten in <b>CONFIG.PASSWORD</b> ändern.
+      </div>
 
-        <div class="pwErr" id="pwErr">Falsches Passwort… bitte nochmal 🥺</div>
-        <div class="lockHint" id="pwHint" style="display:none;">
-          Tipp: Das Passwort ist etwas, das nur wir wissen. 🤍
-        </div>
+      <div class="sep"></div>
+      <div class="tiny">
+        Hinweis: GitHub Pages kann öffentlich sein. Dieser Schutz ist für „privat unter uns“, aber nicht wie Banking-Sicherheit.
       </div>
     </div>
   </div>
 
-  <header>
-    <div class="wrap">
-      <div class="row">
-        <div class="brand">
-          <div class="logo" aria-hidden="true"></div>
-          <div>
-            <h1 id="brandTitle">Unsere Seite</h1>
-            <p id="brandSub">Ein Zuhause für unsere Momente</p>
-          </div>
+  <header class="top">
+    <div class="topInner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Unsere Seite</h1>
+          <p>Erinnerungen, Fotos, kleine Momente — für Can & Aylin</p>
         </div>
-
-        <nav>
-          <button class="chip primary" id="goHero">Start</button>
-          <button class="chip" id="goGallery">Fotos</button>
-          <button class="chip" id="goLetter">Brief</button>
-          <button class="chip" id="goSurprise">Überraschung</button>
-          <button class="chip" id="lockAgain">Sperren</button>
-        </nav>
       </div>
+
+      <nav class="nav" aria-label="Navigation">
+        <button class="pill" data-open="start"><span class="dot"></span>Start</button>
+        <button class="pill secondary" data-open="fotos"><span class="dot"></span>Fotos</button>
+        <button class="pill" data-open="brief"><span class="dot"></span>Brief</button>
+        <button class="pill warn" data-open="surprise"><span class="dot"></span>Überraschung</button>
+        <button class="pill secondary" data-open="musik"><span class="dot"></span>Musik</button>
+        <button class="pill lock" id="lockBtn"><span class="dot"></span>Sperren</button>
+      </nav>
     </div>
   </header>
 
   <main class="wrap">
-    <section class="hero" id="hero">
-      <div class="heroGrid">
-        <div class="card pad">
-          <div class="cardHeader">
-            <div class="kicker">
-              <span class="pill" id="pillNames">Can ❤️ Aylin</span>
-              <span class="pill" id="pillSince">Seit: 10.04.2025</span>
-              <span class="pill good" id="pillMode">Gemeinsam</span>
-            </div>
-            <span class="pill" title="Status" id="statusPill">Online</span>
+    <div class="grid">
+
+      <!-- LEFT -->
+      <section class="card">
+        <div class="cardInner">
+          <div class="titleRow">
+            <span class="badge">Can ❤ Aylin</span>
+            <span class="badge" id="startBadge">Seit: —</span>
+            <span class="badge" id="onlineBadge">—</span>
           </div>
 
-          <h2 class="title"><span class="grad">Unsere Geschichte</span> ✨</h2>
-          <p class="sub">
-            Ein privater Ort nur für uns — Erinnerungen, Fotos und kleine Momente.
-            Für immer <span class="grad">wir</span>. 🤍
+          <h2 class="h2">Unser Datum ✨</h2>
+          <p class="small">
+            Ein Ort, der sagt: <b>„Wir gehören zusammen.“</b>  
+            Nicht laut — sondern ruhig, sicher und echt.
           </p>
 
-          <div class="actions">
-            <button class="btn big" id="btnHearts">Herzen schicken 💘</button>
-            <button class="btn" id="btnCopyLink">Seite kopieren 🔗</button>
-            <button class="btn" id="btnReload">Fotos aktualisieren ↻</button>
+          <div class="hr"></div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn" id="copyLink">Seite kopieren 🔗</button>
+            <button class="btn gray" data-open="brief">Unser Brief 💌</button>
+            <button class="btn gray" data-open="fotos">Fotos öffnen 📷</button>
           </div>
 
-          <div class="statGrid">
-            <div class="stat">
-              <div class="n" id="daysCount">–</div>
+          <div class="kpis" aria-label="Zähler">
+            <div class="kpi">
+              <div class="n" id="daysTogether">—</div>
               <div class="l">Tage zusammen</div>
             </div>
-            <div class="stat">
-              <div class="n" id="hoursCount">–</div>
-              <div class="l">Stunden voller „Wir“</div>
+            <div class="kpi">
+              <div class="n" id="hoursTogether">—</div>
+              <div class="l">Stunden (seitdem)</div>
             </div>
-            <div class="stat">
-              <div class="n" id="picsCount">–</div>
-              <div class="l">Fotos in unserer Galerie</div>
+            <div class="kpi">
+              <div class="n" id="photosCount">—</div>
+              <div class="l">Fotos im Album</div>
             </div>
           </div>
 
-          <div class="divider"></div>
-          <div class="smallNote">
-            <span class="pill">💡 Mini-Regel: Wenn wir streiten, wählen wir immer wieder „uns“.</span>
-            <span class="pill">🫶 Vertrauen. Ruhe. Liebe.</span>
+          <div class="hr"></div>
+
+          <div class="small" style="white-space:pre-line">
+Aylin,
+
+du bist nicht nur „Liebe“ — du bist mein ruhiger Ort im Chaos.
+Wenn du da bist, fühlt sich alles richtiger an.
+
+Ich will, dass du dich jeden Tag sicher fühlst:
+Sicher in meiner Stimme.
+Sicher in meinen Händen.
+Sicher in dem Satz: „Ich bleibe.“
+
+Und falls du mal vergisst, wie besonders du bist:
+Ich erinnere dich — sanft, aber immer.
+
+— Wir. Can ❤ Aylin
+          </div>
+
+          <div class="hr"></div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn" id="copyLetter">Brief kopieren ✨</button>
+            <button class="btn gray" data-open="surprise">Überraschung öffnen 🎁</button>
           </div>
         </div>
+      </section>
 
-        <div class="card rightPanel" id="gallery">
-          <div class="photoTop">
-            <div>
-              <h3>Unsere Fotos</h3>
-              <div class="meta" id="galleryMeta">Wird geladen…</div>
-            </div>
-            <button class="btn" id="btnOpenGallery">Öffnen ▸</button>
+      <!-- RIGHT -->
+      <section class="card">
+        <div class="cardInner">
+          <div class="titleRow">
+            <span class="badge">Fotos</span>
+            <span class="badge" id="lastSync">Noch nicht geladen</span>
           </div>
-          <div class="grid" id="thumbGrid"></div>
-        </div>
-      </div>
-    </section>
 
-    <section class="two">
-      <div class="card pad" id="letter">
-        <div class="secTitle"><span class="spark"></span> Unser Brief</div>
-        <div class="kicker" style="margin-bottom:10px;">
-          <span class="pill" id="dearLine">Can ❤️ Aylin</span>
-          <span class="pill">Nur wir</span>
-          <span class="pill good">Für immer</span>
-        </div>
+          <h2 class="h2">Unsere Fotos 📷</h2>
+          <p class="small">
+            Lädt automatisch aus eurem Google-Drive-Ordner. Tippe auf ein Bild, um es groß zu öffnen.
+          </p>
 
-        <p class="letter" id="letterText">
-Das hier ist unsere kleine Welt.
-Ein Platz, an dem unsere Momente leben: ein Lächeln, ein Blick, eine Umarmung.
-Wir sind nicht perfekt – aber wir sind echt.
-Und egal was passiert: Wir wählen immer wieder „uns“.
+          <div class="hr"></div>
 
-Danke, dass du da bist.
-Danke, dass wir zusammen wachsen.
-Heute, morgen und jedes Mal, wenn wir uns ansehen und still wissen: Das ist Liebe.
-        </p>
-
-        <div class="divider"></div>
-
-        <div class="smallNote">
-          <span>— <strong id="signLine">Wir</strong></span>
-          <span class="mini" id="signatureMini">♡ Can & Aylin ♡</span>
-        </div>
-      </div>
-
-      <div class="card pad" id="surprise">
-        <div class="secTitle"><span class="spark"></span> Überraschung</div>
-
-        <p class="sub" style="max-width:none">
-          Drück den Button, wenn du ein kleines „Wow“ willst. 😄
-          (Ja… das ist unsere <span class="grad">gemeinsame</span> Seite.)
-        </p>
-
-        <div class="actions">
-          <button class="btn big" id="btnSurprise">Überrasch mich ✨</button>
-          <button class="btn" id="btnSweet">Süße Nachricht 💌</button>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="card pad" style="background:rgba(0,0,0,.16); border-radius:18px;">
-          <div class="kicker" style="margin-bottom:10px;">
-            <span class="pill">Unsere kleine Liste</span>
-            <span class="pill good">„Wir“-Versprechen</span>
+          <div class="statusLine" id="netLine">
+            <span class="statusDot" id="netDot" style="background:var(--warn)"></span>
+            <span class="statusText" id="netText">Verbindung wird geprüft…</span>
           </div>
-          <ul style="margin:0; padding-left:18px; color:rgba(255,255,255,.86); line-height:1.7; font-size:14px;">
-            <li>Wir reden ruhig — auch wenn’s schwer ist.</li>
-            <li>Wir sind ein Team, nicht Gegner.</li>
-            <li>Wir vertrauen — und wir schützen das Vertrauen.</li>
-            <li>Wir bauen uns ein Leben, das sich nach Zuhause anfühlt.</li>
-          </ul>
-        </div>
 
-        <div class="smallNote" style="margin-top:14px;">
-          <span class="pill">🔒 Privat</span>
-          <span class="pill">✨ Nur wir kennen das Passwort</span>
-        </div>
-      </div>
-    </section>
+          <div class="hr"></div>
 
-    <footer>
-      <div>Made for <span class="grad" id="footerNames">Can ❤️ Aylin</span> · <span id="footerYear"></span></div>
-      <div class="mini" id="footerMini">Wenn Liebe ein Ort wäre, wäre es: „Wir“.</div>
-    </footer>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            <button class="btn good" id="refreshPhotos">Fotos aktualisieren ↻</button>
+            <button class="btn gray" id="howUpload">Wie laden wir neue Fotos hoch?</button>
+          </div>
+
+          <div class="hr"></div>
+
+          <div class="gallery" id="gallery" aria-label="Galerie"></div>
+
+          <div class="hr"></div>
+          <div class="tiny">
+            Falls Fotos manchmal „weiß/leer“ sind: Das ist fast immer ein Drive-Freigabeproblem.
+            Der Drive-Ordner muss auf <b>„Jeder mit Link kann ansehen“</b> stehen.
+          </div>
+        </div>
+      </section>
+
+    </div>
   </main>
 
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <div class="lbCard">
-      <div class="lbTop">
-        <div class="t">
-          <strong id="lbTitle">Foto</strong>
-          <span id="lbMeta">–</span>
-        </div>
-        <button class="x" id="lbClose">Schließen ✕</button>
+  <!-- Overlay / Modals -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modalHead">
+        <div class="modalTitle" id="modalTitle">Fenster</div>
+        <button class="close" id="closeModal">Schließen ✕</button>
       </div>
-
-      <div class="lbImgWrap">
-        <img id="lbImg" alt="Foto" />
-      </div>
-
-      <div class="lbBottom">
-        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-          <button class="navBtn" id="lbPrev">←</button>
-          <button class="navBtn" id="lbNext">→</button>
-          <button class="navBtn" id="lbOpen">Öffnen ↗</button>
-          <button class="navBtn" id="lbCopy">Kopieren 🔗</button>
-        </div>
-        <div class="hint">Tipp: Pfeiltasten ← → funktionieren auch.</div>
-      </div>
+      <div class="modalBody" id="modalBody"></div>
     </div>
   </div>
 
-  <div class="toast" id="toast">–</div>
+  <!-- Toast -->
+  <div class="toast" id="toast">Kopiert ✅</div>
 
   <script>
-    // ✅ FIXE EINSTELLUNGEN (fertig für dich)
-    const COUPLE_A = "Can";
-    const COUPLE_B = "Aylin";
-    const SINCE_DATE = "2025-04-10T00:00:00";
-    const SITE_PASSWORD = "1904";
-    const PHOTOS_JSON_URL = "https://script.google.com/macros/s/AKfycbz89OA07y8Onrq20RsoMGxjfYM7P0QEGL5NFeymsM0QH2PWs8jgle10-rngXybNSPLzcg/exec";
+    /**********************
+     * 1) KONFIGURATION
+     **********************/
+    const CONFIG = {
+      // 🔐 Şifre: burayı değiştir
+      PASSWORD: "canaylin1004",
 
+      // 📅 Başlangıç tarihi
+      START_DATE: "2025-04-10T00:00:00+02:00",
+
+      // ✅ Apps Script Web-App URL (JSON veriyor)
+      SCRIPT_URL: "https://script.google.com/macros/s/AKfycbz89OA07y8Onrq20RsoMGxjfYM7P0QEGL5NFeymsM0QH2PWs8jgle10-rngXybNSPLzcg/exec",
+
+      // kaç foto thumbnail
+      MAX_THUMBS: 9,
+
+      // Spotify embed (istersen playlist/track değiştir)
+      SPOTIFY_EMBED: "https://open.spotify.com/embed/track/2lR6kgMLGS0zdWvVSdnb7h"
+    };
+
+    /**********************
+     * 2) HELPERS
+     **********************/
     const $ = (q, el=document) => el.querySelector(q);
+    const $$ = (q, el=document) => [...el.querySelectorAll(q)];
 
-    const lockEl = $("#lock");
-    const pw = $("#pw");
-    const pwBtn = $("#pwBtn");
-    const pwErr = $("#pwErr");
-    const pwHintBtn = $("#pwHintBtn");
-    const pwHint = $("#pwHint");
-
-    const pillNames = $("#pillNames");
-    const footerNames = $("#footerNames");
-    const pillSince = $("#pillSince");
-
-    const daysCount = $("#daysCount");
-    const hoursCount = $("#hoursCount");
-    const picsCount = $("#picsCount");
-    const galleryMeta = $("#galleryMeta");
-    const thumbGrid = $("#thumbGrid");
-
-    const toast = $("#toast");
-    const statusPill = $("#statusPill");
-
-    const lightbox = $("#lightbox");
-    const lbImg = $("#lbImg");
-    const lbTitle = $("#lbTitle");
-    const lbMeta = $("#lbMeta");
-    const lbClose = $("#lbClose");
-    const lbPrev = $("#lbPrev");
-    const lbNext = $("#lbNext");
-    const lbOpen = $("#lbOpen");
-    const lbCopy = $("#lbCopy");
-
-    $("#goHero").addEventListener("click", () => scrollToId("hero"));
-    $("#goGallery").addEventListener("click", () => scrollToId("gallery"));
-    $("#goLetter").addEventListener("click", () => scrollToId("letter"));
-    $("#goSurprise").addEventListener("click", () => scrollToId("surprise"));
-    $("#lockAgain").addEventListener("click", lockAgain);
-
-    $("#btnHearts").addEventListener("click", () => burstHearts(14));
-    $("#btnCopyLink").addEventListener("click", () => copyText(location.href, "Seitenlink kopiert ✅"));
-    $("#btnReload").addEventListener("click", () => loadPhotos(true));
-    $("#btnOpenGallery").addEventListener("click", () => scrollToId("gallery"));
-
-    $("#btnSurprise").addEventListener("click", surprise);
-    $("#btnSweet").addEventListener("click", sweetMsg);
-
-    const names = `${COUPLE_A} ❤️ ${COUPLE_B}`;
-    pillNames.textContent = names;
-    footerNames.textContent = names;
-    $("#footerYear").textContent = new Date().getFullYear();
-    pillSince.textContent = `Seit: ${formatGermanDate(SINCE_DATE)}`;
-    $("#dearLine").textContent = names;
-    $("#signatureMini").textContent = `♡ ${COUPLE_A} & ${COUPLE_B} ♡`;
-
-    setInterval(() => {
-      const online = navigator.onLine;
-      statusPill.textContent = online ? "Online" : "Offline";
-      statusPill.className = "pill " + (online ? "good" : "bad");
-    }, 900);
-
-    // PASSWORT
-    if (localStorage.getItem("unlocked") === "1") lockEl.classList.add("off");
-
-    function unlock() {
-      const val = (pw.value || "").trim();
-      if (val === SITE_PASSWORD) {
-        localStorage.setItem("unlocked", "1");
-        lockEl.classList.add("off");
-        pwErr.classList.remove("on");
-        toastMsg("Willkommen, ihr zwei 💞");
-        burstHearts(10);
-      } else {
-        pwErr.classList.add("on");
-        burstHearts(3);
-      }
-    }
-    pwBtn.addEventListener("click", unlock);
-    pw.addEventListener("keydown", (e) => e.key === "Enter" && unlock());
-    pwHintBtn.addEventListener("click", () => {
-      pwHint.style.display = (pwHint.style.display === "none") ? "block" : "none";
-    });
-
-    function lockAgain(){
-      localStorage.removeItem("unlocked");
-      lockEl.classList.remove("off");
-      pw.value = "";
-      pw.focus();
-      toastMsg("Seite gesperrt 🔒");
+    function escapeHtml(s){
+      return (s||"")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
     }
 
-    // COUNTER
-    const since = new Date(SINCE_DATE);
-    function updateCounter(){
-      const now = new Date();
-      const ms = now - since;
-      const days = Math.floor(ms / (1000*60*60*24));
-      const hours = Math.floor(ms / (1000*60*60));
-      daysCount.textContent = isFinite(days) ? days.toLocaleString("de-DE") : "–";
-      hoursCount.textContent = isFinite(hours) ? hours.toLocaleString("de-DE") : "–";
-    }
-    updateCounter();
-    setInterval(updateCounter, 1000);
-
-    // PHOTOS
-    let items = [];
-    let currentIndex = 0;
-
-    async function loadPhotos(force=false){
-      galleryMeta.textContent = force ? "Aktualisiere…" : "Wird geladen…";
-      try{
-        const res = await fetch(PHOTOS_JSON_URL, { cache: force ? "no-store" : "default" });
-        if(!res.ok) throw new Error("HTTP " + res.status);
-        const data = await res.json();
-        items = (data.items || [])
-          .filter(x => x && typeof x.url === "string" && x.url.startsWith("http"))
-          .sort((a,b) => (b.ts||0) - (a.ts||0));
-
-        picsCount.textContent = items.length.toLocaleString("de-DE");
-        galleryMeta.textContent = items.length ? `${items.length} Foto(s) · Tippen zum Öffnen` : "Noch keine Fotos im Ordner…";
-        renderThumbs();
-        if(force) toastMsg("Fotos aktualisiert ✅");
-      }catch(err){
-        console.error(err);
-        galleryMeta.textContent = "Fehler beim Laden. Prüfe Apps Script / Ordnerzugriff.";
-        toastMsg("Fotos konnten nicht geladen werden ❌");
-      }
+    function toast(msg="Kopiert ✅"){
+      const t = $("#toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(window.__toastT);
+      window.__toastT = setTimeout(()=>t.classList.remove("show"), 1400);
     }
 
-    function renderThumbs(){
-      thumbGrid.innerHTML = "";
-      const show = items.slice(0, 4);
-
-      if(!show.length){
-        for(let i=0;i<4;i++){
-          const d = document.createElement("div");
-          d.className = "thumb";
-          d.innerHTML = `<div class="cap"><span style="display:flex;gap:8px;align-items:center;"><span class="dot"></span>Warte auf Fotos…</span><span>♡</span></div>`;
-          thumbGrid.appendChild(d);
-        }
-        return;
-      }
-
-      show.forEach((it, idx) => {
-        const d = document.createElement("div");
-        d.className = "thumb";
-        const name = safeText(it.name || "Foto");
-        const date = it.ts ? new Date(it.ts).toLocaleString("de-DE") : "";
-        d.innerHTML = `
-          <img loading="lazy" referrerpolicy="no-referrer" src="${it.url}" alt="${name}">
-          <div class="cap">
-            <span style="display:flex;gap:8px;align-items:center;min-width:0;">
-              <span class="dot"></span>
-              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:140px;">${name}</span>
-            </span>
-            <span style="color:rgba(255,255,255,.72)">${date ? "🕒" : "♡"}</span>
-          </div>
-        `;
-        d.addEventListener("click", () => openLightbox(idx));
-        thumbGrid.appendChild(d);
-      });
-
-      for(let i=show.length; i<4; i++){
-        const d = document.createElement("div");
-        d.className = "thumb";
-        d.innerHTML = `<div class="cap"><span style="display:flex;gap:8px;align-items:center;"><span class="dot"></span>Mehr Fotos folgen…</span><span>✨</span></div>`;
-        thumbGrid.appendChild(d);
-      }
-    }
-
-    // LIGHTBOX
-    function openLightbox(index){
-      if(!items.length) return;
-      currentIndex = clamp(index, 0, items.length-1);
-      renderLightbox();
-      lightbox.classList.add("on");
-      lightbox.setAttribute("aria-hidden","false");
-    }
-    function closeLightbox(){
-      lightbox.classList.remove("on");
-      lightbox.setAttribute("aria-hidden","true");
-    }
-    function renderLightbox(){
-      const it = items[currentIndex];
-      lbImg.src = it.url;
-      lbTitle.textContent = it.name ? it.name : `Foto ${currentIndex+1}`;
-      lbMeta.textContent = `${currentIndex+1} / ${items.length}` + (it.ts ? ` · ${new Date(it.ts).toLocaleString("de-DE")}` : "");
-      lbOpen.onclick = () => window.open(it.url, "_blank");
-      lbCopy.onclick = () => copyText(it.url, "Foto-Link kopiert ✅");
-    }
-
-    lbClose.addEventListener("click", closeLightbox);
-    lightbox.addEventListener("click", (e) => { if(e.target === lightbox) closeLightbox(); });
-    lbPrev.addEventListener("click", () => { currentIndex = (currentIndex - 1 + items.length) % items.length; renderLightbox(); });
-    lbNext.addEventListener("click", () => { currentIndex = (currentIndex + 1) % items.length; renderLightbox(); });
-
-    window.addEventListener("keydown", (e) => {
-      if(!lightbox.classList.contains("on")) return;
-      if(e.key === "Escape") closeLightbox();
-      if(e.key === "ArrowLeft") lbPrev.click();
-      if(e.key === "ArrowRight") lbNext.click();
-    });
-
-    // SURPRISE
-    const surprises = [
-      "Wenn Liebe ein Ort wäre… dann wären wir Zuhause. 🏡🤍",
-      "Wir sind nicht perfekt — aber wir sind echt. Und das ist selten. ✨",
-      "Heute, morgen, immer wieder: Wir. 💞",
-      "Mit dir wird die Welt leiser — und mein Herz ruhiger. 🫶",
-      "Egal wie laut alles ist: Wir bleiben unser sicherer Ort. 🔒🤍"
-    ];
-    function surprise(){
-      toastMsg(surprises[Math.floor(Math.random()*surprises.length)]);
-      burstHearts(16);
-    }
-    function sweetMsg(){
-      toastMsg("Nur wir zwei. Ohne Publikum. Ohne Lärm. Einfach wir. 💗");
-      burstHearts(12);
-    }
-
-    // HEARTS
-    function burstHearts(n=10){
-      const emojis = ["💖","💘","💗","💞","❤️","✨","🌙"];
-      for(let i=0;i<n;i++){
-        const el = document.createElement("div");
-        el.className = "heart";
-        el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-        document.body.appendChild(el);
-
-        const x = Math.random() * window.innerWidth;
-        const y = window.innerHeight - 20;
-        const dx = (Math.random()*2-1) * 120;
-        const dy = 260 + Math.random()*220;
-        const rot = (Math.random()*2-1) * 40;
-        const scale = .9 + Math.random()*1.2;
-        const dur = 1200 + Math.random()*900;
-        const delay = Math.random()*220;
-
-        el.style.left = x + "px";
-        el.style.top = y + "px";
-
-        requestAnimationFrame(() => {
-          el.style.transition = `transform ${dur}ms cubic-bezier(.2,.9,.2,1) ${delay}ms, opacity ${dur}ms ease ${delay}ms`;
-          el.style.opacity = "1";
-          el.style.transform = `translate(${dx}px, -${dy}px) rotate(${rot}deg) scale(${scale})`;
-        });
-
-        setTimeout(() => { el.style.opacity = "0"; }, dur*0.75);
-        setTimeout(() => el.remove(), dur + delay + 200);
-      }
-    }
-
-    // HELPERS
-    function scrollToId(id){
-      const el = document.getElementById(id);
-      if(!el) return;
-      el.scrollIntoView({ behavior:"smooth", block:"start" });
-    }
-    function toastMsg(text){
-      toast.textContent = text;
-      toast.classList.add("on");
-      clearTimeout(toast._t);
-      toast._t = setTimeout(() => toast.classList.remove("on"), 2800);
-    }
-    async function copyText(text, okMsg="Kopiert ✅"){
+    async function copyText(text){
       try{
         await navigator.clipboard.writeText(text);
-        toastMsg(okMsg);
+        toast("Kopiert ✅");
       }catch{
         const ta = document.createElement("textarea");
         ta.value = text;
@@ -708,26 +558,420 @@ Heute, morgen und jedes Mal, wenn wir uns ansehen und still wissen: Das ist Lieb
         ta.select();
         document.execCommand("copy");
         ta.remove();
-        toastMsg(okMsg);
+        toast("Kopiert ✅");
       }
     }
-    function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
-    function safeText(s){ return String(s).replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c])); }
-    function formatGermanDate(iso){
-      const d = new Date(iso);
-      if(!isFinite(d)) return "–";
-      return d.toLocaleDateString("de-DE", { day:"2-digit", month:"2-digit", year:"numeric" });
+
+    function formatDEDate(d){
+      try { return d.toLocaleDateString("de-DE"); } catch { return ""; }
     }
 
-    // NAV
-    document.getElementById("goHero").addEventListener("click", () => scrollToId("hero"));
-    document.getElementById("goGallery").addEventListener("click", () => scrollToId("gallery"));
-    document.getElementById("goLetter").addEventListener("click", () => scrollToId("letter"));
-    document.getElementById("goSurprise").addEventListener("click", () => scrollToId("surprise"));
+    function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
 
-    // START
-    loadPhotos(false);
-    toastMsg("Bereit. Nur wir zwei. 🔒💞");
+    /**********************
+     * 3) PASSWORD GATE
+     **********************/
+    const gate = $("#gate");
+    const pw = $("#pw");
+    const unlockBtn = $("#unlockBtn");
+    const lockBtn = $("#lockBtn");
+
+    function showGate(){
+      gate.style.display = "flex";
+      gate.setAttribute("aria-hidden","false");
+      setTimeout(()=>pw.focus(), 40);
+    }
+    function hideGate(){
+      gate.style.display = "none";
+      gate.setAttribute("aria-hidden","true");
+    }
+    function isUnlocked(){
+      return sessionStorage.getItem("unlocked") === "1";
+    }
+    function unlock(){
+      sessionStorage.setItem("unlocked","1");
+      hideGate();
+    }
+    function lock(){
+      sessionStorage.removeItem("unlocked");
+      showGate();
+    }
+
+    unlockBtn.addEventListener("click", () => {
+      if ((pw.value||"").trim() === CONFIG.PASSWORD) {
+        unlock();
+      } else {
+        pw.value = "";
+        toast("Falsches Passwort ❌");
+        pw.focus();
+      }
+    });
+    pw.addEventListener("keydown", (e) => {
+      if(e.key === "Enter") unlockBtn.click();
+    });
+    lockBtn.addEventListener("click", () => {
+      lock();
+      toast("Gesperrt 🔒");
+    });
+
+    if(!isUnlocked()) showGate(); else hideGate();
+
+    /**********************
+     * 4) KPI / ONLINE
+     **********************/
+    const startDate = new Date(CONFIG.START_DATE);
+    $("#startBadge").textContent = "Seit: " + formatDEDate(startDate);
+
+    function setNet(ok, text){
+      $("#netDot").style.background = ok ? "var(--good)" : "var(--warn)";
+      $("#netText").textContent = text;
+    }
+
+    function tick(){
+      const now = new Date();
+      const diffMs = Math.max(0, now - startDate);
+      const days = Math.floor(diffMs / 86400000);
+      const hours = Math.floor(diffMs / 3600000);
+      $("#daysTogether").textContent = days.toLocaleString("de-DE");
+      $("#hoursTogether").textContent = hours.toLocaleString("de-DE");
+
+      const online = navigator.onLine;
+      $("#onlineBadge").textContent = online ? "Online" : "Offline";
+      $("#onlineBadge").style.borderColor = online ? "rgba(97,255,176,.35)" : "rgba(255,209,102,.35)";
+      $("#onlineBadge").style.color = online ? "rgba(97,255,176,.92)" : "rgba(255,209,102,.92)";
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    window.addEventListener("online", ()=>{ setNet(true, "Online — verbinde neu…"); loadPhotos(true); });
+    window.addEventListener("offline", ()=> setNet(false, "Offline — warte auf Verbindung…"));
+
+    /**********************
+     * 5) OVERLAY MODALS
+     **********************/
+    const overlay = $("#overlay");
+    const modalTitle = $("#modalTitle");
+    const modalBody = $("#modalBody");
+    const closeModal = $("#closeModal");
+
+    function openModal(title, html){
+      modalTitle.textContent = title;
+      modalBody.innerHTML = html;
+      overlay.classList.add("show");
+      overlay.setAttribute("aria-hidden","false");
+      setTimeout(()=>closeModal.focus(), 40);
+    }
+    function close(){
+      overlay.classList.remove("show");
+      overlay.setAttribute("aria-hidden","true");
+      modalBody.innerHTML = "";
+      document.onkeydown = null;
+    }
+    closeModal.addEventListener("click", close);
+    overlay.addEventListener("click", (e)=>{ if(e.target === overlay) close(); });
+    document.addEventListener("keydown", (e)=>{ if(e.key === "Escape" && overlay.classList.contains("show")) close(); });
+
+    $$(".pill[data-open]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const key = btn.getAttribute("data-open");
+
+        if(key === "start"){
+          openModal("Start ✨", `
+            <div class="small" style="white-space:pre-line">
+Willkommen in unserem kleinen Universum.
+
+<b>Drei Dinge, die ich dir nie vergessen lasse:</b>
+• Du bist genug — auch an Tagen, an denen du dich klein fühlst.
+• Du musst nicht perfekt sein, um geliebt zu werden.
+• Ich will dich nicht nur an guten Tagen — ich will dich immer.
+
+<div class="hr"></div>
+<button class="btn good" onclick="document.querySelector('[data-open=fotos]').click()">Zu den Fotos ↗</button>
+            </div>
+          `);
+        }
+
+        if(key === "fotos"){
+          openModal("Fotos 📷", `
+            <div class="small">
+              <b>So ladet ihr neue Fotos hoch:</b>
+              <ol>
+                <li>Öffnet euren Google-Drive-Ordner (den, den das Script liest).</li>
+                <li>Ladet dort neue Bilder hoch (JPG/PNG/WebP).</li>
+                <li>Öffnet diese Seite neu oder klickt auf <b>„Fotos aktualisieren“</b>.</li>
+              </ol>
+
+              <div class="hr"></div>
+
+              <b>Wichtig (damit nichts leer/weiß ist):</b>
+              <ul>
+                <li>Drive-Ordner: <b>„Jeder mit Link kann ansehen“</b></li>
+                <li>Keine „nur ich“-Bilder</li>
+              </ul>
+
+              <div class="hr"></div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <button class="btn good" onclick="window.__refreshPhotos && window.__refreshPhotos(true)">Jetzt aktualisieren ↻</button>
+                <button class="btn gray" onclick="window.open('${CONFIG.SCRIPT_URL}','_blank')">JSON prüfen ↗</button>
+              </div>
+            </div>
+          `);
+        }
+
+        if(key === "brief"){
+          const letter = $("#copyLetter").closest(".card").querySelector(".small").textContent.trim();
+          openModal("Unser Brief 💌", `
+            <div class="small" style="white-space:pre-line">${escapeHtml(letter)}</div>
+            <div class="hr"></div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button class="btn" onclick="copyText(document.querySelector('.modalBody .small').textContent)">Brief kopieren ✨</button>
+              <button class="btn gray" onclick="close()">Schließen</button>
+            </div>
+          `);
+        }
+
+        if(key === "surprise"){
+          openModal("Überraschung 🎁", `
+            <div class="small">
+              Wenn du das gerade liest, dann bist du in unserem kleinen Geheim-Ort. ❤<br><br>
+
+              <b>Heute ist dein Reminder:</b>
+              <ul>
+                <li>Du bist wunderschön — auch ohne perfekten Tag.</li>
+                <li>Dein Herz ist selten. Genau deshalb liebe ich dich.</li>
+                <li>Du musst nichts beweisen. Du bist mein Lieblingsmensch.</li>
+              </ul>
+
+              <div class="hr"></div>
+
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <button class="btn good" onclick="toast('Ich liebe dich ❤')">Sag es leise ❤</button>
+                <button class="btn" onclick="toast('Du bist mein Zuhause ✨')">Sag es groß ✨</button>
+                <button class="btn gray" onclick="document.querySelector('[data-open=musik]').click()">Musik an 🎧</button>
+              </div>
+            </div>
+          `);
+        }
+
+        if(key === "musik"){
+          openModal("Musik 🎧", `
+            <div class="small">
+              Mach kurz Musik an — und stell dir vor, wir laufen Hand in Hand irgendwo durch die Stadt.<br><br>
+              <div class="hr"></div>
+              <iframe style="border-radius:18px;border:1px solid rgba(255,255,255,.16);width:100%;height:152px"
+                src="${CONFIG.SPOTIFY_EMBED}"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"></iframe>
+              <div class="hr"></div>
+              <div class="tiny">
+                Willst du Ayliva/Mero ganz genau? Dann schick mir EIN Spotify Track/Playlist Link,
+                ich setze ihn 1:1 hier rein.
+              </div>
+            </div>
+          `);
+        }
+      });
+    });
+
+    /**********************
+     * 6) COPY BUTTONS
+     **********************/
+    $("#copyLink").addEventListener("click", ()=>copyText(location.href));
+    $("#copyLetter").addEventListener("click", ()=>{
+      const letter = $("#copyLetter").closest(".card").querySelector(".small").textContent;
+      copyText(letter);
+    });
+
+    /**********************
+     * 7) PHOTOS: Robust fetch (timeout + retry) + lightbox
+     **********************/
+    const gallery = $("#gallery");
+    const photosCount = $("#photosCount");
+    const lastSync = $("#lastSync");
+    const refreshBtn = $("#refreshPhotos");
+    const howUpload = $("#howUpload");
+
+    let ITEMS = [];
+    let lbIndex = 0;
+
+    function safeName(name){
+      return (name||"")
+        .replace(/\.[a-z0-9]+$/i,"")
+        .replace(/[_-]+/g," ")
+        .trim();
+    }
+
+    function renderGallery(){
+      gallery.innerHTML = "";
+      const shown = ITEMS.slice(0, CONFIG.MAX_THUMBS);
+
+      if(shown.length === 0){
+        gallery.innerHTML = `
+          <div class="thumb" style="grid-column:1/-1;aspect-ratio:auto;min-height:120px;cursor:default">
+            <div class="ph">
+              Keine Fotos gefunden…<br>
+              <span style="font-size:11px;opacity:.78">Oder keine Berechtigung im Drive-Ordner.</span>
+            </div>
+          </div>`;
+        return;
+      }
+
+      shown.forEach((it, i)=>{
+        const el = document.createElement("div");
+        el.className = "thumb";
+        el.innerHTML = `
+          <div class="ph">Laden…</div>
+          <img loading="lazy" alt="${escapeHtml(it.name||'Foto')}" style="display:none" />
+          <div class="cap">${escapeHtml(safeName(it.name))}</div>
+        `;
+        const img = el.querySelector("img");
+        const ph = el.querySelector(".ph");
+
+        // cache-bust
+        const url = (it.url||"") + (it.url && it.url.includes("?") ? "&" : "?") + "v=" + encodeURIComponent(it.ts||Date.now());
+        img.src = url;
+
+        img.onload = () => { ph.style.display="none"; img.style.display="block"; };
+        img.onerror = () => {
+          ph.innerHTML = "Kann nicht laden.<br><span style='font-size:11px;opacity:.78'>Drive Freigabe prüfen</span>";
+        };
+
+        el.addEventListener("click", ()=>openLightbox(i));
+        gallery.appendChild(el);
+      });
+    }
+
+    function openLightbox(index){
+      lbIndex = clamp(index, 0, ITEMS.length-1);
+      const it = ITEMS[lbIndex];
+      const dt = it.ts ? new Date(it.ts) : null;
+
+      openModal("Foto "+(lbIndex+1)+" / "+ITEMS.length+" 📷", `
+        <div class="lightbox">
+          <div class="lbBar">
+            <div class="lbMeta">
+              <b>${escapeHtml(it.name||"Foto")}</b>
+              ${dt ? " • " + dt.toLocaleString("de-DE") : ""}
+            </div>
+            <div class="lbControls">
+              <button class="btn gray" onclick="window.__lbPrev()">← Zurück</button>
+              <button class="btn gray" onclick="window.__lbNext()">Weiter →</button>
+              <button class="btn" onclick="window.__lbOpen()">Im neuen Tab öffnen ↗</button>
+              <button class="btn" onclick="window.__lbCopy()">Link kopieren 🔗</button>
+            </div>
+          </div>
+
+          <div class="lbFrame">
+            <img id="lbImg" alt="${escapeHtml(it.name||'Foto')}" />
+          </div>
+
+          <div class="tiny">Tipp: Pfeiltasten ← → funktionieren auch.</div>
+        </div>
+      `);
+
+      const img = $("#lbImg", modalBody);
+      const url = (it.url||"") + (it.url && it.url.includes("?") ? "&" : "?") + "v=" + encodeURIComponent(it.ts||Date.now());
+      img.src = url;
+
+      img.onerror = () => {
+        img.replaceWith(Object.assign(document.createElement("div"), {
+          style: "padding:18px;color:rgba(255,255,255,.78);text-align:center;font-weight:800",
+          innerHTML: "Dieses Bild kann nicht geladen werden.<br><br><span style='color:rgba(255,255,255,.62)'>Meistens fehlt die Drive-Freigabe („Jeder mit Link“).</span>"
+        }));
+      };
+
+      window.__lbPrev = () => openLightbox((lbIndex-1+ITEMS.length)%ITEMS.length);
+      window.__lbNext = () => openLightbox((lbIndex+1)%ITEMS.length);
+      window.__lbOpen = () => window.open(it.url, "_blank");
+      window.__lbCopy = () => copyText(it.url);
+
+      document.onkeydown = (e) => {
+        if(!overlay.classList.contains("show")) return;
+        if(e.key === "ArrowLeft") window.__lbPrev();
+        if(e.key === "ArrowRight") window.__lbNext();
+      };
+    }
+
+    // fetch with timeout + retry
+    async function fetchWithTimeout(url, ms){
+      const ctrl = new AbortController();
+      const t = setTimeout(()=>ctrl.abort(), ms);
+      try{
+        const res = await fetch(url, { cache:"no-store", signal: ctrl.signal });
+        return res;
+      } finally {
+        clearTimeout(t);
+      }
+    }
+
+    async function loadPhotos(isAuto=false){
+      if(!navigator.onLine){
+        setNet(false, "Offline — warte auf Verbindung…");
+        lastSync.textContent = "Offline";
+        return;
+      }
+
+      setNet(true, "Online — lade Fotos…");
+      lastSync.textContent = "Lade…";
+
+      const maxTries = 5;
+      let lastErr = null;
+
+      for(let attempt=1; attempt<=maxTries; attempt++){
+        try{
+          // anti-cache param (mobil bazen cache yapıyor)
+          const url = CONFIG.SCRIPT_URL + (CONFIG.SCRIPT_URL.includes("?") ? "&" : "?") + "t=" + Date.now();
+
+          const res = await fetchWithTimeout(url, 10000); // 10s timeout
+          if(!res.ok) throw new Error("HTTP "+res.status);
+
+          const data = await res.json();
+          const items = Array.isArray(data.items) ? data.items : [];
+
+          items.sort((a,b)=>(b.ts||0)-(a.ts||0));
+          ITEMS = items.filter(x => typeof x?.url === "string" && x.url.includes("drive.google.com"));
+
+          photosCount.textContent = ITEMS.length.toLocaleString("de-DE");
+          lastSync.textContent = "Aktualisiert: " + new Date().toLocaleTimeString("de-DE");
+          setNet(true, "Online — Fotos geladen ✅");
+
+          renderGallery();
+          return;
+        }catch(err){
+          lastErr = err;
+          console.warn("loadPhotos attempt", attempt, err);
+
+          // küçük bekleme (backoff)
+          const wait = 400 * attempt * attempt;
+          lastSync.textContent = "Fehler… neuer Versuch ("+attempt+"/"+maxTries+")";
+          setNet(true, "Online — versuche erneut… ("+attempt+"/"+maxTries+")");
+
+          await new Promise(r=>setTimeout(r, wait));
+        }
+      }
+
+      console.error(lastErr);
+      setNet(true, "Online — aber Fotos konnten nicht geladen werden ❌");
+      lastSync.textContent = "Fehler beim Laden";
+      toast("Fotos konnten nicht geladen werden ❌");
+      renderGallery();
+    }
+
+    window.__refreshPhotos = loadPhotos;
+
+    refreshBtn.addEventListener("click", ()=>loadPhotos(false));
+    howUpload.addEventListener("click", ()=>document.querySelector('[data-open=fotos]').click());
+
+    // initial load
+    loadPhotos(true);
+
+    // auto refresh every 60s (only if online)
+    setInterval(()=>loadPhotos(true), 60000);
+
+    /**********************
+     * 8) tiny: link copy
+     **********************/
+    // done
   </script>
 </body>
 </html>
