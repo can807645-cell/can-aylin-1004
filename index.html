@@ -25,50 +25,26 @@ body{
   overflow-x:hidden;
 }
 
-/* LOGIN */
-#login{
-  position:fixed;inset:0;
-  background:var(--bg);
-  display:flex;align-items:center;justify-content:center;
-  z-index:9999;
-}
-.login-box{
-  background:var(--glass);
-  border:1px solid var(--stroke);
-  padding:40px;
-  border-radius:25px;
-  text-align:center;
-}
-.login-box input{
-  padding:12px;
-  border-radius:10px;
-  border:none;
-  width:200px;
-}
-.login-box button{
-  margin-top:15px;
-  padding:10px 25px;
-  border:none;
-  border-radius:12px;
-  background:var(--accent);
-  color:white;
-  font-weight:800;
-  cursor:pointer;
-}
-
 /* HEARTS */
 .hearts{position:fixed;inset:0;pointer-events:none;z-index:0}
 .heart{
-  position:absolute;bottom:-20px;
+  position:absolute;
+  bottom:-20px;
   color:var(--accent);
+  opacity:.4;
   animation:float 10s linear infinite;
-  opacity:.5;
 }
 @keyframes float{
   to{transform:translateY(-120vh) rotate(360deg);opacity:0}
 }
 
-.container{max-width:1100px;margin:auto;padding:20px;position:relative;z-index:5}
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+  position:relative;
+  z-index:5;
+}
 
 .card{
   background:var(--glass);
@@ -76,8 +52,8 @@ body{
   border:1px solid var(--stroke);
   border-radius:25px;
   padding:25px;
-  box-shadow:0 10px 30px rgba(0,0,0,.5);
   margin-bottom:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
 }
 
 .h1{
@@ -92,19 +68,29 @@ body{
   grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
   gap:15px;
 }
+
 .stat{
-  text-align:center;
   background:rgba(0,0,0,.3);
   padding:20px;
   border-radius:20px;
+  text-align:center;
 }
-.stat span{font-size:28px;color:#4dd6ff;font-weight:800}
+.stat span{
+  font-size:28px;
+  font-weight:800;
+  color:#4dd6ff;
+}
 
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-@media(max-width:850px){.grid{grid-template-columns:1fr}}
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+@media(max-width:850px){
+  .grid{grid-template-columns:1fr}
+}
 
-#timer{display:flex;justify-content:center;gap:20px;font-weight:800}
-
+/* MOOD */
 .mood button{
   font-size:26px;
   background:none;
@@ -115,15 +101,14 @@ body{
 }
 #moodMsg{margin-top:10px;color:var(--accent)}
 
-.music{
-  text-align:center;
-}
+/* MUSIC */
+.music{text-align:center}
 .music button{
   margin-top:10px;
   padding:10px 25px;
-  background:var(--accent);
   border:none;
   border-radius:12px;
+  background:var(--accent);
   color:white;
   font-weight:800;
   cursor:pointer;
@@ -136,7 +121,8 @@ body{
   gap:12px;
 }
 .gallery img{
-  width:100%;height:120px;
+  width:100%;
+  height:120px;
   object-fit:cover;
   border-radius:15px;
   cursor:pointer;
@@ -147,48 +133,35 @@ body{
   box-shadow:0 0 20px var(--glow);
 }
 
-/* FULLSCREEN */
+/* FULLSCREEN VIEWER */
 #viewer{
-  position:fixed;inset:0;
+  position:fixed;
+  inset:0;
   background:rgba(0,0,0,.9);
   display:none;
   align-items:center;
   justify-content:center;
   z-index:999;
 }
-#viewer img{max-width:90%;max-height:90%;border-radius:20px}
-
-/* ANNIVERSARY */
-#anniversary{
-  text-align:center;
-  color:var(--accent);
-  font-weight:800;
-  animation:pulse 2s infinite;
-}
-@keyframes pulse{
-  50%{transform:scale(1.05)}
+#viewer img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:20px;
 }
 </style>
 </head>
 
 <body>
 
-<div id="login">
-  <div class="login-box">
-    <h2>Nur für uns ❤</h2>
-    <input type="password" id="pw" placeholder="Passwort">
-    <br>
-    <button onclick="login()">Eintreten</button>
-  </div>
-</div>
-
 <div class="hearts" id="hearts"></div>
 
 <div class="container">
 
+<!-- HEADER -->
 <div class="card">
   <div class="h1">Can & Aylin</div>
   <p style="text-align:center;opacity:.7">Seit dem ersten Moment ein Team.</p>
+
   <div class="stats">
     <div class="stat"><span id="daysTogether">0</span><br>Tage Glück</div>
     <div class="stat"><span id="hoursTogether">0</span><br>Stunden Liebe</div>
@@ -198,22 +171,28 @@ body{
 
 <div class="grid">
 
+<!-- LEFT -->
 <div>
+
   <div class="card">
-    <div style="text-align:center;font-weight:800">Nächstes Wiedersehen ⏳</div>
-    <div id="timer">
-      <div><span id="d">00</span><br>Tage</div>
-      <div><span id="h">00</span><br>Std</div>
-      <div><span id="m">00</span><br>Min</div>
-    </div>
+    <h3 style="margin-top:0;color:var(--accent);text-align:center">
+      Unsere Geschichte 💞
+    </h3>
+    <p style="text-align:center;line-height:1.7;opacity:.85">
+      Alles begann am <b>10. April 2025</b>.<br><br>
+      Seitdem sind wir nicht perfekt –  
+      aber <b>perfekt füreinander</b>.<br><br>
+      <i>„Liebe ist nicht, sich anzusehen,  
+      sondern gemeinsam in die gleiche Richtung zu blicken.“</i>
+    </p>
   </div>
 
   <div class="card mood">
     <div style="font-weight:800">Wie fühlst du dich heute, Aylin?</div><br>
-    <button onclick="mood('😊')">😊</button>
-    <button onclick="mood('🥰')">🥰</button>
-    <button onclick="mood('😴')">😴</button>
-    <button onclick="mood('🥺')">🥺</button>
+    <button onclick="setMood('😊')">😊</button>
+    <button onclick="setMood('🥰')">🥰</button>
+    <button onclick="setMood('😴')">😴</button>
+    <button onclick="setMood('🥺')">🥺</button>
     <div id="moodMsg"></div>
   </div>
 
@@ -224,82 +203,84 @@ body{
     </audio>
     <button onclick="toggleMusic()">Play / Pause</button>
   </div>
+
 </div>
 
+<!-- RIGHT -->
 <div>
+
   <div class="card">
-    <h3 style="color:var(--accent)">Unsere Erinnerungen 📸</h3>
+    <h3 style="margin-top:0;color:var(--accent);text-align:center">
+      Unsere Erinnerungen 📸
+    </h3>
     <div class="gallery" id="gallery"></div>
   </div>
 
-  <div class="card" id="anniversary">
-    Für immer wir zwei 💞
+  <div class="card" style="text-align:center;color:var(--accent);font-weight:800">
+    Für immer wir zwei 💗
   </div>
+
 </div>
 
 </div>
 </div>
 
+<!-- FULLSCREEN IMAGE -->
 <div id="viewer" onclick="this.style.display='none'">
   <img id="viewerImg">
 </div>
 
 <script>
-/* PASSWORD */
-function login(){
-  if(document.getElementById('pw').value==="canaylin"){
-    document.getElementById('login').style.display="none";
-    document.getElementById('music').play();
-  }
-}
-
-/* COUNTERS */
-const START="2025-04-10";
-const MEET="2026-02-14T18:00";
-setInterval(()=>{
-  let now=new Date();
-  let diff=now-new Date(START);
-  daysTogether.innerText=Math.floor(diff/86400000);
-  hoursTogether.innerText=Math.floor(diff/3600000);
-
-  let t=new Date(MEET)-now;
-  d.innerText=Math.floor(t/86400000);
-  h.innerText=Math.floor(t/3600000%24);
-  m.innerText=Math.floor(t/60000%60);
-},1000);
-
-/* MOOD */
-function mood(m){moodMsg.innerText="Dein Gefühl ist mein Herz ❤ "+m}
-
-/* MUSIC */
-function toggleMusic(){
-  let m=document.getElementById("music");
-  m.paused?m.play():m.pause();
-}
-
-/* GALLERY – DRIVE ID EKLE */
-const images=[
-  "https://drive.google.com/uc?id=BURAYA_ID_1",
-  "https://drive.google.com/uc?id=BURAYA_ID_2",
-  "https://drive.google.com/uc?id=BURAYA_ID_3"
-];
-images.forEach(src=>{
-  let i=document.createElement("img");
-  i.src=src;
-  i.onclick=()=>{viewer.style.display="flex";viewerImg.src=src;}
-  gallery.appendChild(i);
-});
-
 /* HEARTS */
 setInterval(()=>{
-  let h=document.createElement("div");
+  const h=document.createElement("div");
   h.className="heart";
   h.innerText="❤";
   h.style.left=Math.random()*100+"vw";
   h.style.fontSize=10+Math.random()*20+"px";
-  hearts.appendChild(h);
+  document.getElementById("hearts").appendChild(h);
   setTimeout(()=>h.remove(),10000);
 },600);
+
+/* COUNTERS */
+const START="2025-04-10T00:00:00";
+setInterval(()=>{
+  const diff=new Date()-new Date(START);
+  daysTogether.innerText=Math.floor(diff/86400000);
+  hoursTogether.innerText=Math.floor(diff/3600000);
+},1000);
+
+/* MOOD */
+function setMood(m){
+  moodMsg.innerText="Dein Gefühl ist mein Herz ❤ "+m;
+}
+
+/* MUSIC */
+function toggleMusic(){
+  const m=document.getElementById("music");
+  m.paused ? m.play() : m.pause();
+}
+
+/* GALLERY FROM APPS SCRIPT */
+const GALLERY_API =
+"https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLgr1bHThLpNV1dYXsUcx_kT4b1k";
+
+fetch(GALLERY_API)
+  .then(r=>r.json())
+  .then(data=>{
+    const g=document.getElementById("gallery");
+    data.items.forEach(item=>{
+      const img=document.createElement("img");
+      img.src=item.url;
+      img.loading="lazy";
+      img.onclick=()=>{
+        viewer.style.display="flex";
+        viewerImg.src=item.url;
+      };
+      g.appendChild(img);
+    });
+  })
+  .catch(e=>console.error("Galerie Fehler:",e));
 </script>
 
 </body>
