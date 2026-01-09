@@ -3,58 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Biz 💖</title>
+<title>Bizim Hikâyemiz 💖</title>
 <style>
-/* GENEL STİLLER */
-body {
-  margin:0; font-family:'Segoe UI',sans-serif;
-  background:radial-gradient(circle at top,#22002e,#000);
-  color:#fff; text-align:center; overflow-x:hidden;
-}
+body{margin:0;font-family:'Segoe UI',sans-serif;background:radial-gradient(circle at top,#22002e,#000);color:#fff;text-align:center;overflow-x:hidden;}
 .hidden{display:none;}
-h1{ text-shadow:0 0 20px #ff5fd2; font-size:2.5em; margin-top:20px;}
-p{opacity:0.9;}
-button{
-  background:linear-gradient(45deg,#ff4fd8,#7a00ff);
-  border:none;color:#fff;
-  padding:14px 30px;border-radius:30px;
-  font-size:16px;cursor:pointer;
-  box-shadow:0 0 25px #ff4fd8; transition:0.3s;
-}
-button:hover{ transform:scale(1.1); box-shadow:0 0 40px #ff4fd8; }
+h1{text-shadow:0 0 20px #ff5fd2;font-size:2.5em;margin-top:20px;}
+p{opacity:0.9;font-size:1.2em;}
+button{background:linear-gradient(45deg,#ff4fd8,#7a00ff);border:none;color:#fff;padding:14px 30px;border-radius:30px;font-size:16px;cursor:pointer;box-shadow:0 0 25px #ff4fd8;transition:0.3s;}
+button:hover{transform:scale(1.1);box-shadow:0 0 40px #ff4fd8;}
 input[type=file]{display:none;}
 .loader{margin-top:15px;color:#ff7ad9;display:none;}
 .gallery{margin:30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;}
-.gallery img{
-  width:100%;height:180px;object-fit:cover;border-radius:18px;
-  box-shadow:0 0 20px rgba(255,90,200,.6);
-  animation:pop .6s ease; cursor:pointer;
-}
-@keyframes pop{from{transform:scale(.7);opacity:0;} to{transform:scale(1);opacity:1;}}
-.lightbox{
-  position:fixed; inset:0; background:rgba(0,0,0,.9);
-  display:flex; justify-content:center; align-items:center; z-index:9; visibility:hidden;
-}
-.lightbox img{
-  max-width:90%; max-height:90%; border-radius:20px;
-  box-shadow:0 0 40px #ff4fd8;
-}
-/* PIN GİRİŞ */
-#pinContainer{position:fixed; inset:0;background:#000a; display:flex; justify-content:center; align-items:center; flex-direction:column; z-index:10;}
-#pinContainer input{font-size:20px;padding:10px 15px;border-radius:10px; border:none; width:120px; text-align:center;}
-#pinContainer p{margin:10px; color:#ff77c7;}
-/* ANIMASYONLU ARKA PLAN */
-canvas{position:fixed;top:0;left:0; z-index:0;}
+.gallery img{width:100%;height:180px;object-fit:cover;border-radius:18px;box-shadow:0 0 20px rgba(255,90,200,.6);animation:pop .6s ease;cursor:pointer;}
+@keyframes pop{from{transform:scale(.7);opacity:0;}to{transform:scale(1);opacity:1;}}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:flex;justify-content:center;align-items:center;z-index:9;visibility:hidden;}
+.lightbox img{max-width:90%;max-height:90%;border-radius:20px;box-shadow:0 0 40px #ff4fd8;}
+#pinContainer{position:fixed;inset:0;background:#000a;display:flex;justify-content:center;align-items:center;flex-direction:column;z-index:10;}
+#pinContainer input{font-size:20px;padding:10px 15px;border-radius:10px;border:none;width:120px;text-align:center;}
+#pinContainer p{margin:10px;color:#ff77c7;}
+canvas{position:fixed;top:0;left:0;z-index:0;}
+.quote{margin-top:20px;font-size:1.3em;font-style:italic;color:#ff99dd;}
 </style>
 </head>
 <body>
 
 <!-- PIN -->
 <div id="pinContainer">
-  <h1>Giriş PIN'i</h1>
-  <input type="password" id="pinInput" maxlength="5" placeholder="PIN">
-  <button id="pinBtn">Giriş</button>
-  <p id="pinMsg"></p>
+<h1>Giriş PIN'i</h1>
+<input type="password" id="pinInput" maxlength="5" placeholder="PIN">
+<button id="pinBtn">Giriş</button>
+<p id="pinMsg"></p>
 </div>
 
 <canvas id="fx"></canvas>
@@ -62,6 +40,8 @@ canvas{position:fixed;top:0;left:0; z-index:0;}
 <div class="container hidden" id="main">
 <h1>Bizim Hikâyemiz 💖</h1>
 <p>Fotoğraf ekleyip birlikte anılarımızı çoğaltabilirsin ✨</p>
+
+<div class="quote" id="quote"></div>
 
 <label class="upload-btn">
   Fotoğraf Yükle 📸
@@ -76,30 +56,29 @@ canvas{position:fixed;top:0;left:0; z-index:0;}
 <button id="musicBtn">Müziği Aç/Kapa 🎵</button>
 
 <div class="gallery" id="gallery"></div>
-
 <p id="counter"></p>
 </div>
 
 <div class="lightbox" id="lightbox">
-  <img id="lightboxImg">
+<img id="lightboxImg">
 </div>
 
 <script>
-/* 🔴 CLOUDINARY AYARLARI */
-const CLOUD_NAME = "BURAYA_YAZ";
-const UPLOAD_PRESET = "romantic_upload";
+/* CLOUDINARY AYARLARI */
+const CLOUD_NAME="BURAYA_YAZ";
+const UPLOAD_PRESET="romantic_upload";
 
-/* 🔐 PIN AYARLARI */
-const SITE_PIN = "19422";
-let attempts = 0;
-const LOCK_TIME = 30000; // 30 saniye
-const pinContainer = document.getElementById("pinContainer");
-const main = document.getElementById("main");
-const pinInput = document.getElementById("pinInput");
-const pinBtn = document.getElementById("pinBtn");
-const pinMsg = document.getElementById("pinMsg");
+/* PIN AYARLARI */
+const SITE_PIN="19422";
+let attempts=0;
+const LOCK_TIME=30000;
+const pinContainer=document.getElementById("pinContainer");
+const main=document.getElementById("main");
+const pinInput=document.getElementById("pinInput");
+const pinBtn=document.getElementById("pinBtn");
+const pinMsg=document.getElementById("pinMsg");
 
-pinBtn.onclick = () => {
+pinBtn.onclick=()=>{
   if(pinInput.value===SITE_PIN){
     pinContainer.style.display="none";
     main.classList.remove("hidden");
@@ -110,107 +89,101 @@ pinBtn.onclick = () => {
     if(attempts>=3){
       pinMsg.textContent="3 yanlış deneme! 30 saniye bekleyin…";
       pinBtn.disabled=true;
-      setTimeout(()=>{attempts=0; pinBtn.disabled=false; pinMsg.textContent="";},LOCK_TIME);
+      setTimeout(()=>{attempts=0;pinBtn.disabled=false;pinMsg.textContent="";},LOCK_TIME);
     } else {
       pinMsg.textContent=`Yanlış PIN! Kalan hak: ${3-attempts}`;
     }
   }
 }
 
-/* otomatik hatırlama */
 if(localStorage.getItem("unlocked")==="true"){
   pinContainer.style.display="none";
   main.classList.remove("hidden");
   neonFlash();
 }
 
-/* NEON PATLAMA EFECTI */
 function neonFlash(){
-  const h1 = document.querySelector("h1");
+  const h1=document.querySelector("h1");
   h1.style.transition="0.3s";
   h1.style.textShadow="0 0 50px #ff00ff,0 0 80px #ff00ff";
   setTimeout(()=>{h1.style.textShadow="0 0 20px #ff5fd2"},500);
 }
 
-/* MÜZİK KONTROL */
-const musicBtn = document.getElementById("musicBtn");
-const bgMusic = document.getElementById("bgMusic");
+/* MÜZİK */
+const musicBtn=document.getElementById("musicBtn");
+const bgMusic=document.getElementById("bgMusic");
 musicBtn.onclick=()=>bgMusic.paused?bgMusic.play():bgMusic.pause();
 
-/* UPLOAD */
-const fileInput = document.getElementById("fileInput");
-const gallery = document.getElementById("gallery");
-const loader = document.getElementById("loader");
+/* GALERİ & UPLOAD */
+const fileInput=document.getElementById("fileInput");
+const gallery=document.getElementById("gallery");
+const loader=document.getElementById("loader");
 
-fileInput.addEventListener("change", async () => {
-  const file = fileInput.files[0];
-  if (!file) return;
-
+fileInput.addEventListener("change",async()=>{
+  const file=fileInput.files[0];
+  if(!file) return;
   loader.style.display="block";
 
-  const formData = new FormData();
-  formData.append("file", file);
-  formData.append("upload_preset", UPLOAD_PRESET);
+  const formData=new FormData();
+  formData.append("file",file);
+  formData.append("upload_preset",UPLOAD_PRESET);
 
-  const res = await fetch(
-    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
-    { method: "POST", body: formData }
-  );
-
-  const data = await res.json();
+  const res=await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,{method:"POST",body:formData});
+  const data=await res.json();
   loader.style.display="none";
   addImage(data.secure_url);
 });
 
 function addImage(url){
-  const img = document.createElement("img");
-  img.src = url;
+  const img=document.createElement("img");
+  img.src=url;
   img.onclick=()=>openLightbox(url);
   gallery.prepend(img);
-  const note = prompt("Fotoğraf için kısa bir not ekle 💬 (Opsiyonel)","");
+  const note=prompt("Fotoğraf için kısa bir not ekle 💬 (Opsiyonel)","");
   if(note) img.title=note;
 }
 
 /* LIGHTBOX */
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightboxImg");
-function openLightbox(url){
-  lightboxImg.src=url;
-  lightbox.style.visibility="visible";
-}
+const lightbox=document.getElementById("lightbox");
+const lightboxImg=document.getElementById("lightboxImg");
+function openLightbox(url){lightboxImg.src=url;lightbox.style.visibility="visible";}
 lightbox.onclick=()=>lightbox.style.visibility="hidden";
 
 /* ANILAR SAYACI */
-const counter = document.getElementById("counter");
-const START_DATE = new Date("2024-06-01"); // tanışma / sevgili tarihi
+const counter=document.getElementById("counter");
+const START_DATE=new Date("2024-06-01");
 function updateCounter(){
-  const now = new Date();
-  const diff = Math.floor((now-START_DATE)/(1000*60*60*24));
+  const now=new Date();
+  const diff=Math.floor((now-START_DATE)/(1000*60*60*24));
   counter.textContent=`Beraber ${diff} gün geçirdik 💖`;
 }
 setInterval(updateCounter,1000);
 updateCounter();
 
-/* PARTICLE / KALP ARKA PLAN */
-const canvas = document.getElementById("fx");
-const ctx = canvas.getContext("2d");
-resize(); window.onresize=resize;
-let particles=[]; for(let i=0;i<80;i++) particles.push(make());
-function make(){return {x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,s:Math.random()*0.5+0.2}}
-function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="#ff4fd8";
-  particles.forEach(p=>{
-    p.y-=p.s; if(p.y<0)p.y=canvas.height;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fill();
-  });
-  requestAnimationFrame(animate);
+/* QUOTE - GÜZEL SÖZLER */
+const quotes=[
+  "Sen gülünce dünya daha güzel 🌸",
+  "Kalbim hep seninle 💖",
+  "İyi ki varsın, iyi ki benimlesin ✨",
+  "Sen yanımdayken her şey daha anlamlı 💞",
+  "Aşkımız yıldızlar kadar parlak 🌟"
+];
+function showQuote(){
+  const q=document.getElementById("quote");
+  q.textContent=quotes[Math.floor(Math.random()*quotes.length)];
 }
+showQuote();
+setInterval(showQuote,10000);
+
+/* PARTICLE / KALP ARKA PLAN */
+const canvas=document.getElementById("fx");
+const ctx=canvas.getContext("2d");
+resize();window.onresize=resize;
+let particles=[];for(let i=0;i<80;i++)particles.push(make());
+function make(){return{x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,s:Math.random()*0.5+0.2}}
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle="#ff4fd8";particles.forEach(p=>{p.y-=p.s;if(p.y<0)p.y=canvas.height;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();});requestAnimationFrame(animate);}
 animate();
 </script>
-
 </body>
 </html>
