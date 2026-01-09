@@ -1,189 +1,260 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Can ❤ Aylin</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Can ❤ Aylin — Unser Ort</title>
+<meta name="description" content="Ein privater Ort für Can & Aylin: Fotos, Erinnerungen, Liebe." />
 
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
 <style>
-:root{
---bg:#0b0716;--card:rgba(255,255,255,.08);--border:rgba(255,255,255,.15);
---txt:#fff;--muted:rgba(255,255,255,.65);
---pink:#ff4fd8;--vio:#9b5cff;--r:22px;
+:root {
+  --bg0:#080611; --bg1:#140a2b; --bg2:#2a0f3a;
+  --glass: rgba(255,255,255,.08); --glass2: rgba(255,255,255,.12);
+  --stroke: rgba(255,255,255,.14); --stroke2: rgba(255,255,255,.22);
+  --text: rgba(255,255,255,.92); --muted: rgba(255,255,255,.72); --muted2: rgba(255,255,255,.55);
+  --pink:#ff4fd8; --vio:#9b5cff; --cyan:#4dd6ff; --good:#61ffb0; --warn:#ffd166; --bad:#ff6b6b;
+  --shadow: 0 18px 60px rgba(0,0,0,.55); --shadow2: 0 10px 26px rgba(0,0,0,.38);
+  --r:18px; --r2:26px; --focus: 0 0 0 3px rgba(155,92,255,.35);
 }
-*{box-sizing:border-box}
-body{
-margin:0;font-family:Manrope;color:var(--txt);
-background:
-radial-gradient(900px 400px at 10% -10%,rgba(155,92,255,.35),transparent),
-radial-gradient(900px 400px at 90% 0%,rgba(255,79,216,.28),transparent),
-linear-gradient(180deg,#06040d,var(--bg));
-overflow-x:hidden;
+
+/* Genel stil */
+*{box-sizing:border-box} html,body{height:100%} body{
+  margin:0;
+  font-family: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color:var(--text);
+  background:
+    radial-gradient(1200px 700px at 10% -10%, rgba(155,92,255,.35), transparent 60%),
+    radial-gradient(900px 600px at 90% 5%, rgba(255,79,216,.28), transparent 55%),
+    radial-gradient(700px 500px at 60% 110%, rgba(77,214,255,.18), transparent 60%),
+    linear-gradient(180deg, var(--bg0), var(--bg1) 55%, var(--bg2));
+  overflow-x:hidden;
 }
-.wrap{max-width:1100px;margin:auto;padding:16px}
+
+/* Hearts animation */
+.hearts { position:fixed; inset:0; pointer-events:none; z-index:0; }
+.heart { position:absolute; bottom:-20px; color:var(--pink); opacity:0.3; font-size:20px; animation:float 10s infinite linear; }
+@keyframes float {
+  0% { transform: translateY(0) rotate(0deg); opacity:0.6; }
+  100% { transform: translateY(-110vh) rotate(360deg); opacity:0; }
+}
+
+.wrap{max-width:1100px;margin:0 auto;padding:18px 14px 44px; position:relative; z-index:2}
+
+/* Header */
+.top{
+  position:sticky; top:10px; z-index:50;
+  border:1px solid rgba(255,255,255,.10);
+  background: linear-gradient(180deg, rgba(8,6,16,.72), rgba(8,6,16,.38));
+  backdrop-filter: blur(14px);
+  border-radius: 22px;
+  box-shadow: var(--shadow2);
+}
+.topInner{display:flex;align-items:center;gap:12px;padding:12px 14px}
+.brand{display:flex;align-items:center;gap:10px;min-width:220px}
+.logo{width:40px;height:40px;border-radius:14px;background: radial-gradient(circle at 35% 25%, rgba(255,79,216,.95), rgba(155,92,255,.95) 55%, rgba(77,214,255,.45));border:1px solid rgba(255,255,255,.16);box-shadow: 0 12px 26px rgba(155,92,255,.18);flex:0 0 auto;}
+.brand h1{margin:0;font-size:14px;letter-spacing:.2px}
+.brand p{margin:2px 0 0;color:var(--muted2);font-size:12px}
+
+.nav{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.pill{
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color:var(--text);
+  padding:8px 11px;border-radius:999px;
+  cursor:pointer;
+  transition: transform .16s ease, border-color .16s ease, background .16s ease;
+  user-select:none;
+  display:inline-flex;align-items:center;gap:8px;
+  font-weight:800;
+}
+.pill:hover{transform: translateY(-1px);border-color:rgba(255,255,255,.22); background: rgba(255,255,255,.09)}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--pink);box-shadow:0 0 0 4px rgba(255,79,216,.16)}
+.pill.secondary .dot{background:var(--cyan);box-shadow:0 0 0 4px rgba(77,214,255,.14)}
+.pill.warn .dot{background:var(--warn);box-shadow:0 0 0 4px rgba(255,209,102,.14)}
+.pill.lock .dot{background:var(--muted2);box-shadow:0 0 0 4px rgba(255,255,255,.12)}
+
+/* Grid layout */
+.grid{display:grid;grid-template-columns: 1.1fr .9fr; gap:14px; margin-top:14px}
+@media (max-width: 860px){.grid{grid-template-columns:1fr}.brand{min-width:auto}}
+
+/* Cards */
 .card{
-background:var(--card);border:1px solid var(--border);
-border-radius:var(--r);padding:16px;margin-bottom:14px;
-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.12);
+  background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
+  border-radius: 26px;
+  box-shadow: var(--shadow2);
+  overflow:hidden;
+  position:relative;
 }
-h1,h2{margin:.2em 0}
-h1{font-size:26px} h2{font-size:18px}
-.small{color:var(--muted);font-size:14px}
-
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.kpi{background:rgba(0,0,0,.25);border-radius:16px;padding:12px;text-align:center}
-.kpi b{font-size:20px}
-
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-@media(max-width:600px){.gallery{grid-template-columns:repeat(2,1fr)}}
-.thumb{aspect-ratio:1/1;border-radius:18px;overflow:hidden;border:1px solid var(--border);background:#000;cursor:pointer;position:relative}
-.thumb img{width:100%;height:100%;object-fit:cover;display:none}
-.thumb .ph{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted)}
-
-textarea{
-width:100%;border-radius:16px;border:1px solid var(--border);
-background:rgba(0,0,0,.3);color:white;padding:12px;font-family:inherit
+.card::before{
+  content:"";
+  position:absolute;inset:-2px;
+  background:
+    radial-gradient(520px 180px at 15% 0%, rgba(155,92,255,.16), transparent 60%),
+    radial-gradient(520px 180px at 85% 0%, rgba(255,79,216,.12), transparent 55%);
+  pointer-events:none;
+  opacity:.95;
 }
-button{
-border-radius:999px;border:1px solid var(--border);
-background:rgba(255,255,255,.08);color:white;
-padding:8px 14px;font-weight:800;cursor:pointer
-}
-button:hover{background:rgba(255,255,255,.14)}
+.inner{position:relative;padding:16px}
 
-.overlay{
-position:fixed;inset:0;background:rgba(0,0,0,.7);
-display:none;align-items:center;justify-content:center;z-index:99
+.titleRow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between}
+.badge{
+  font-size:12px;font-weight:800;
+  padding:6px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  color: rgba(255,255,255,.80);
+  backdrop-filter: blur(10px);
 }
+.h2{margin:10px 0 0;font-size:18px;letter-spacing:.2px}
+.small{color:var(--muted);font-size:13px;font-weight:600;line-height:1.6}
+.hr{height:1px;background:rgba(255,255,255,.10);margin:12px 0}
+
+.btnRow{display:flex;gap:10px;flex-wrap:wrap}
+.btn{
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  padding:10px 12px;border-radius:14px;
+  color:var(--text);
+  cursor:pointer;
+  transition: transform .16s ease, border-color .16s ease, background .16s ease;
+  display:inline-flex;align-items:center;gap:8px;
+  font-weight:900;
+}
+.btn:hover{transform: translateY(-1px);border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.09)}
+.btn.good{border-color: rgba(97,255,176,.28); background: rgba(97,255,176,.10)}
+.btn.hot{border-color: rgba(255,79,216,.28); background: rgba(255,79,216,.10)}
+.btn:focus{outline:none;box-shadow:var(--focus)}
+
+.kpis{display:grid;grid-template-columns: repeat(3,1fr); gap:10px; margin-top:12px}
+.kpi{padding:12px;border-radius:18px;border:1px solid rgba(255,255,255,.12);background: rgba(0,0,0,.14);}
+.kpi .n{font-size:20px;font-weight:900;letter-spacing:.2px}
+.kpi .l{font-size:12px;color:var(--muted2);font-weight:800}
+
+/* Gallery */
+.gallery{display:grid;grid-template-columns: repeat(3, 1fr); gap:10px; margin-top:10px}
+@media (max-width:520px){.gallery{grid-template-columns: repeat(2, 1fr)}}
+.thumb{border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background: rgba(0,0,0,.16);aspect-ratio:1/1;position:relative;cursor:pointer;transition: transform .16s ease, border-color .16s ease;}
+.thumb:hover{transform: translateY(-2px);border-color:rgba(255,255,255,.22)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .ph{position:absolute;inset:0;display:grid;place-items:center;color:rgba(255,255,255,.65);font-size:12px;font-weight:900;text-align:center;padding:10px;background:radial-gradient(circle at 30% 20%, rgba(255,79,216,.12), transparent 60%),radial-gradient(circle at 70% 20%, rgba(155,92,255,.12), transparent 60%), rgba(0,0,0,.14);}
+.thumb .cap{position:absolute;left:8px;right:8px;bottom:8px;padding:6px 8px;border-radius:12px;background: rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.12);font-size:11px;color:rgba(255,255,255,.82);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:900}
+
+/* Modal overlay */
+.overlay{position:fixed;inset:0;z-index:200;background: rgba(0,0,0,.62);display:none;align-items:center;justify-content:center;padding:16px;}
 .overlay.show{display:flex}
-.modal{
-background:#120b22;border-radius:22px;
-max-width:90vw;max-height:90vh;padding:14px;border:1px solid var(--border)
-}
-.modal img{max-width:80vw;max-height:80vh}
+.modal{width:min(980px,96vw);max-height:88vh;overflow:auto;border-radius:26px;border:1px solid rgba(255,255,255,.16);background: rgba(14,10,26,.92);box-shadow:var(--shadow);transform: translateY(10px) scale(.98);opacity:0;transition: transform .18s ease, opacity .18s ease;position:relative;}
+.overlay.show .modal{transform: translateY(0) scale(1);opacity:1}
+.modalHead{position:sticky;top:0;z-index:5;padding:14px 14px 10px;display:flex;align-items:center;gap:10px;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.10);background: linear-gradient(180deg, rgba(14,10,26,.92), rgba(14,10,26,.70));backdrop-filter: blur(10px);}
+.modalTitle{font-weight:900}
+.close{border:1px solid rgba(255,255,255,.16);background: rgba(255,255,255,.06);padding:8px 10px;border-radius:999px;cursor:pointer;font-weight:900;}
+.close:hover{border-color:rgba(255,255,255,.26)}
+.modalBody{padding:14px}
 
-.heart{
-position:fixed;font-size:20px;animation:fly 2s linear forwards;pointer-events:none
-}
-@keyframes fly{
-from{transform:translateY(0) scale(1);opacity:1}
-to{transform:translateY(-120px) scale(1.8);opacity:0}
-}
-
-#lock{
-position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
-background:#06040d;z-index:200
-}
-#lock input{padding:12px;border-radius:999px;border:none;width:200px;text-align:center}
+/* Toast */
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background: rgba(0,0,0,.74);border:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.92);padding:10px 12px;border-radius:14px;box-shadow: var(--shadow2);display:none;z-index:350;font-weight:900;}
+.toast.show{display:block;animation: pop .18s ease}
+@keyframes pop{from{transform:translateX(-50%) translateY(8px);opacity:0}to{transform:translateX(-50%) translateY(0);opacity:1}}
 </style>
 </head>
 
 <body>
+<div class="hearts" id="hearts"></div>
 
-<!-- 🔐 LOCK -->
-<div id="lock">
-<div class="card">
-<h2>🔐 Zugangscode</h2>
-<input type="password" id="pw" placeholder="Passwort">
-<button onclick="unlock()">Öffnen</button>
-<p class="small" id="err"></p>
-</div>
-</div>
-
-<div class="wrap" onclick="heart(event)">
-
-<div class="card">
-<h1>Can ❤ Aylin</h1>
-<p class="small">Unser gemeinsamer Ort</p>
-<div class="kpis">
-<div class="kpi"><b id="days">—</b><br>Tage</div>
-<div class="kpi"><b id="hours">—</b><br>Stunden</div>
-<div class="kpi"><b id="photoCount">—</b><br>Fotos</div>
-</div>
+<!-- Passwort Gate -->
+<div class="gate" id="gate">
+  <div class="gateBox">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="logo"></div>
+      <div>
+        <h2>Nur für uns zwei ❤</h2>
+        <p>Dieser Ort gehört uns. Für Erinnerungen, Fotos und das Gefühl: <b>„Wir.“</b></p>
+      </div>
+    </div>
+    <div class="field">
+      <input class="inp" id="pw" type="password" placeholder="Passwort…" autocomplete="current-password" />
+      <button class="btn good" id="unlockBtn">Öffnen ✨</button>
+    </div>
+    <div class="hint">Tipp: Passwort steht im Code bei <b>SITE_PASSWORD</b>.</div>
+  </div>
 </div>
 
-<div class="card">
-<h2>Unsere Erinnerungen 📷</h2>
-<button onclick="loadPhotos()">Aktualisieren ↻</button>
-<div class="gallery" id="gallery"></div>
-</div>
+<div class="wrap">
+<header class="top">
+  <div class="topInner">
+    <div class="brand">
+      <div class="logo"></div>
+      <div>
+        <h1>Can ❤ Aylin</h1>
+        <p>Unser Ort der Liebe ✨</p>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="pill" data-open="start"><span class="dot"></span>Start</button>
+      <button class="pill secondary" data-open="fotos"><span class="dot"></span>Fotos</button>
+      <button class="pill" data-open="brief"><span class="dot"></span>Brief</button>
+      <button class="pill warn" data-open="surprise"><span class="dot"></span>Überraschung</button>
+      <button class="pill secondary" data-open="musik"><span class="dot"></span>Musik</button>
+      <button class="pill lock" id="lockBtn"><span class="dot"></span>Sperren</button>
+    </nav>
+  </div>
+</header>
 
-<div class="card">
-<h2>Unsere Musik 🎶</h2>
-<iframe style="border-radius:16px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX50QitC6Oqtn"
-width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write"></iframe>
-</div>
+<main class="grid">
+  <!-- Romantik Kart -->
+  <section class="card">
+    <div class="inner">
+      <div class="titleRow">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="badge">Can ❤ Aylin</span>
+          <span class="badge" id="sinceBadge"></span>
+          <span class="badge" id="netBadge"></span>
+        </div>
+        <div class="btnRow">
+          <button class="btn" id="copyLink">Link kopieren 🔗</button>
+          <button class="btn hot" data-open="brief">Herz öffnen 💌</button>
+        </div>
+      </div>
+      <h2 class="h2">Für dich, Aylin ✨</h2>
+      <p class="small">
+        Du bist nicht nur „Liebe“ — du bist mein Ruhepunkt.<br>
+        Du bist die Person, bei der sich mein Herz sicherer anfühlt.<br>
+        Egal wie der Tag war: <b>Du bist genug. Mehr als genug.</b>
+      </p>
 
-<div class="card">
-<h2>Gemeinsames Tagebuch 📝</h2>
-<textarea id="note" rows="5" placeholder="Schreib etwas…"></textarea>
-<button onclick="saveNote()">Speichern</button>
-<p class="small" id="saved"></p>
-</div>
+      <div class="hr"></div>
 
-</div>
+      <div class="kpis">
+        <div class="kpi"><div class="n" id="daysTogether">—</div><div class="l">Tage zusammen</div></div>
+        <div class="kpi"><div class="n" id="hoursTogether">—</div><div class="l">Stunden „wir“</div></div>
+        <div class="kpi"><div class="n" id="photosCount">—</div><div class="l">Fotos im Album</div></div>
+      </div>
 
-<div class="overlay" id="overlay" onclick="closeModal()">
-<div class="modal"><img id="modalImg"></div>
-</div>
+      <div class="hr"></div>
+      <p class="small">
+        Ich will, dass du dich jeden Tag gut fühlst.<br>
+        Nicht weil alles perfekt ist, sondern weil du jemanden hast, der dich hält.<br>
+        <b>Ich bin da. Immer.</b>
+      </p>
+    </div>
+  </section>
 
-<script>
-/* 🔐 PASSWORD (hash of: 1234) */
-const HASH="03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4";
-async function unlock(){
-const t=new TextEncoder().encode(pw.value);
-const h=await crypto.subtle.digest("SHA-256",t);
-const hex=[...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,"0")).join("");
-if(hex===HASH){lock.style.display="none"}else{err.textContent="Falsch ❌"}
-}
-
-/* ⏱️ TIMER */
-const START=new Date("2025-04-10T00:00:00+02:00");
-setInterval(()=>{
-const d=Date.now()-START;
-days.textContent=Math.floor(d/86400000);
-hours.textContent=Math.floor(d/3600000);
-},1000);
-
-/* 📷 GALLERY */
-const SCRIPT="https://script.google.com/macros/s/AKfycbz89OA07y8Onrq20RsoMGxjfYM7P0QEGL5NFeymsM0QH2PWs8jgle10-rngXybNSPLzcg/exec";
-const gallery=document.getElementById("gallery");
-async function loadPhotos(){
-gallery.innerHTML="";
-const r=await fetch(SCRIPT);const j=await r.json();
-photoCount.textContent=j.items.length;
-j.items.slice(0,9).forEach(it=>{
-const d=document.createElement("div");
-d.className="thumb";
-d.innerHTML=`<div class="ph">Laden…</div><img src="${it.url}">`;
-const img=d.querySelector("img");
-img.onload=()=>{d.querySelector(".ph").remove();img.style.display="block"}
-img.onclick=()=>{overlay.classList.add("show");modalImg.src=img.src}
-gallery.appendChild(d);
-});
-}
-loadPhotos();
-
-/* 📝 NOTES */
-note.value=localStorage.note||"";
-function saveNote(){
-localStorage.note=note.value;
-saved.textContent="Gespeichert ✔";
-}
-
-/* ❤️ HEARTS */
-function heart(e){
-const h=document.createElement("div");
-h.className="heart";h.textContent="❤";
-h.style.left=e.clientX+"px";
-h.style.top=e.clientY+"px";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),2000);
-}
-function closeModal(){overlay.classList.remove("show")}
-</script>
-
-</body>
-</html>
+  <!-- Galeri Kart -->
+  <section class="card">
+    <div class="inner">
+      <div class="titleRow">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="badge">Fotos</span>
+          <span class="badge" id="lastSync">Noch nicht geladen</span>
+        </div>
+        <button class="btn good" id="refreshPhotos">Aktualisieren ↻</button>
+      </div>
+      <h2 class="h2">Unsere Erinnerungen 📷</h2>
+      <p class="small">Tippe auf ein Foto, um es groß zu öffnen.</p>
+      <div class="gallery" id="gallery"></div>
+      <div class="hr"></div>
+      <p class="small" style="color:var(--
