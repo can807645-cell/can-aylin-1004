@@ -1,210 +1,122 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Can ❤ Aylin — Unser Universum</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Can & Aylin | 2025</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            cursor: pointer; /* Tıklanabilir olduğunu hissettirir */
+        }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.65);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            max-width: 450px;
+            width: 90%;
+            transition: transform 0.3s ease;
+        }
 
-  <style>
-    :root {
-      --bg: #0d0b1a;
-      --accent: #ff4fd8;
-      --accent-glow: rgba(255, 79, 216, 0.4);
-      --glass: rgba(255, 255, 255, 0.05);
-      --stroke: rgba(255, 255, 255, 0.1);
-      --text: #ffffff;
-    }
+        .container:hover { transform: scale(1.02); }
 
-    body {
-      margin: 0; font-family: 'Manrope', sans-serif; color: var(--text);
-      background: radial-gradient(circle at top right, #1a0b2e, #0d0b1a);
-      background-attachment: fixed; overflow-x: hidden;
-    }
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to bottom, #ffffff, #ff4d4d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
 
-    /* Floating Hearts */
-    .hearts { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
-    .heart { position: absolute; bottom: -20px; color: var(--accent); opacity: 0.3; animation: float 10s infinite linear; }
-    @keyframes float {
-      0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
-      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
-    }
+        #quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #d1d1d1;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
 
-    .container { max-width: 1100px; margin: 0 auto; padding: 20px; position: relative; z-index: 10; }
+        .heart {
+            font-size: 55px;
+            animation: pulse 1.5s infinite;
+            display: inline-block;
+        }
 
-    /* Glass Card */
-    .card {
-      background: var(--glass); backdrop-filter: blur(15px);
-      border: 1px solid var(--stroke); border-radius: 24px;
-      padding: 30px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
+        @keyframes pulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 0px #ff4d4d); }
+            50% { transform: scale(1.15); filter: drop-shadow(0 0 15px #ff4d4d); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 0px #ff4d4d); }
+        }
 
-    .h1-title { font-family: 'Dancing Script', cursive; font-size: 48px; color: var(--accent); margin: 0; text-align: center; text-shadow: 0 0 15px var(--accent-glow); }
-    
-    /* Stats */
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 25px 0; }
-    .stat-item { background: rgba(0,0,0,0.3); padding: 20px; border-radius: 20px; text-align: center; border: 1px solid var(--stroke); }
-    .stat-value { display: block; font-size: 28px; font-weight: 800; color: #4dd6ff; }
-    .stat-label { font-size: 12px; text-transform: uppercase; opacity: 0.6; }
-
-    /* Layout */
-    .main-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; }
-    @media (max-width: 850px) { .main-grid { grid-template-columns: 1fr; } }
-
-    /* Spotify & Gallery */
-    .media-box { border-radius: 15px; overflow: hidden; border: 1px solid var(--stroke); }
-    
-    .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
-    .gallery-img { 
-      width: 100%; height: 150px; object-fit: cover; border-radius: 12px; 
-      cursor: pointer; transition: 0.3s ease; border: 1px solid var(--stroke);
-    }
-    .gallery-img:hover { transform: scale(1.03); border-color: var(--accent); }
-
-    /* Mood Tracker */
-    .mood-box { text-align: center; }
-    .mood-btn { 
-      background: none; border: 1px solid var(--stroke); font-size: 24px; 
-      padding: 10px; border-radius: 15px; cursor: pointer; transition: 0.3s; 
-    }
-    .mood-btn:hover { background: var(--accent-glow); transform: scale(1.1); }
-    #mood-msg { margin-top: 15px; font-weight: 600; color: var(--accent); min-height: 24px; }
-
-    /* Timer */
-    #timer { display: flex; justify-content: center; gap: 15px; font-weight: 800; }
-    .timer-unit { text-align: center; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 12px; min-width: 60px; }
-    .timer-unit span { font-size: 22px; color: var(--accent); display: block; }
-    .timer-unit small { font-size: 10px; opacity: 0.7; text-transform: uppercase; }
-
-    .btn-main {
-      background: var(--accent); color: white; border: none; padding: 14px 25px;
-      border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s;
-      text-transform: uppercase; letter-spacing: 1px;
-    }
-    .btn-main:hover { box-shadow: 0 0 20px var(--accent-glow); transform: translateY(-2px); }
-  </style>
+        .footer-note {
+            font-size: 0.7rem;
+            opacity: 0.5;
+            margin-top: 30px;
+            letter-spacing: 1px;
+        }
+    </style>
 </head>
 <body>
 
-<div class="hearts" id="hearts"></div>
+    <div class="container">
+        <div class="heart">❤️</div>
+        <h1>Can & Aylin</h1>
+        
+        <div id="quote">"Seninle her saniye yeni bir hikaye..."</div>
 
-<div class="container">
-  
-  <div class="card">
-    <h1 class="h1-title">Can & Aylin</h1>
-    <p style="text-align: center; opacity: 0.7; font-style: italic;">"Seit dem ersten Moment ein Team."</p>
-    
-    <div class="stats-grid">
-      <div class="stat-item"><span class="stat-value" id="d-together">0</span><span class="stat-label">Tage Glück</span></div>
-      <div class="stat-item"><span class="stat-value" id="h-together">0</span><span class="stat-label">Stunden Liebe</span></div>
-      <div class="stat-item"><span class="stat-value">∞</span><span class="stat-label">Erinnerungen</span></div>
-    </div>
-  </div>
-
-  <div class="main-grid">
-    
-    <div class="left-col">
-      <div class="card">
-        <h3 style="margin-top:0; font-size: 16px; color: var(--accent); display: flex; align-items: center; gap: 8px;">
-          <span>Unsere Playlist</span> 🎵
-        </h3>
-        <div class="media-box">
-          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX6pST98Gf97R?utm_source=generator&theme=0" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3 style="text-align: center; font-size: 14px; opacity: 0.8; margin-top: 0;">Nächstes Wiedersehen ⏳</h3>
-        <div id="timer">
-          <div class="timer-unit"><span id="days">00</span><small>Tage</small></div>
-          <div class="timer-unit"><span id="hours">00</span><small>Std</small></div>
-          <div class="timer-unit"><span id="mins">00</span><small>Min</small></div>
-        </div>
-      </div>
+        <div class="footer-note">MÜZİK İÇİN EKRANA DOKUN</div>
     </div>
 
-    <div class="right-col">
-      <div class="card">
-        <h3 style="margin-top:0; font-size: 16px; color: var(--accent);">Unsere Momente 📸</h3>
-        <div class="gallery-grid" id="drive-gallery">
-          <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=500" class="gallery-img" alt="Foto">
-          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=500" class="gallery-img" alt="Foto">
-        </div>
-        <p style="font-size: 12px; opacity: 0.6; margin-bottom: 15px;">Klicke unten, um das ganze Album zu sehen:</p>
-        <a href="https://drive.google.com/drive/folders/1GEZdnrduRf7eiRaZ20NCStQNXkp8R3s8?hl=de" target="_blank" style="text-decoration: none;">
-          <button class="btn-main">Google Drive Album ↗</button>
-        </a>
-      </div>
+    <iframe id="audio-engine" width="0" height="0" 
+        src="https://www.youtube.com/embed/videoseries?list=PL4fGSI1pDJn6jWp_fD5Ssh3lI9f18m4D1&enablejsapi=1" 
+        frameborder="0" allow="autoplay">
+    </iframe>
 
-      <div class="card mood-box">
-        <div style="font-weight: 800; margin-bottom: 15px;">Wie fühlst du dich heute, Aylin?</div>
-        <div style="display: flex; justify-content: center; gap: 12px;">
-          <button class="mood-btn" onclick="setMood('happy')">😊</button>
-          <button class="mood-btn" onclick="setMood('love')">🥰</button>
-          <button class="mood-btn" onclick="setMood('tired')">😴</button>
-          <button class="mood-btn" onclick="setMood('sad')">🥺</button>
-        </div>
-        <div id="mood-msg"></div>
-      </div>
-    </div>
+    <script>
+        const quotes = [
+            "Ayliva'nın sesi gibi huzur veriyorsun...",
+            "Mero'nun ritmi gibi kalbim hızlanıyor seninle.",
+            "Almanya'nın soğuğunda senin sevginle ısınıyorum.",
+            "Dünyanın en güzel melodisi senin gülüşün.",
+            "Bizim aşkımız 2025'in en güzel şarkısı.",
+            "Sie weiß... ama ben daha çok biliyorum seni sevdiğimi."
+        ];
 
-  </div>
-</div>
+        let i = 0;
+        setInterval(() => {
+            const quoteEl = document.getElementById('quote');
+            quoteEl.style.opacity = 0;
+            setTimeout(() => {
+                i = (i + 1) % quotes.length;
+                quoteEl.innerText = `"${quotes[i]}"`;
+                quoteEl.style.opacity = 1;
+            }, 500);
+        }, 5000);
 
-<script>
-  // AYARLAR
-  const RELATION_START = "2025-04-10T00:00:00"; // Tanışma Tarihi
-  const NEXT_MEETING = "2026-02-14T18:00:00";   // Bir sonraki buluşma
-
-  function updateCounters() {
-    const now = new Date();
-    
-    // Beraberlik Süresi
-    const start = new Date(RELATION_START);
-    const diff = now - start;
-    document.getElementById('d-together').textContent = Math.floor(diff / (1000*60*60*24));
-    document.getElementById('h-together').textContent = Math.floor(diff / (1000*60*60));
-
-    // Geri Sayım
-    const target = new Date(NEXT_MEETING);
-    const tDiff = target - now;
-    if (tDiff > 0) {
-      document.getElementById('days').textContent = Math.floor(tDiff / (1000*60*60*24)).toString().padStart(2, '0');
-      document.getElementById('hours').textContent = Math.floor((tDiff / (1000*60*60)) % 24).toString().padStart(2, '0');
-      document.getElementById('mins').textContent = Math.floor((tDiff / 1000 / 60) % 60).toString().padStart(2, '0');
-    }
-  }
-
-  setInterval(updateCounters, 1000);
-  updateCounters();
-
-  function setMood(mood) {
-    const msg = document.getElementById('mood-msg');
-    const responses = {
-      happy: "Dein Lächeln ist mein Favorit! ✨",
-      love: "Ich liebe dich noch viel mehr! ❤",
-      tired: "Ruh dich aus, mein Schatz. Ich bin bei dir. ☕",
-      sad: "Komm her, ich halte dich fest. 🫂"
-    };
-    msg.textContent = responses[mood];
-    msg.style.animation = "none";
-    void msg.offsetWidth;
-    msg.style.animation = "fadeIn 0.5s forwards";
-  }
-
-  function createHeart() {
-    const h = document.createElement('div');
-    h.className = 'heart'; h.innerHTML = '❤';
-    h.style.left = Math.random() * 100 + 'vw';
-    h.style.fontSize = (Math.random() * 20 + 10) + 'px';
-    h.style.animationDuration = (Math.random() * 5 + 5) + 's';
-    document.getElementById('hearts').appendChild(h);
-    setTimeout(() => h.remove(), 10000);
-  }
-  setInterval(createHeart, 600);
-</script>
-
+        // Müzik Başlatma Fonksiyonu
+        window.addEventListener('click', () => {
+            const player = document.getElementById('audio-engine');
+            player.src += "&autoplay=1";
+            document.querySelector('.footer-note').innerText = "ŞİMDİ ÇALIYOR: AYLIVA & MERO MIX 🎵";
+        }, { once: true });
+    </script>
 </body>
 </html>
