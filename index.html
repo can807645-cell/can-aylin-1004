@@ -1,193 +1,305 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Can ❤ Aylin — Unser Universum</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Can ❤ Aylin — Unser Universum</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --bg: #0d0b1a;
-      --accent: #ff4fd8;
-      --accent-glow: rgba(255, 79, 216, 0.4);
-      --glass: rgba(255, 255, 255, 0.05);
-      --stroke: rgba(255, 255, 255, 0.1);
-      --text: #ffffff;
-    }
+<style>
+:root{
+  --bg:#0d0b1a;
+  --accent:#ff4fd8;
+  --glass:rgba(255,255,255,0.05);
+  --stroke:rgba(255,255,255,0.1);
+  --glow:rgba(255,79,216,0.4);
+  --text:#fff;
+}
 
-    body {
-      margin: 0; font-family: 'Manrope', sans-serif; color: var(--text);
-      background: radial-gradient(circle at top right, #1a0b2e, #0d0b1a);
-      background-attachment: fixed; overflow-x: hidden;
-    }
+body{
+  margin:0;
+  font-family:'Manrope',sans-serif;
+  background:radial-gradient(circle at top right,#1a0b2e,#0d0b1a);
+  color:var(--text);
+  overflow-x:hidden;
+}
 
-    /* Floating Hearts */
-    .hearts { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
-    .heart { position: absolute; bottom: -20px; color: var(--accent); opacity: 0.3; animation: float 10s infinite linear; }
-    @keyframes float {
-      0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
-      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
-    }
+/* LOGIN */
+#login{
+  position:fixed;inset:0;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  z-index:9999;
+}
+.login-box{
+  background:var(--glass);
+  border:1px solid var(--stroke);
+  padding:40px;
+  border-radius:25px;
+  text-align:center;
+}
+.login-box input{
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  width:200px;
+}
+.login-box button{
+  margin-top:15px;
+  padding:10px 25px;
+  border:none;
+  border-radius:12px;
+  background:var(--accent);
+  color:white;
+  font-weight:800;
+  cursor:pointer;
+}
 
-    .container { max-width: 1100px; margin: 0 auto; padding: 20px; position: relative; z-index: 10; }
+/* HEARTS */
+.hearts{position:fixed;inset:0;pointer-events:none;z-index:0}
+.heart{
+  position:absolute;bottom:-20px;
+  color:var(--accent);
+  animation:float 10s linear infinite;
+  opacity:.5;
+}
+@keyframes float{
+  to{transform:translateY(-120vh) rotate(360deg);opacity:0}
+}
 
-    .card {
-      background: var(--glass); backdrop-filter: blur(15px);
-      border: 1px solid var(--stroke); border-radius: 24px;
-      padding: 30px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      transition: transform 0.3s ease;
-    }
+.container{max-width:1100px;margin:auto;padding:20px;position:relative;z-index:5}
 
-    .h1-title { font-family: 'Dancing Script', cursive; font-size: 48px; color: var(--accent); margin: 0; text-align: center; text-shadow: 0 0 15px var(--accent-glow); }
-    
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 25px 0; }
-    .stat-item { background: rgba(0,0,0,0.3); padding: 20px; border-radius: 20px; text-align: center; border: 1px solid var(--stroke); }
-    .stat-value { display: block; font-size: 28px; font-weight: 800; color: #4dd6ff; }
-    .stat-label { font-size: 12px; text-transform: uppercase; opacity: 0.6; }
+.card{
+  background:var(--glass);
+  backdrop-filter:blur(15px);
+  border:1px solid var(--stroke);
+  border-radius:25px;
+  padding:25px;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
+  margin-bottom:20px;
+}
 
-    /* Layout */
-    .main-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; }
-    @media (max-width: 850px) { .main-grid { grid-template-columns: 1fr; } }
+.h1{
+  font-family:'Dancing Script';
+  text-align:center;
+  font-size:42px;
+  color:var(--accent);
+}
 
-    /* Gallery */
-    .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-    .gallery-img { 
-        width: 100%; height: 120px; object-fit: cover; border-radius: 12px; 
-        border: 1px solid var(--stroke); transition: 0.3s; cursor: pointer;
-    }
-    .gallery-img:hover { transform: scale(1.05); border-color: var(--accent); }
+.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:15px;
+}
+.stat{
+  text-align:center;
+  background:rgba(0,0,0,.3);
+  padding:20px;
+  border-radius:20px;
+}
+.stat span{font-size:28px;color:#4dd6ff;font-weight:800}
 
-    .btn-main {
-      background: var(--accent); color: white; border: none; padding: 12px 25px;
-      border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s;
-      margin-top: 15px;
-    }
-    .btn-main:hover { box-shadow: 0 0 20px var(--accent-glow); transform: translateY(-2px); }
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:850px){.grid{grid-template-columns:1fr}}
 
-    #timer { display: flex; justify-content: center; gap: 15px; font-weight: 800; margin-top: 10px; }
-    .timer-unit { text-align: center; }
-    .timer-unit span { font-size: 24px; color: var(--accent); }
+#timer{display:flex;justify-content:center;gap:20px;font-weight:800}
 
-    .mood-btn { 
-      background: none; border: 1px solid var(--stroke); font-size: 24px; 
-      padding: 10px; border-radius: 15px; cursor: pointer; transition: 0.3s; 
-    }
-    .mood-btn:hover { background: var(--accent-glow); transform: scale(1.1); }
-  </style>
+.mood button{
+  font-size:26px;
+  background:none;
+  border:1px solid var(--stroke);
+  border-radius:15px;
+  padding:10px;
+  cursor:pointer;
+}
+#moodMsg{margin-top:10px;color:var(--accent)}
+
+.music{
+  text-align:center;
+}
+.music button{
+  margin-top:10px;
+  padding:10px 25px;
+  background:var(--accent);
+  border:none;
+  border-radius:12px;
+  color:white;
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+  gap:12px;
+}
+.gallery img{
+  width:100%;height:120px;
+  object-fit:cover;
+  border-radius:15px;
+  cursor:pointer;
+  transition:.4s;
+}
+.gallery img:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 20px var(--glow);
+}
+
+/* FULLSCREEN */
+#viewer{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.9);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+#viewer img{max-width:90%;max-height:90%;border-radius:20px}
+
+/* ANNIVERSARY */
+#anniversary{
+  text-align:center;
+  color:var(--accent);
+  font-weight:800;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  50%{transform:scale(1.05)}
+}
+</style>
 </head>
+
 <body>
+
+<div id="login">
+  <div class="login-box">
+    <h2>Nur für uns ❤</h2>
+    <input type="password" id="pw" placeholder="Passwort">
+    <br>
+    <button onclick="login()">Eintreten</button>
+  </div>
+</div>
 
 <div class="hearts" id="hearts"></div>
 
 <div class="container">
-  
-  <div class="card">
-    <h1 class="h1-title">Can & Aylin</h1>
-    <p style="text-align: center; opacity: 0.8; font-style: italic;">"Seit dem ersten Moment ein Team."</p>
-    
-    <div class="stats-grid">
-      <div class="stat-item"><span class="stat-value" id="d-together">0</span><span class="stat-label">Tage Glück</span></div>
-      <div class="stat-item"><span class="stat-value" id="h-together">0</span><span class="stat-label">Stunden Liebe</span></div>
-      <div class="stat-item"><span class="stat-value">∞</span><span class="stat-label">Erinnerungen</span></div>
-    </div>
-  </div>
 
-  <div class="main-grid">
-    
-    <div class="left-col">
-      <div class="card">
-        <h3 style="margin-top:0; font-size: 16px; color: var(--accent);">Unsere Playlist 🎵</h3>
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX6pST9eYf6Yp?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-      </div>
-
-      <div class="card">
-        <div style="text-align: center; font-weight: 800; opacity: 0.8;">Nächstes Wiedersehen ⏳</div>
-        <div id="timer">
-          <div class="timer-unit"><span id="days">00</span><br><small>Tage</small></div>
-          <div class="timer-unit"><span id="hours">00</span><br><small>Std</small></div>
-          <div class="timer-unit"><span id="mins">00</span><br><small>Min</small></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="right-col">
-      <div class="card">
-        <h3 style="margin-top:0; font-size: 16px; color: var(--accent);">Unsere Momente 📸</h3>
-        <p style="font-size: 12px; opacity: 0.6;">Klicke auf den Button, um alle Bilder zu sehen.</p>
-        
-        <div class="gallery-grid">
-          <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=500" class="gallery-img" alt="Love">
-          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=500" class="gallery-img" alt="Love">
-          <img src="https://images.unsplash.com/photo-1522673607200-1648832cee98?q=80&w=500" class="gallery-img" alt="Love">
-          <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?q=80&w=500" class="gallery-img" alt="Love">
-        </div>
-
-        <a href="https://drive.google.com/drive/folders/1GEZdnrduRf7eiRaZ20NCStQNXkp8R3s8?hl=de" target="_blank" style="text-decoration: none;">
-            <button class="btn-main">Gesamtes Album öffnen</button>
-        </a>
-      </div>
-
-      <div class="card mood-box" style="text-align: center;">
-        <div style="font-weight: 800; margin-bottom: 10px;">Wie fühlst du dich heute, Aylin?</div>
-        <div style="display: flex; justify-content: center; gap: 10px;">
-          <button class="mood-btn" onclick="setMood('happy')">😊</button>
-          <button class="mood-btn" onclick="setMood('love')">🥰</button>
-          <button class="mood-btn" onclick="setMood('tired')">😴</button>
-          <button class="mood-btn" onclick="setMood('sad')">🥺</button>
-        </div>
-        <div id="mood-msg" style="margin-top: 15px; color: var(--accent); font-weight: 600;"></div>
-      </div>
-    </div>
-
+<div class="card">
+  <div class="h1">Can & Aylin</div>
+  <p style="text-align:center;opacity:.7">Seit dem ersten Moment ein Team.</p>
+  <div class="stats">
+    <div class="stat"><span id="daysTogether">0</span><br>Tage Glück</div>
+    <div class="stat"><span id="hoursTogether">0</span><br>Stunden Liebe</div>
+    <div class="stat"><span>∞</span><br>Erinnerungen</div>
   </div>
 </div>
 
+<div class="grid">
+
+<div>
+  <div class="card">
+    <div style="text-align:center;font-weight:800">Nächstes Wiedersehen ⏳</div>
+    <div id="timer">
+      <div><span id="d">00</span><br>Tage</div>
+      <div><span id="h">00</span><br>Std</div>
+      <div><span id="m">00</span><br>Min</div>
+    </div>
+  </div>
+
+  <div class="card mood">
+    <div style="font-weight:800">Wie fühlst du dich heute, Aylin?</div><br>
+    <button onclick="mood('😊')">😊</button>
+    <button onclick="mood('🥰')">🥰</button>
+    <button onclick="mood('😴')">😴</button>
+    <button onclick="mood('🥺')">🥺</button>
+    <div id="moodMsg"></div>
+  </div>
+
+  <div class="card music">
+    <h3>Unsere Liebe 🎶</h3>
+    <audio id="music" autoplay loop>
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3">
+    </audio>
+    <button onclick="toggleMusic()">Play / Pause</button>
+  </div>
+</div>
+
+<div>
+  <div class="card">
+    <h3 style="color:var(--accent)">Unsere Erinnerungen 📸</h3>
+    <div class="gallery" id="gallery"></div>
+  </div>
+
+  <div class="card" id="anniversary">
+    Für immer wir zwei 💞
+  </div>
+</div>
+
+</div>
+</div>
+
+<div id="viewer" onclick="this.style.display='none'">
+  <img id="viewerImg">
+</div>
+
 <script>
-  const RELATION_START = "2025-04-10T00:00:00"; 
-  const NEXT_MEETING = "2026-02-14T18:00:00"; 
-
-  function updateCounters() {
-    const now = new Date();
-    const start = new Date(RELATION_START);
-    const diff = now - start;
-    document.getElementById('d-together').textContent = Math.floor(diff / (1000*60*60*24));
-    document.getElementById('h-together').textContent = Math.floor(diff / (1000*60*60));
-
-    const target = new Date(NEXT_MEETING);
-    const tDiff = target - now;
-    if (tDiff > 0) {
-      document.getElementById('days').textContent = Math.floor(tDiff / (1000*60*60*24)).toString().padStart(2, '0');
-      document.getElementById('hours').textContent = Math.floor((tDiff / (1000*60*60)) % 24).toString().padStart(2, '0');
-      document.getElementById('mins').textContent = Math.floor((tDiff / 1000 / 60) % 60).toString().padStart(2, '0');
-    }
+/* PASSWORD */
+function login(){
+  if(document.getElementById('pw').value==="canaylin"){
+    document.getElementById('login').style.display="none";
+    document.getElementById('music').play();
   }
-  setInterval(updateCounters, 1000);
-  updateCounters();
+}
 
-  function setMood(mood) {
-    const msg = document.getElementById('mood-msg');
-    const responses = {
-      happy: "Dein Lächeln bringt die Welt zum Leuchten! ✨",
-      love: "Ich liebe dich unendlich mehr! ❤",
-      tired: "Ruh dich aus, mein Schatz. Ich bin im Geist bei dir. ☕",
-      sad: "Komm her, ich halte dich fest. Alles wird gut. 🫂"
-    };
-    msg.textContent = responses[mood];
-  }
+/* COUNTERS */
+const START="2025-04-10";
+const MEET="2026-02-14T18:00";
+setInterval(()=>{
+  let now=new Date();
+  let diff=now-new Date(START);
+  daysTogether.innerText=Math.floor(diff/86400000);
+  hoursTogether.innerText=Math.floor(diff/3600000);
 
-  function createHeart() {
-    const h = document.createElement('div');
-    h.className = 'heart'; h.innerHTML = '❤';
-    h.style.left = Math.random() * 100 + 'vw';
-    h.style.fontSize = (Math.random() * 20 + 10) + 'px';
-    h.style.animationDuration = (Math.random() * 5 + 5) + 's';
-    document.getElementById('hearts').appendChild(h);
-    setTimeout(() => h.remove(), 10000);
-  }
-  setInterval(createHeart, 600);
+  let t=new Date(MEET)-now;
+  d.innerText=Math.floor(t/86400000);
+  h.innerText=Math.floor(t/3600000%24);
+  m.innerText=Math.floor(t/60000%60);
+},1000);
+
+/* MOOD */
+function mood(m){moodMsg.innerText="Dein Gefühl ist mein Herz ❤ "+m}
+
+/* MUSIC */
+function toggleMusic(){
+  let m=document.getElementById("music");
+  m.paused?m.play():m.pause();
+}
+
+/* GALLERY – DRIVE ID EKLE */
+const images=[
+  "https://drive.google.com/uc?id=BURAYA_ID_1",
+  "https://drive.google.com/uc?id=BURAYA_ID_2",
+  "https://drive.google.com/uc?id=BURAYA_ID_3"
+];
+images.forEach(src=>{
+  let i=document.createElement("img");
+  i.src=src;
+  i.onclick=()=>{viewer.style.display="flex";viewerImg.src=src;}
+  gallery.appendChild(i);
+});
+
+/* HEARTS */
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerText="❤";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=10+Math.random()*20+"px";
+  hearts.appendChild(h);
+  setTimeout(()=>h.remove(),10000);
+},600);
 </script>
 
 </body>
