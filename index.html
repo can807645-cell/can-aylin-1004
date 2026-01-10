@@ -3,189 +3,237 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Biz 💖</title>
+<title>Can ❤ Aylin</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+:root{
+  --pink:#ff4fd8;
+  --purple:#7a00ff;
+}
+*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:'Segoe UI',sans-serif;
-  background:radial-gradient(circle at top,#1b0025,#000);
+  font-family:Poppins,sans-serif;
+  background:radial-gradient(circle at top,#26002f,#000);
   color:#fff;
-  text-align:center;
+  overflow-x:hidden;
 }
-h1{
-  font-size:2.8em;
-  text-shadow:0 0 30px #ff5fd2;
-  margin-top:20px;
+.hidden{display:none}
+
+/* HERO */
+.hero{
+  padding:80px 20px 60px;
 }
-.intro{
-  max-width:800px;
-  margin:20px auto;
-  font-size:1.2em;
-  color:#ffd6f0;
-  line-height:1.6;
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:3em;
+  text-shadow:0 0 30px var(--pink);
 }
-.quote{
-  font-style:italic;
-  color:#ff9adf;
-  font-size:1.4em;
-  margin:20px;
-}
-.counter{
-  color:#ffc2ef;
-  font-size:1.2em;
-  margin-bottom:30px;
-}
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-  margin:40px;
-}
-.card{
-  background:#0f0015;
-  border-radius:20px;
-  box-shadow:0 0 30px rgba(255,90,200,.5);
-  overflow:hidden;
+.hero p{opacity:.9;font-size:1.1em}
+
+/* BUTTON */
+button{
+  background:linear-gradient(45deg,var(--pink),var(--purple));
+  border:none;color:#fff;
+  padding:14px 30px;
+  border-radius:30px;
+  font-size:15px;
+  cursor:pointer;
+  box-shadow:0 0 25px var(--pink);
   transition:.3s;
 }
-.card:hover{transform:translateY(-6px)}
+button:hover{transform:scale(1.08)}
+
+/* PIN */
+#pin{
+  position:fixed;inset:0;
+  background:#000c;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:9;
+}
+#pin input{
+  padding:12px;
+  font-size:20px;
+  border-radius:12px;
+  border:none;
+  width:120px;
+  text-align:center;
+}
+
+/* QUOTE */
+.quote{
+  margin:40px auto;
+  max-width:600px;
+  font-style:italic;
+  opacity:.9;
+}
+
+/* GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+  padding:30px;
+}
+.card{
+  background:#120018;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 0 20px rgba(255,80,200,.4);
+  transition:.3s;
+}
+.card:hover{transform:translateY(-8px) scale(1.02)}
 .card img{
   width:100%;
-  height:240px;
+  height:230px;
   object-fit:cover;
-  cursor:pointer;
 }
-.vote{
+.card .info{
+  padding:12px;
   display:flex;
-  justify-content:center;
+  justify-content:space-between;
   align-items:center;
-  padding:10px;
-  background:#000a;
 }
-.vote button{
-  background:linear-gradient(45deg,#ff4fd8,#7a00ff);
-  border:none;
-  color:#fff;
-  padding:6px 14px;
-  border-radius:20px;
+.like{
   cursor:pointer;
-  margin:0 6px;
+  font-size:20px;
 }
-.vote span{
-  color:#ff86d8;
-  font-weight:bold;
+.like.active{color:#ff4fd8}
+
+/* COUNTER */
+.counter{
+  margin:40px;
   font-size:1.1em;
+  opacity:.85;
 }
-.lightbox{
-  position:fixed;
-  inset:0;
-  background:#000e;
-  display:flex;
+
+/* LIGHTBOX */
+#lightbox{
+  position:fixed;inset:0;
+  background:#000d;
+  display:none;
   justify-content:center;
   align-items:center;
-  visibility:hidden;
-  z-index:10;
 }
-.lightbox img{
+#lightbox img{
   max-width:90%;
   max-height:90%;
   border-radius:20px;
-  box-shadow:0 0 40px #ff4fd8;
+  box-shadow:0 0 40px var(--pink);
 }
-.footer{
-  opacity:.7;
-  margin:40px 0;
-  font-size:.9em;
-}
+
+/* PARTICLES */
+canvas{position:fixed;inset:0;z-index:-1}
 </style>
 </head>
 
 <body>
 
-<h1>Bizim Hikâyemiz 💖</h1>
-
-<div class="intro">
-10 Nisan 2025…  
-Belki sıradan bir gündü ama bizim için her şeyin başladığı andı.  
-Bu sayfa, birlikte biriktirdiğimiz güzel anıların küçük ama özel bir evi ✨
+<div id="pin">
+  <h2>Giriş PIN'i</h2>
+  <input type="password" id="pinInput" placeholder="19422">
+  <button onclick="checkPin()">Giriş</button>
+  <p id="pinMsg"></p>
 </div>
+
+<canvas id="bg"></canvas>
+
+<div id="main" class="hidden">
+
+<section class="hero">
+  <h1>Can ❤ Aylin</h1>
+  <p>10.04.2025’te başlayan hikâyemiz</p>
+</section>
 
 <div class="quote" id="quote"></div>
+
+<section class="gallery" id="gallery"></section>
+
 <div class="counter" id="counter"></div>
 
-<div class="gallery" id="gallery"></div>
-
-<div class="lightbox" id="lightbox" onclick="this.style.visibility='hidden'">
-  <img id="lightboxImg">
 </div>
 
-<div class="footer">
-Bu hikâye 💖 Can tarafından sevgiyle hazırlandı
+<div id="lightbox" onclick="this.style.display='none'">
+  <img id="lightImg">
 </div>
 
 <script>
-/* 📅 TANISMA TARİHİ */
-const START_DATE = new Date("2025-04-10");
-
-/* 💬 GÜZEL SÖZLER */
-const quotes = [
-  "Sen gülünce her şey yoluna giriyor 💖",
-  "İyi ki o gün karşıma çıktın ✨",
-  "Biz tesadüf değiliz 💞",
-  "Kalbimin evi sensin 🏡",
-  "Bu hikâyenin en güzel kısmı sensin 🌸"
-];
-setInterval(()=>{
-  quote.textContent = quotes[Math.floor(Math.random()*quotes.length)];
-},4000);
-
-/* ⏳ GÜN SAYACI */
-function updateCounter(){
-  const days = Math.floor((new Date() - START_DATE) / (1000*60*60*24));
-  counter.textContent = `Tanışalı ${days} gündür birlikteyiz 💕`;
+/* PIN */
+const SITE_PIN="19422";
+function checkPin(){
+  if(pinInput.value===SITE_PIN){
+    pin.style.display="none";
+    main.classList.remove("hidden");
+  }else pinMsg.textContent="Yanlış PIN";
 }
-updateCounter();
-setInterval(updateCounter,60000);
 
-/* 📸 GOOGLE DRIVE – %100 ÇALIŞAN FORMAT */
-const images = [
+/* QUOTES */
+const quotes=[
+  "Biz iki kişilik bir dünyayız.",
+  "Bazı anılar sessizdir ama kalpte bağırır.",
+  "Bu fotoğraflar bizim zaman makinemiz.",
+  "Sonsuzluk bazen bir bakışta saklıdır."
+];
+let qi=0;
+setInterval(()=>{
+  quote.textContent=quotes[qi++%quotes.length];
+},4000);
+quote.textContent=quotes[0];
+
+/* PHOTOS (Drive ID) */
+const photos=[
   "1P5NLAw-2s9ar9acN2Ifj3_NPrcHC0_Ax"
 ];
 
-let votes = JSON.parse(localStorage.getItem("votes") || "{}");
+const gallery=document.getElementById("gallery");
 
-function renderGallery(){
-  gallery.innerHTML="";
-  images.forEach(id=>{
-    const url = `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
-    const v = votes[id] || 0;
-    const card = document.createElement("div");
-    card.className="card";
-    card.innerHTML = `
-      <img src="${url}">
-      <div class="vote">
-        <button onclick="vote('${id}',1)">👍</button>
-        <span id="v_${id}">${v}</span>
-        <button onclick="vote('${id}',-1)">👎</button>
-      </div>
-    `;
-    card.querySelector("img").onclick=()=>{
-      lightboxImg.src=url;
-      lightbox.style.visibility="visible";
-    };
-    gallery.appendChild(card);
+photos.forEach(id=>{
+  const url=`https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
+  const card=document.createElement("div");
+  card.className="card";
+  card.innerHTML=`
+    <img src="${url}">
+    <div class="info">
+      <span>Anımız 💖</span>
+      <span class="like">❤</span>
+    </div>`;
+  const like=card.querySelector(".like");
+  like.onclick=()=>{
+    like.classList.toggle("active");
+  };
+  card.querySelector("img").onclick=()=>{
+    lightImg.src=url;
+    lightbox.style.display="flex";
+  };
+  gallery.appendChild(card);
+});
+
+/* COUNTER */
+const start=new Date("2025-04-10");
+setInterval(()=>{
+  const d=Math.floor((new Date()-start)/(1000*60*60*24));
+  counter.textContent=`Birlikte ${d} gündür 💖`;
+},1000);
+
+/* PARTICLES */
+const c=document.getElementById("bg"),x=c.getContext("2d");
+function resize(){c.width=innerWidth;c.height=innerHeight}
+resize();onresize=resize;
+let p=Array.from({length:80},()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2+1,s:Math.random()+.3}));
+(function a(){
+  x.clearRect(0,0,c.width,c.height);
+  x.fillStyle="#ff4fd8";
+  p.forEach(o=>{
+    o.y-=o.s;if(o.y<0)o.y=c.height;
+    x.beginPath();x.arc(o.x,o.y,o.r,0,7);x.fill();
   });
-}
-
-function vote(id,val){
-  votes[id]=(votes[id]||0)+val;
-  if(votes[id]<0)votes[id]=0;
-  document.getElementById("v_"+id).textContent=votes[id];
-  localStorage.setItem("votes",JSON.stringify(votes));
-}
-
-renderGallery();
+  requestAnimationFrame(a);
+})();
 </script>
 
 </body>
