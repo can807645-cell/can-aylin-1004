@@ -7,45 +7,97 @@
 
 <style>
 body{
-  margin:0;font-family:'Segoe UI',sans-serif;
-  background:radial-gradient(circle at top,#22002e,#000);
-  color:#fff;text-align:center;
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:radial-gradient(circle at top,#1b0025,#000);
+  color:#fff;
+  text-align:center;
 }
-.hidden{display:none}
-h1{text-shadow:0 0 25px #ff5fd2;font-size:2.6em;margin-top:20px}
-.intro{max-width:700px;margin:20px auto;font-size:1.2em;color:#ffd6f0}
-button{
-  background:linear-gradient(45deg,#ff4fd8,#7a00ff);
-  border:none;color:#fff;padding:10px 20px;
-  border-radius:25px;cursor:pointer;
-  box-shadow:0 0 20px #ff4fd8;
-  transition:.3s;margin:5px
+h1{
+  font-size:2.8em;
+  text-shadow:0 0 30px #ff5fd2;
+  margin-top:20px;
+}
+.intro{
+  max-width:800px;
+  margin:20px auto;
+  font-size:1.2em;
+  color:#ffd6f0;
+  line-height:1.6;
+}
+.quote{
+  font-style:italic;
+  color:#ff9adf;
+  font-size:1.4em;
+  margin:20px;
+}
+.counter{
+  color:#ffc2ef;
+  font-size:1.2em;
+  margin-bottom:30px;
 }
 .gallery{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:18px;margin:30px
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  margin:40px;
 }
 .card{
-  background:#111;border-radius:18px;
-  box-shadow:0 0 25px rgba(255,90,200,.6);
-  overflow:hidden;animation:pop .5s
+  background:#0f0015;
+  border-radius:20px;
+  box-shadow:0 0 30px rgba(255,90,200,.5);
+  overflow:hidden;
+  transition:.3s;
 }
-.card img{width:100%;height:200px;object-fit:cover;cursor:pointer}
+.card:hover{transform:translateY(-6px)}
+.card img{
+  width:100%;
+  height:240px;
+  object-fit:cover;
+  cursor:pointer;
+}
 .vote{
-  display:flex;justify-content:center;align-items:center;
-  padding:6px;background:#0008
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:10px;
+  background:#000a;
 }
-.vote span{margin:0 10px;color:#ff7ad9;font-weight:bold}
+.vote button{
+  background:linear-gradient(45deg,#ff4fd8,#7a00ff);
+  border:none;
+  color:#fff;
+  padding:6px 14px;
+  border-radius:20px;
+  cursor:pointer;
+  margin:0 6px;
+}
+.vote span{
+  color:#ff86d8;
+  font-weight:bold;
+  font-size:1.1em;
+}
 .lightbox{
-  position:fixed;inset:0;background:#000d;
-  display:flex;justify-content:center;align-items:center;
-  visibility:hidden;z-index:9
+  position:fixed;
+  inset:0;
+  background:#000e;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  visibility:hidden;
+  z-index:10;
 }
-.lightbox img{max-width:90%;max-height:90%;border-radius:20px}
-.quote{font-style:italic;color:#ff9adf;font-size:1.3em;margin:15px}
-.counter{color:#ffb3ec;font-size:1.1em}
-@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.lightbox img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:20px;
+  box-shadow:0 0 40px #ff4fd8;
+}
+.footer{
+  opacity:.7;
+  margin:40px 0;
+  font-size:.9em;
+}
 </style>
 </head>
 
@@ -54,89 +106,92 @@ button{
 <h1>Bizim Hikâyemiz 💖</h1>
 
 <div class="intro">
-10 Nisan 2025’te başlayan bu hikâye,  
-iki kalbin aynı anda atmaya karar verdiği gün başladı ✨
+10 Nisan 2025…  
+Belki sıradan bir gündü ama bizim için her şeyin başladığı andı.  
+O günden sonra zaman başka aktı,  
+anılar daha değerli, gülüşler daha anlamlı oldu.  
+Bu sayfa, birlikte biriktirdiğimiz güzel anıların küçük ama özel bir evi ✨
 </div>
 
 <div class="quote" id="quote"></div>
 <div class="counter" id="counter"></div>
 
-<!-- GALERİ -->
 <div class="gallery" id="gallery"></div>
 
 <div class="lightbox" id="lightbox" onclick="this.style.visibility='hidden'">
   <img id="lightboxImg">
 </div>
 
+<div class="footer">
+Bu hikâye 💖 Can tarafından sevgiyle hazırlandı
+</div>
+
 <script>
-/* ❤️ TANISMA TARİHİ */
+/* 📅 TANISMA TARİHİ */
 const START_DATE = new Date("2025-04-10");
 
 /* 💬 GÜZEL SÖZLER */
-const quotes=[
- "Sen gülünce her şey yoluna giriyor 💖",
- "İyi ki o gün karşıma çıktın ✨",
- "Biz tesadüf değiliz 💞",
- "Kalbimin evi sensin 🏡",
- "Bu hikâyenin en güzel kısmı sensin 🌸"
+const quotes = [
+  "Sen gülünce her şey yoluna giriyor 💖",
+  "İyi ki o gün karşıma çıktın ✨",
+  "Biz tesadüf değiliz 💞",
+  "Kalbimin evi sensin 🏡",
+  "Bu hikâyenin en güzel kısmı sensin 🌸",
+  "Yanımda olduğun her an huzur 💕"
 ];
-setInterval(()=>quote.textContent=quotes[Math.floor(Math.random()*quotes.length)],4000);
+setInterval(()=>{
+  quote.textContent = quotes[Math.floor(Math.random()*quotes.length)];
+},4000);
 
 /* ⏳ GÜN SAYACI */
 function updateCounter(){
-  const diff=Math.floor((new Date()-START_DATE)/(1000*60*60*24));
-  counter.textContent=`Tanışalı ${diff} gündür birlikteyiz 💕`;
+  const days = Math.floor((new Date() - START_DATE) / (1000*60*60*24));
+  counter.textContent = `Tanışalı ${days} gündür birlikteyiz 💕`;
 }
-updateCounter(); setInterval(updateCounter,60000);
+updateCounter();
+setInterval(updateCounter,60000);
 
-/* 📸 GOOGLE DRIVE GALERİ */
-const galleryItems=[
+/* 📸 GOOGLE DRIVE GALERİ (SENİN VERDİĞİN FOTOĞRAF) */
+const images = [
   {
-    id:"DRIVE_ID_1",
-    votes:0
-  },
-  {
-    id:"DRIVE_ID_2",
-    votes:0
-  },
-  {
-    id:"DRIVE_ID_3",
-    votes:0
+    id: "1P5NLAw-2s9ar9acN2Ifj3_NPrcHC0_Ax",
+    votes: 0
   }
 ];
 
-/* 🔁 OYLAR KAYBOLMASIN */
-let savedVotes=JSON.parse(localStorage.getItem("votes")||"{}");
+let savedVotes = JSON.parse(localStorage.getItem("votes") || "{}");
 
-/* GALERİYİ ÇİZ */
-function render(){
-  gallery.innerHTML="";
-  galleryItems.forEach((it,i)=>{
-    if(savedVotes[it.id]!=null) it.votes=savedVotes[it.id];
-    const url=`https://drive.google.com/uc?export=view&id=${it.id}`;
-    const c=document.createElement("div");
-    c.className="card";
-    c.innerHTML=`
+function renderGallery(){
+  gallery.innerHTML = "";
+  images.forEach(img=>{
+    if(savedVotes[img.id] != null) img.votes = savedVotes[img.id];
+    const url = `https://drive.google.com/uc?export=view&id=${img.id}`;
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
       <img src="${url}">
       <div class="vote">
-        <button onclick="vote('${it.id}',1)">👍</button>
-        <span id="v_${it.id}">${it.votes}</span>
-        <button onclick="vote('${it.id}',-1)">👎</button>
-      </div>`;
-    c.querySelector("img").onclick=()=>{
-      lightboxImg.src=url;
-      lightbox.style.visibility="visible";
+        <button onclick="vote('${img.id}',1)">👍</button>
+        <span id="v_${img.id}">${img.votes}</span>
+        <button onclick="vote('${img.id}',-1)">👎</button>
+      </div>
+    `;
+    card.querySelector("img").onclick = ()=>{
+      lightboxImg.src = url;
+      lightbox.style.visibility = "visible";
     };
-    gallery.appendChild(c);
+    gallery.appendChild(card);
   });
 }
-function vote(id,v){
-  savedVotes[id]=(savedVotes[id]||0)+v;
-  if(savedVotes[id]<0) savedVotes[id]=0;
-  document.getElementById("v_"+id).textContent=savedVotes[id];
-  localStorage.setItem("votes",JSON.stringify(savedVotes));
+
+function vote(id,val){
+  savedVotes[id] = (savedVotes[id] || 0) + val;
+  if(savedVotes[id] < 0) savedVotes[id] = 0;
+  document.getElementById("v_"+id).textContent = savedVotes[id];
+  localStorage.setItem("votes", JSON.stringify(savedVotes));
 }
-render();
+
+renderGallery();
 </script>
 
 </body>
