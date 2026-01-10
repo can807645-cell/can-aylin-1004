@@ -9,10 +9,11 @@
 body{
   margin:0;font-family:'Segoe UI',sans-serif;
   background:radial-gradient(circle at top,#22002e,#000);
-  color:#fff;text-align:center;overflow-x:hidden;
+  color:#fff;text-align:center;
 }
 .hidden{display:none}
-h1{text-shadow:0 0 25px #ff5fd2;font-size:2.5em}
+h1{text-shadow:0 0 25px #ff5fd2;font-size:2.6em;margin-top:20px}
+.intro{max-width:700px;margin:20px auto;font-size:1.2em;color:#ffd6f0}
 button{
   background:linear-gradient(45deg,#ff4fd8,#7a00ff);
   border:none;color:#fff;padding:10px 20px;
@@ -20,144 +21,122 @@ button{
   box-shadow:0 0 20px #ff4fd8;
   transition:.3s;margin:5px
 }
-button:hover{transform:scale(1.1)}
 .gallery{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
-  gap:15px;margin:30px
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:18px;margin:30px
 }
 .card{
-  background:#111;border-radius:15px;
-  box-shadow:0 0 20px rgba(255,90,200,.6);
+  background:#111;border-radius:18px;
+  box-shadow:0 0 25px rgba(255,90,200,.6);
   overflow:hidden;animation:pop .5s
 }
-.card img{width:100%;height:180px;object-fit:cover;cursor:pointer}
-.vote{display:flex;justify-content:center;align-items:center;padding:5px}
-.vote span{margin:0 8px;color:#ff7ad9;font-weight:bold}
+.card img{width:100%;height:200px;object-fit:cover;cursor:pointer}
+.vote{
+  display:flex;justify-content:center;align-items:center;
+  padding:6px;background:#0008
+}
+.vote span{margin:0 10px;color:#ff7ad9;font-weight:bold}
 .lightbox{
-  position:fixed;inset:0;background:#000c;
+  position:fixed;inset:0;background:#000d;
   display:flex;justify-content:center;align-items:center;
   visibility:hidden;z-index:9
 }
 .lightbox img{max-width:90%;max-height:90%;border-radius:20px}
-#pin{
-  position:fixed;inset:0;background:#000c;
-  display:flex;flex-direction:column;
-  justify-content:center;align-items:center;z-index:10
-}
-#pin input{font-size:20px;padding:10px;border-radius:10px;border:none;width:120px;text-align:center}
-.quote{font-style:italic;color:#ff9adf;font-size:1.2em;margin:10px}
-canvas{position:fixed;top:0;left:0;z-index:0}
+.quote{font-style:italic;color:#ff9adf;font-size:1.3em;margin:15px}
+.counter{color:#ffb3ec;font-size:1.1em}
 @keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
 </style>
 </head>
 
 <body>
 
-<div id="pin">
-  <h1>PIN</h1>
-  <input id="pinInput" type="password" maxlength="5">
-  <button onclick="checkPin()">Giriş</button>
-  <p id="pinMsg"></p>
+<h1>Bizim Hikâyemiz 💖</h1>
+
+<div class="intro">
+10 Nisan 2025’te başlayan bu hikâye,  
+iki kalbin aynı anda atmaya karar verdiği gün başladı ✨
 </div>
 
-<canvas id="fx"></canvas>
+<div class="quote" id="quote"></div>
+<div class="counter" id="counter"></div>
 
-<div id="main" class="hidden">
-  <h1>Bizim Hikâyemiz 💖</h1>
-  <div class="quote" id="quote"></div>
-
-  <input type="file" id="fileInput" accept="image/*" hidden>
-  <button onclick="fileInput.click()">Fotoğraf Yükle 📸</button>
-
-  <audio id="music" loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
-  </audio>
-  <button onclick="toggleMusic()">Müzik 🎵</button>
-
-  <div class="gallery" id="gallery"></div>
-</div>
+<!-- GALERİ -->
+<div class="gallery" id="gallery"></div>
 
 <div class="lightbox" id="lightbox" onclick="this.style.visibility='hidden'">
   <img id="lightboxImg">
 </div>
 
 <script>
-/* AYARLAR */
-const SITE_PIN="19422";
-const CLOUD_NAME="BURAYA_YAZ";
-const UPLOAD_PRESET="BURAYA_YAZ";
+/* ❤️ TANISMA TARİHİ */
+const START_DATE = new Date("2025-04-10");
 
-/* PIN */
-function checkPin(){
-  if(pinInput.value===SITE_PIN){
-    pin.style.display="none";
-    main.classList.remove("hidden");
-    localStorage.setItem("unlocked","1");
-  } else pinMsg.textContent="Yanlış PIN 😅";
-}
-if(localStorage.getItem("unlocked")){pin.style.display="none";main.classList.remove("hidden")}
-
-/* GÜZEL SÖZLER */
+/* 💬 GÜZEL SÖZLER */
 const quotes=[
-  "Sen gülünce dünya duruyor 💖",
-  "İyi ki varsın 🌸",
-  "Kalbim hep seninle ✨",
-  "Biz bir mucizeyiz 💞"
+ "Sen gülünce her şey yoluna giriyor 💖",
+ "İyi ki o gün karşıma çıktın ✨",
+ "Biz tesadüf değiliz 💞",
+ "Kalbimin evi sensin 🏡",
+ "Bu hikâyenin en güzel kısmı sensin 🌸"
 ];
 setInterval(()=>quote.textContent=quotes[Math.floor(Math.random()*quotes.length)],4000);
 
-/* GALERİ + OY */
-let items=JSON.parse(localStorage.getItem("gallery")||"[]");
+/* ⏳ GÜN SAYACI */
+function updateCounter(){
+  const diff=Math.floor((new Date()-START_DATE)/(1000*60*60*24));
+  counter.textContent=`Tanışalı ${diff} gündür birlikteyiz 💕`;
+}
+updateCounter(); setInterval(updateCounter,60000);
+
+/* 📸 GOOGLE DRIVE GALERİ */
+const galleryItems=[
+  {
+    id:"DRIVE_ID_1",
+    votes:0
+  },
+  {
+    id:"DRIVE_ID_2",
+    votes:0
+  },
+  {
+    id:"DRIVE_ID_3",
+    votes:0
+  }
+];
+
+/* 🔁 OYLAR KAYBOLMASIN */
+let savedVotes=JSON.parse(localStorage.getItem("votes")||"{}");
+
+/* GALERİYİ ÇİZ */
 function render(){
   gallery.innerHTML="";
-  items.forEach((it,i)=>{
-    const c=document.createElement("div");c.className="card";
+  galleryItems.forEach((it,i)=>{
+    if(savedVotes[it.id]!=null) it.votes=savedVotes[it.id];
+    const url=`https://drive.google.com/uc?export=view&id=${it.id}`;
+    const c=document.createElement("div");
+    c.className="card";
     c.innerHTML=`
-      <img src="${it.url}">
+      <img src="${url}">
       <div class="vote">
-        <button onclick="vote(${i},1)">👍</button>
-        <span>${it.votes}</span>
-        <button onclick="vote(${i},-1)">👎</button>
+        <button onclick="vote('${it.id}',1)">👍</button>
+        <span id="v_${it.id}">${it.votes}</span>
+        <button onclick="vote('${it.id}',-1)">👎</button>
       </div>`;
-    c.querySelector("img").onclick=()=>{lightboxImg.src=it.url;lightbox.style.visibility="visible"}
-    gallery.prepend(c);
+    c.querySelector("img").onclick=()=>{
+      lightboxImg.src=url;
+      lightbox.style.visibility="visible";
+    };
+    gallery.appendChild(c);
   });
 }
-function vote(i,v){
-  items[i].votes=Math.max(0,items[i].votes+v);
-  save();
+function vote(id,v){
+  savedVotes[id]=(savedVotes[id]||0)+v;
+  if(savedVotes[id]<0) savedVotes[id]=0;
+  document.getElementById("v_"+id).textContent=savedVotes[id];
+  localStorage.setItem("votes",JSON.stringify(savedVotes));
 }
-function save(){localStorage.setItem("gallery",JSON.stringify(items));render()}
 render();
-
-/* UPLOAD */
-fileInput.onchange=async()=>{
-  const f=fileInput.files[0]; if(!f)return;
-  const fd=new FormData();
-  fd.append("file",f);
-  fd.append("upload_preset",UPLOAD_PRESET);
-  const r=await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,{method:"POST",body:fd});
-  const d=await r.json();
-  items.push({url:d.secure_url,votes:0});
-  save();
-}
-
-/* MÜZİK */
-function toggleMusic(){music.paused?music.play():music.pause()}
-
-/* PARTİKÜL */
-const ctx=fx.getContext("2d");
-function resize(){fx.width=innerWidth;fx.height=innerHeight}
-resize();onresize=resize;
-let p=[...Array(80)].map(()=>({x:Math.random()*fx.width,y:Math.random()*fx.height,s:Math.random()+.3}))
-function anim(){
-  ctx.clearRect(0,0,fx.width,fx.height);
-  ctx.fillStyle="#ff4fd8";
-  p.forEach(o=>{o.y-=o.s;if(o.y<0)o.y=fx.height;ctx.beginPath();ctx.arc(o.x,o.y,2,0,7);ctx.fill()});
-  requestAnimationFrame(anim)
-}
-anim();
 </script>
 
 </body>
