@@ -108,8 +108,6 @@ h1{
 <div class="intro">
 10 Nisan 2025…  
 Belki sıradan bir gündü ama bizim için her şeyin başladığı andı.  
-O günden sonra zaman başka aktı,  
-anılar daha değerli, gülüşler daha anlamlı oldu.  
 Bu sayfa, birlikte biriktirdiğimiz güzel anıların küçük ama özel bir evi ✨
 </div>
 
@@ -136,8 +134,7 @@ const quotes = [
   "İyi ki o gün karşıma çıktın ✨",
   "Biz tesadüf değiliz 💞",
   "Kalbimin evi sensin 🏡",
-  "Bu hikâyenin en güzel kısmı sensin 🌸",
-  "Yanımda olduğun her an huzur 💕"
+  "Bu hikâyenin en güzel kısmı sensin 🌸"
 ];
 setInterval(()=>{
   quote.textContent = quotes[Math.floor(Math.random()*quotes.length)];
@@ -151,44 +148,41 @@ function updateCounter(){
 updateCounter();
 setInterval(updateCounter,60000);
 
-/* 📸 GOOGLE DRIVE GALERİ (SENİN VERDİĞİN FOTOĞRAF) */
+/* 📸 GOOGLE DRIVE – %100 ÇALIŞAN FORMAT */
 const images = [
-  {
-    id: "1P5NLAw-2s9ar9acN2Ifj3_NPrcHC0_Ax",
-    votes: 0
-  }
+  "1P5NLAw-2s9ar9acN2Ifj3_NPrcHC0_Ax"
 ];
 
-let savedVotes = JSON.parse(localStorage.getItem("votes") || "{}");
+let votes = JSON.parse(localStorage.getItem("votes") || "{}");
 
 function renderGallery(){
-  gallery.innerHTML = "";
-  images.forEach(img=>{
-    if(savedVotes[img.id] != null) img.votes = savedVotes[img.id];
-    const url = `https://drive.google.com/uc?export=view&id=${img.id}`;
+  gallery.innerHTML="";
+  images.forEach(id=>{
+    const url = `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
+    const v = votes[id] || 0;
     const card = document.createElement("div");
-    card.className = "card";
+    card.className="card";
     card.innerHTML = `
       <img src="${url}">
       <div class="vote">
-        <button onclick="vote('${img.id}',1)">👍</button>
-        <span id="v_${img.id}">${img.votes}</span>
-        <button onclick="vote('${img.id}',-1)">👎</button>
+        <button onclick="vote('${id}',1)">👍</button>
+        <span id="v_${id}">${v}</span>
+        <button onclick="vote('${id}',-1)">👎</button>
       </div>
     `;
-    card.querySelector("img").onclick = ()=>{
-      lightboxImg.src = url;
-      lightbox.style.visibility = "visible";
+    card.querySelector("img").onclick=()=>{
+      lightboxImg.src=url;
+      lightbox.style.visibility="visible";
     };
     gallery.appendChild(card);
   });
 }
 
 function vote(id,val){
-  savedVotes[id] = (savedVotes[id] || 0) + val;
-  if(savedVotes[id] < 0) savedVotes[id] = 0;
-  document.getElementById("v_"+id).textContent = savedVotes[id];
-  localStorage.setItem("votes", JSON.stringify(savedVotes));
+  votes[id]=(votes[id]||0)+val;
+  if(votes[id]<0)votes[id]=0;
+  document.getElementById("v_"+id).textContent=votes[id];
+  localStorage.setItem("votes",JSON.stringify(votes));
 }
 
 renderGallery();
