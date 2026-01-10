@@ -3,187 +3,162 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bizim Hikâyemiz 💖</title>
+<title>Biz 💖</title>
+
 <style>
-body{margin:0;font-family:'Segoe UI',sans-serif;background:radial-gradient(circle at top,#22002e,#000);color:#fff;text-align:center;overflow-x:hidden;}
-.hidden{display:none;}
-h1{text-shadow:0 0 20px #ff5fd2;font-size:2.5em;margin-top:20px;}
-p{opacity:0.9;font-size:1.2em;}
-button{background:linear-gradient(45deg,#ff4fd8,#7a00ff);border:none;color:#fff;padding:14px 30px;border-radius:30px;font-size:16px;cursor:pointer;box-shadow:0 0 25px #ff4fd8;transition:0.3s;}
-button:hover{transform:scale(1.1);box-shadow:0 0 40px #ff4fd8;}
-input[type=file]{display:none;}
-.loader{margin-top:15px;color:#ff7ad9;display:none;}
-.gallery{margin:30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;}
-.gallery img{width:100%;height:180px;object-fit:cover;border-radius:18px;box-shadow:0 0 20px rgba(255,90,200,.6);animation:pop .6s ease;cursor:pointer;}
-@keyframes pop{from{transform:scale(.7);opacity:0;}to{transform:scale(1);opacity:1;}}
-.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:flex;justify-content:center;align-items:center;z-index:9;visibility:hidden;}
-.lightbox img{max-width:90%;max-height:90%;border-radius:20px;box-shadow:0 0 40px #ff4fd8;}
-#pinContainer{position:fixed;inset:0;background:#000a;display:flex;justify-content:center;align-items:center;flex-direction:column;z-index:10;}
-#pinContainer input{font-size:20px;padding:10px 15px;border-radius:10px;border:none;width:120px;text-align:center;}
-#pinContainer p{margin:10px;color:#ff77c7;}
-canvas{position:fixed;top:0;left:0;z-index:0;}
-.quote{margin-top:20px;font-size:1.3em;font-style:italic;color:#ff99dd;}
+body{
+  margin:0;font-family:'Segoe UI',sans-serif;
+  background:radial-gradient(circle at top,#22002e,#000);
+  color:#fff;text-align:center;overflow-x:hidden;
+}
+.hidden{display:none}
+h1{text-shadow:0 0 25px #ff5fd2;font-size:2.5em}
+button{
+  background:linear-gradient(45deg,#ff4fd8,#7a00ff);
+  border:none;color:#fff;padding:10px 20px;
+  border-radius:25px;cursor:pointer;
+  box-shadow:0 0 20px #ff4fd8;
+  transition:.3s;margin:5px
+}
+button:hover{transform:scale(1.1)}
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:15px;margin:30px
+}
+.card{
+  background:#111;border-radius:15px;
+  box-shadow:0 0 20px rgba(255,90,200,.6);
+  overflow:hidden;animation:pop .5s
+}
+.card img{width:100%;height:180px;object-fit:cover;cursor:pointer}
+.vote{display:flex;justify-content:center;align-items:center;padding:5px}
+.vote span{margin:0 8px;color:#ff7ad9;font-weight:bold}
+.lightbox{
+  position:fixed;inset:0;background:#000c;
+  display:flex;justify-content:center;align-items:center;
+  visibility:hidden;z-index:9
+}
+.lightbox img{max-width:90%;max-height:90%;border-radius:20px}
+#pin{
+  position:fixed;inset:0;background:#000c;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;z-index:10
+}
+#pin input{font-size:20px;padding:10px;border-radius:10px;border:none;width:120px;text-align:center}
+.quote{font-style:italic;color:#ff9adf;font-size:1.2em;margin:10px}
+canvas{position:fixed;top:0;left:0;z-index:0}
+@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
 </style>
 </head>
+
 <body>
 
-<!-- PIN -->
-<div id="pinContainer">
-<h1>Giriş PIN'i</h1>
-<input type="password" id="pinInput" maxlength="5" placeholder="PIN">
-<button id="pinBtn">Giriş</button>
-<p id="pinMsg"></p>
+<div id="pin">
+  <h1>PIN</h1>
+  <input id="pinInput" type="password" maxlength="5">
+  <button onclick="checkPin()">Giriş</button>
+  <p id="pinMsg"></p>
 </div>
 
 <canvas id="fx"></canvas>
 
-<div class="container hidden" id="main">
-<h1>Bizim Hikâyemiz 💖</h1>
-<p>Fotoğraf ekleyip birlikte anılarımızı çoğaltabilirsin ✨</p>
+<div id="main" class="hidden">
+  <h1>Bizim Hikâyemiz 💖</h1>
+  <div class="quote" id="quote"></div>
 
-<div class="quote" id="quote"></div>
+  <input type="file" id="fileInput" accept="image/*" hidden>
+  <button onclick="fileInput.click()">Fotoğraf Yükle 📸</button>
 
-<label class="upload-btn">
-  Fotoğraf Yükle 📸
-  <input type="file" id="fileInput" accept="image/*">
-</label>
-<div class="loader" id="loader">Yükleniyor…</div>
+  <audio id="music" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+  </audio>
+  <button onclick="toggleMusic()">Müzik 🎵</button>
 
-<!-- MÜZİK -->
-<audio id="bgMusic" loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-</audio>
-<button id="musicBtn">Müziği Aç/Kapa 🎵</button>
-
-<div class="gallery" id="gallery"></div>
-<p id="counter"></p>
+  <div class="gallery" id="gallery"></div>
 </div>
 
-<div class="lightbox" id="lightbox">
-<img id="lightboxImg">
+<div class="lightbox" id="lightbox" onclick="this.style.visibility='hidden'">
+  <img id="lightboxImg">
 </div>
 
 <script>
-/* CLOUDINARY AYARLARI */
-const CLOUD_NAME="BURAYA_YAZ";
-const UPLOAD_PRESET="romantic_upload";
-
-/* PIN AYARLARI */
+/* AYARLAR */
 const SITE_PIN="19422";
-let attempts=0;
-const LOCK_TIME=30000;
-const pinContainer=document.getElementById("pinContainer");
-const main=document.getElementById("main");
-const pinInput=document.getElementById("pinInput");
-const pinBtn=document.getElementById("pinBtn");
-const pinMsg=document.getElementById("pinMsg");
+const CLOUD_NAME="BURAYA_YAZ";
+const UPLOAD_PRESET="BURAYA_YAZ";
 
-pinBtn.onclick=()=>{
+/* PIN */
+function checkPin(){
   if(pinInput.value===SITE_PIN){
-    pinContainer.style.display="none";
+    pin.style.display="none";
     main.classList.remove("hidden");
-    localStorage.setItem("unlocked","true");
-    neonFlash();
-  } else {
-    attempts++;
-    if(attempts>=3){
-      pinMsg.textContent="3 yanlış deneme! 30 saniye bekleyin…";
-      pinBtn.disabled=true;
-      setTimeout(()=>{attempts=0;pinBtn.disabled=false;pinMsg.textContent="";},LOCK_TIME);
-    } else {
-      pinMsg.textContent=`Yanlış PIN! Kalan hak: ${3-attempts}`;
-    }
-  }
+    localStorage.setItem("unlocked","1");
+  } else pinMsg.textContent="Yanlış PIN 😅";
 }
+if(localStorage.getItem("unlocked")){pin.style.display="none";main.classList.remove("hidden")}
 
-if(localStorage.getItem("unlocked")==="true"){
-  pinContainer.style.display="none";
-  main.classList.remove("hidden");
-  neonFlash();
+/* GÜZEL SÖZLER */
+const quotes=[
+  "Sen gülünce dünya duruyor 💖",
+  "İyi ki varsın 🌸",
+  "Kalbim hep seninle ✨",
+  "Biz bir mucizeyiz 💞"
+];
+setInterval(()=>quote.textContent=quotes[Math.floor(Math.random()*quotes.length)],4000);
+
+/* GALERİ + OY */
+let items=JSON.parse(localStorage.getItem("gallery")||"[]");
+function render(){
+  gallery.innerHTML="";
+  items.forEach((it,i)=>{
+    const c=document.createElement("div");c.className="card";
+    c.innerHTML=`
+      <img src="${it.url}">
+      <div class="vote">
+        <button onclick="vote(${i},1)">👍</button>
+        <span>${it.votes}</span>
+        <button onclick="vote(${i},-1)">👎</button>
+      </div>`;
+    c.querySelector("img").onclick=()=>{lightboxImg.src=it.url;lightbox.style.visibility="visible"}
+    gallery.prepend(c);
+  });
 }
+function vote(i,v){
+  items[i].votes=Math.max(0,items[i].votes+v);
+  save();
+}
+function save(){localStorage.setItem("gallery",JSON.stringify(items));render()}
+render();
 
-function neonFlash(){
-  const h1=document.querySelector("h1");
-  h1.style.transition="0.3s";
-  h1.style.textShadow="0 0 50px #ff00ff,0 0 80px #ff00ff";
-  setTimeout(()=>{h1.style.textShadow="0 0 20px #ff5fd2"},500);
+/* UPLOAD */
+fileInput.onchange=async()=>{
+  const f=fileInput.files[0]; if(!f)return;
+  const fd=new FormData();
+  fd.append("file",f);
+  fd.append("upload_preset",UPLOAD_PRESET);
+  const r=await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,{method:"POST",body:fd});
+  const d=await r.json();
+  items.push({url:d.secure_url,votes:0});
+  save();
 }
 
 /* MÜZİK */
-const musicBtn=document.getElementById("musicBtn");
-const bgMusic=document.getElementById("bgMusic");
-musicBtn.onclick=()=>bgMusic.paused?bgMusic.play():bgMusic.pause();
+function toggleMusic(){music.paused?music.play():music.pause()}
 
-/* GALERİ & UPLOAD */
-const fileInput=document.getElementById("fileInput");
-const gallery=document.getElementById("gallery");
-const loader=document.getElementById("loader");
-
-fileInput.addEventListener("change",async()=>{
-  const file=fileInput.files[0];
-  if(!file) return;
-  loader.style.display="block";
-
-  const formData=new FormData();
-  formData.append("file",file);
-  formData.append("upload_preset",UPLOAD_PRESET);
-
-  const res=await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,{method:"POST",body:formData});
-  const data=await res.json();
-  loader.style.display="none";
-  addImage(data.secure_url);
-});
-
-function addImage(url){
-  const img=document.createElement("img");
-  img.src=url;
-  img.onclick=()=>openLightbox(url);
-  gallery.prepend(img);
-  const note=prompt("Fotoğraf için kısa bir not ekle 💬 (Opsiyonel)","");
-  if(note) img.title=note;
+/* PARTİKÜL */
+const ctx=fx.getContext("2d");
+function resize(){fx.width=innerWidth;fx.height=innerHeight}
+resize();onresize=resize;
+let p=[...Array(80)].map(()=>({x:Math.random()*fx.width,y:Math.random()*fx.height,s:Math.random()+.3}))
+function anim(){
+  ctx.clearRect(0,0,fx.width,fx.height);
+  ctx.fillStyle="#ff4fd8";
+  p.forEach(o=>{o.y-=o.s;if(o.y<0)o.y=fx.height;ctx.beginPath();ctx.arc(o.x,o.y,2,0,7);ctx.fill()});
+  requestAnimationFrame(anim)
 }
-
-/* LIGHTBOX */
-const lightbox=document.getElementById("lightbox");
-const lightboxImg=document.getElementById("lightboxImg");
-function openLightbox(url){lightboxImg.src=url;lightbox.style.visibility="visible";}
-lightbox.onclick=()=>lightbox.style.visibility="hidden";
-
-/* ANILAR SAYACI */
-const counter=document.getElementById("counter");
-const START_DATE=new Date("2024-06-01");
-function updateCounter(){
-  const now=new Date();
-  const diff=Math.floor((now-START_DATE)/(1000*60*60*24));
-  counter.textContent=`Beraber ${diff} gün geçirdik 💖`;
-}
-setInterval(updateCounter,1000);
-updateCounter();
-
-/* QUOTE - GÜZEL SÖZLER */
-const quotes=[
-  "Sen gülünce dünya daha güzel 🌸",
-  "Kalbim hep seninle 💖",
-  "İyi ki varsın, iyi ki benimlesin ✨",
-  "Sen yanımdayken her şey daha anlamlı 💞",
-  "Aşkımız yıldızlar kadar parlak 🌟"
-];
-function showQuote(){
-  const q=document.getElementById("quote");
-  q.textContent=quotes[Math.floor(Math.random()*quotes.length)];
-}
-showQuote();
-setInterval(showQuote,10000);
-
-/* PARTICLE / KALP ARKA PLAN */
-const canvas=document.getElementById("fx");
-const ctx=canvas.getContext("2d");
-resize();window.onresize=resize;
-let particles=[];for(let i=0;i<80;i++)particles.push(make());
-function make(){return{x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,s:Math.random()*0.5+0.2}}
-function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
-function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle="#ff4fd8";particles.forEach(p=>{p.y-=p.s;if(p.y<0)p.y=canvas.height;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();});requestAnimationFrame(animate);}
-animate();
+anim();
 </script>
+
 </body>
 </html>
