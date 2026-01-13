@@ -1,80 +1,130 @@
 <!doctype html>
-<html lang="de">
+<html lang="tr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Can ❤️ Aylin | Unsere Geschichte</title>
+<title>Can ❤️ Aylin | Anılarımız</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
 <style>
 :root {
     --primary: #ff4fd8;
     --secondary: #7a00ff;
-    --bg: #0a0a0a;
+    --bg-dark: #0a0a0a;
 }
 
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: var(--bg);
+    background: var(--bg-dark);
     color: #fff;
+    overflow-x: hidden;
 }
 
-/* Login */
+/* Giriş Ekranı */
 #pin {
     position: fixed;
     inset: 0;
-    background: #000;
+    background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 100;
+    transition: 0.5s;
+}
+
+#pin h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 #pin input {
-    padding: 12px;
+    padding: 15px;
     font-size: 24px;
-    border-radius: 10px;
-    border: 2px solid var(--primary);
+    border-radius: 15px;
+    border: 2px solid #333;
     background: #111;
     color: white;
-    width: 140px;
+    width: 150px;
     text-align: center;
+    letter-spacing: 5px;
     outline: none;
+    transition: 0.3s;
 }
 
-/* Header & Counter */
+#pin input:focus { border-color: var(--primary); }
+
+#pin button {
+    margin-top: 20px;
+    padding: 10px 30px;
+    border-radius: 25px;
+    border: none;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#pin button:hover { transform: scale(1.1); }
+
+/* Ana İçerik */
+.hidden { display: none; opacity: 0; }
+#main { padding-bottom: 50px; }
+
 header {
-    padding: 60px 20px;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    background: linear-gradient(to bottom, #1a1a1a, var(--bg));
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=2000') center/cover;
 }
 
-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin: 0; }
+header h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4em;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(255, 79, 216, 0.6);
+}
+
+header p { font-size: 1.2em; font-weight: 300; margin-top: 10px; color: #ddd; }
+
+/* Sayaç Kartı */
+.counter-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    margin: -50px auto 30px;
+    width: 80%;
+    max-width: 600px;
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
 
 .counter-grid {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 30px 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
 }
 
-.counter-item {
-    background: rgba(255,255,255,0.05);
-    padding: 15px;
-    border-radius: 12px;
-    min-width: 80px;
-}
+.counter-item span { display: block; font-size: 1.5em; font-weight: bold; color: var(--primary); }
+.counter-item label { font-size: 0.7em; text-transform: uppercase; opacity: 0.7; }
 
-.counter-item span { display: block; font-size: 1.8rem; font-weight: bold; color: var(--primary); }
-.counter-item label { font-size: 0.7rem; opacity: 0.6; text-transform: uppercase; }
-
-/* Gallery */
+/* Galeri */
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 15px;
     padding: 20px;
 }
@@ -84,108 +134,216 @@ header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin: 0; 
     aspect-ratio: 1/1;
     border-radius: 15px;
     overflow: hidden;
-    background: #151515; /* Yüklenirken görünen arka plan */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-.post img { width: 100%; height: 100%; object-fit: cover; }
+.post img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+.post:hover img { transform: scale(1.1) rotate(2deg); }
 
-.upload-section { text-align: center; padding: 20px; }
-.upload-btn {
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.post:hover .overlay { opacity: 1; }
+
+.heart-btn { font-size: 30px; cursor: pointer; color: white; transition: 0.3s; }
+.heart-btn.liked { color: var(--primary); transform: scale(1.2); }
+
+.comment-input {
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    width: 80%;
+}
+
+/* Yükleme Butonu */
+.upload-section { text-align: center; margin: 40px 0; }
+.custom-file-upload {
     background: linear-gradient(45deg, var(--primary), var(--secondary));
     padding: 12px 25px;
     border-radius: 50px;
     cursor: pointer;
-    display: inline-block;
+    font-weight: 500;
 }
 
-.hidden { display: none; }
+/* Lightbox */
+#lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#lightbox img { max-width: 90%; max-height: 80vh; border-radius: 10px; }
+
 </style>
 </head>
 <body>
 
 <div id="pin">
-  <h2 style="font-family:'Playfair Display'">Sicherheits-Check</h2>
+  <h2>Aşk Defterimiz</h2>
   <input type="password" id="pinInput" placeholder="****">
-  <button onclick="checkPin()" style="margin-top:20px; padding:10px 20px; cursor:pointer">Öffnen</button>
+  <button onclick="checkPin()">Giriş Yap</button>
+  <p id="pinMsg" style="color:red; margin-top:10px"></p>
 </div>
 
 <div id="main" class="hidden">
-  <header>
-    <h1>Can ❤️ Aylin</h1>
-    <p>Seit dem 10. April 2025...</p>
-    
-    <div class="counter-grid">
-      <div class="counter-item"><span id="days">0</span><label>Tage</label></div>
-      <div class="counter-item"><span id="hours">0</span><label>Std</label></div>
-      <div class="counter-item"><span id="mins">0</span><label>Min</label></div>
-      <div class="counter-item"><span id="secs">0</span><label>Sek</label></div>
-    </div>
-  </header>
 
-  <div class="upload-section">
-    <label class="upload-btn">
-      <input type="file" id="fileInput" hidden accept="image/*">
-      📸 Foto hinzufügen
-    </label>
+<header>
+  <h1>Can ❤️ Aylin</h1>
+  <p id="quote">"Biz iki kişilik bir dünyayız."</p>
+</header>
+
+<div class="counter-card">
+  <div class="counter-grid">
+    <div class="counter-item"><span id="days">0</span><label>Gün</label></div>
+    <div class="counter-item"><span id="hours">0</span><label>Saat</label></div>
+    <div class="counter-item"><span id="minutes">0</span><label>Dakika</label></div>
+    <div class="counter-item"><span id="seconds">0</span><label>Saniye</label></div>
   </div>
+  <p style="margin-top:15px; font-size: 0.9em; opacity: 0.8;">10 Nisan 2025'ten beri birlikteyiz...</p>
+</div>
 
-  <section class="gallery" id="gallery"></section>
+<div class="upload-section">
+  <label class="custom-file-upload">
+    <input type="file" id="fileInput" accept="image/*" style="display:none">
+    📸 Yeni Bir Anı Ekle
+  </label>
+</div>
+
+<section class="gallery" id="gallery"></section>
+
+</div>
+
+<div id="lightbox" onclick="this.style.display='none'">
+  <img id="lightImg">
 </div>
 
 <script>
-const SITE_PIN = "1004"; // Şifre güncellendi
-const startDate = new Date("2025-04-10T00:00:00");
-
+/* PIN - Güncellendi: 1904 */
+const SITE_PIN = "1904";
 function checkPin() {
-    if(document.getElementById("pinInput").value === SITE_PIN) {
-        document.getElementById("pin").classList.add("hidden");
-        document.getElementById("main").classList.remove("hidden");
-    } else {
-        alert("Falscher Code!");
-    }
+  const input = document.getElementById("pinInput").value;
+  if(input === SITE_PIN) {
+    document.getElementById("pin").style.opacity = "0";
+    setTimeout(() => {
+      document.getElementById("pin").style.display = "none";
+      const main = document.getElementById("main");
+      main.classList.remove("hidden");
+      main.style.opacity = "1";
+    }, 500);
+  } else {
+    document.getElementById("pinMsg").textContent = "Yanlış PIN, tekrar dene aşkım!";
+  }
 }
 
-function updateTimer() {
-    const now = new Date();
-    const diff = now - startDate;
-    document.getElementById("days").innerText = Math.floor(diff / (1000*60*60*24));
-    document.getElementById("hours").innerText = Math.floor((diff / (1000*60*60)) % 24);
-    document.getElementById("mins").innerText = Math.floor((diff / (1000*60)) % 60);
-    document.getElementById("secs").innerText = Math.floor((diff / 1000) % 60);
-}
-setInterval(updateTimer, 1000);
+/* Sayaç Geliştirilmiş */
+const startDate = new Date("2025-04-10T00:00:00");
+function updateCounter() {
+  const now = new Date();
+  const diff = now - startDate;
 
-// Galeri ve Kırık Resim Kontrolü
-let photos = JSON.parse(localStorage.getItem("can_aylin_gallery") || '[]');
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((diff / (1000 * 60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("days").textContent = d;
+  document.getElementById("hours").textContent = h;
+  document.getElementById("minutes").textContent = m;
+  document.getElementById("seconds").textContent = s;
+}
+setInterval(updateCounter, 1000);
+
+/* Fotoğraflar ve Yerel Depolama */
+let photos = JSON.parse(localStorage.getItem("photos") || '["1P5NLAw-2s9ar9acN2Ifj3_NPrcHC0_Ax"]');
+let votes = JSON.parse(localStorage.getItem("votes") || "{}");
+let comments = JSON.parse(localStorage.getItem("comments") || "{}");
 
 function renderGallery() {
-    const container = document.getElementById("gallery");
-    container.innerHTML = "";
+  const gallery = document.getElementById("gallery");
+  gallery.innerHTML = "";
+  
+  photos.forEach(id => {
+    const isLocal = id.startsWith("data:");
+    const url = isLocal ? id : `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
     
-    // Sabit olan (ilk resminiz)
-    const initialPhoto = "https://raw.githubusercontent.com/can807645-cell/can-aylin-1004/main/your-photo.jpg"; 
+    const post = document.createElement("div");
+    post.className = "post";
     
-    photos.forEach(src => {
-        const div = document.createElement("div");
-        div.className = "post";
-        div.innerHTML = `<img src="${src}" onerror="this.src='https://via.placeholder.com/300?text=Bild+nicht+gefunden'">`;
-        container.appendChild(div);
-    });
+    const v = votes[id] || 0;
+    const cmt = comments[id] || "";
+
+    post.innerHTML = `
+      <img src="${url}" onclick="openLightbox('${url}')">
+      <div class="overlay">
+        <div class="heart-btn ${v > 0 ? 'liked' : ''}" onclick="likePhoto('${id}', this)">❤</div>
+        <input type="text" class="comment-input" placeholder="Yorum..." value="${cmt}" onchange="saveComment('${id}', this.value)">
+      </div>
+    `;
+    gallery.appendChild(post);
+  });
 }
 
+function openLightbox(url) {
+  document.getElementById("lightImg").src = url;
+  document.getElementById("lightbox").style.display = 'flex';
+}
+
+function likePhoto(id, el) {
+  votes[id] = (votes[id] || 0) + 1;
+  el.classList.add("liked");
+  localStorage.setItem("votes", JSON.stringify(votes));
+}
+
+function saveComment(id, val) {
+  comments[id] = val;
+  localStorage.setItem("comments", JSON.stringify(comments));
+}
+
+/* Yeni Fotoğraf Yükleme */
 document.getElementById("fileInput").onchange = (e) => {
-    const file = e.target.files[0];
+  const file = e.target.files[0];
+  if (file) {
     const reader = new FileReader();
     reader.onload = (event) => {
-        photos.unshift(event.target.result);
-        localStorage.setItem("can_aylin_gallery", JSON.stringify(photos));
-        renderGallery();
+      photos.unshift(event.target.result); // Yeni fotoğrafı başa ekle
+      localStorage.setItem("photos", JSON.stringify(photos));
+      renderGallery();
     };
     reader.readAsDataURL(file);
+  }
 };
 
+/* Sözler */
+const quotes = ["Sonsuzluğum olur musun?", "En güzel manzaram sensin.", "Her fotoğrafımız bir hikaye.", "Seni seviyorum."];
+let qi = 0;
+setInterval(() => {
+  document.getElementById("quote").style.opacity = 0;
+  setTimeout(() => {
+    document.getElementById("quote").textContent = quotes[++qi % quotes.length];
+    document.getElementById("quote").style.opacity = 1;
+  }, 500);
+}, 5000);
+
 renderGallery();
-updateTimer();
+updateCounter();
 </script>
+
 </body>
 </html>
+
+
+Almanca yap ve şifreyi 1004 yap hatayı düzelt kırık resim
