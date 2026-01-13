@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Can ❤️ Aylin | Unsere Erinnerungen</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
 <style>
@@ -23,7 +22,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Giriş Ekranı (PIN) */
+/* Login Ekranı */
 #pin {
     position: fixed;
     inset: 0;
@@ -32,7 +31,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 2000;
+    z-index: 3000;
     transition: 0.8s ease-in-out;
 }
 
@@ -70,11 +69,9 @@ body {
     transition: 0.3s;
 }
 
-#pin button:hover { transform: scale(1.05); }
-
 /* Ana İçerik */
 .hidden { display: none; opacity: 0; }
-#main { padding-bottom: 150px; }
+#main { padding-bottom: 120px; transition: opacity 1s; }
 
 header {
     height: 60vh;
@@ -86,43 +83,18 @@ header {
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=2000') center/cover;
 }
 
-header h1 {
-    font-family: 'Dancing Script', cursive;
-    font-size: 4.5em;
-    margin: 0;
-    text-shadow: 0 0 30px rgba(255, 79, 216, 0.5);
-}
+header h1 { font-family: 'Dancing Script', cursive; font-size: 4.5em; margin: 0; text-shadow: 0 0 20px rgba(255, 79, 216, 0.5); }
 
-header p#quote { font-size: 1.3em; font-weight: 300; margin-top: 15px; color: #eee; min-height: 1.5em; transition: 0.5s; }
-
-/* Sayaç */
-.counter-card {
-    background: var(--glass);
-    backdrop-filter: blur(15px);
-    margin: -60px auto 30px;
-    width: 85%;
-    max-width: 600px;
-    padding: 35px;
-    border-radius: 25px;
-    border: 1px solid rgba(255,255,255,0.1);
-    text-align: center;
-    z-index: 10;
-}
-
-.counter-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
-.counter-item span { display: block; font-size: 1.8em; font-weight: bold; color: var(--primary); }
-.counter-item label { font-size: 0.75em; text-transform: uppercase; opacity: 0.8; }
-
-/* Apple Music Player */
+/* Apple Music Player Görünümü */
 .music-player {
     position: fixed;
     bottom: 25px;
     left: 50%;
     transform: translateX(-50%);
-    width: 320px;
-    background: rgba(20, 20, 20, 0.8);
+    width: 300px;
+    background: rgba(20, 20, 20, 0.85);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 20px;
     padding: 12px 20px;
     z-index: 1000;
@@ -133,37 +105,31 @@ header p#quote { font-size: 1.3em; font-weight: 300; margin-top: 15px; color: #e
 }
 
 .album-art {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
     background: url('https://i.scdn.co/image/ab67616d0000b2739343936630f92275990f19a3') center/cover;
     animation: musicPulse 2s infinite ease-in-out;
 }
 
 @keyframes musicPulse {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); box-shadow: 0 0 15px var(--primary); }
+    50% { transform: scale(1.08); box-shadow: 0 0 15px var(--primary); }
 }
 
-#youtube-player { position: absolute; width: 1px; height: 1px; opacity: 0; }
+#yt-api-player { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
-/* Galeri */
+/* Sayaç ve Galeri */
+.counter-card { background: var(--glass); backdrop-filter: blur(15px); margin: -60px auto 30px; width: 85%; max-width: 600px; padding: 30px; border-radius: 25px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+.counter-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.counter-item span { display: block; font-size: 1.5em; font-weight: bold; color: var(--primary); }
+
 .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 25px; }
-.post { position: relative; aspect-ratio: 1/1; border-radius: 20px; overflow: hidden; background: #1a1a1a; }
-.post img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; cursor: pointer; }
-.post:hover img { transform: scale(1.1); }
+.post { aspect-ratio: 1/1; border-radius: 20px; overflow: hidden; background: #1a1a1a; position: relative; }
+.post img { width: 100%; height: 100%; object-fit: cover; }
 
-.upload-section { text-align: center; margin: 40px 0; }
-.custom-file-upload {
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    padding: 14px 30px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-#lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; justify-content: center; align-items: center; z-index: 3000; }
-#lightbox img { max-width: 90%; max-height: 85vh; border-radius: 15px; }
+.upload-btn { text-align: center; margin: 20px; }
+.custom-file-upload { background: linear-gradient(45deg, var(--primary), var(--secondary)); padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; }
 </style>
 </head>
 <body>
@@ -172,128 +138,126 @@ header p#quote { font-size: 1.3em; font-weight: 300; margin-top: 15px; color: #e
   <h2>Unser Liebesbuch</h2>
   <input type="password" id="pinInput" placeholder="****" maxlength="4">
   <button onclick="checkPin()">Einloggen</button>
-  <p id="pinMsg" style="color:#ff4f4f; margin-top:15px;"></p>
+  <p id="pinMsg" style="color:#ff4f4f; margin-top:10px;"></p>
 </div>
 
 <div id="main" class="hidden">
-<header>
-  <h1>Can ❤️ Aylin</h1>
-  <p id="quote">"Wir sind eine Welt für uns zwei."</p>
-</header>
+  <header>
+    <h1>Can ❤️ Aylin</h1>
+    <p id="quote" style="margin-top:10px; font-size: 1.2em; opacity: 0.9;">"Wir sind eine Welt für uns zwei."</p>
+  </header>
 
-<div class="counter-card">
-  <div class="counter-grid">
-    <div class="counter-item"><span id="days">0</span><label>Tage</label></div>
-    <div class="counter-item"><span id="hours">0</span><label>Std</label></div>
-    <div class="counter-item"><span id="minutes">0</span><label>Min</label></div>
-    <div class="counter-item"><span id="seconds">0</span><label>Sek</label></div>
+  <div class="counter-card">
+    <div class="counter-grid">
+      <div class="counter-item"><span id="days">0</span><label>Tage</label></div>
+      <div class="counter-item"><span id="hours">0</span><label>Std</label></div>
+      <div class="counter-item"><span id="minutes">0</span><label>Min</label></div>
+      <div class="counter-item"><span id="seconds">0</span><label>Sek</label></div>
+    </div>
   </div>
-  <p style="margin-top:15px; font-size: 0.9em; opacity: 0.8;">Zusammen seit dem 10. April 2025...</p>
-</div>
 
-<div class="music-player">
+  <div class="upload-btn">
+    <label class="custom-file-upload">
+      <input type="file" id="fileInput" accept="image/*" style="display:none">
+      📸 Neues Foto
+    </label>
+  </div>
+
+  <section class="gallery" id="gallery"></section>
+
+  <div class="music-player">
     <div class="album-art"></div>
     <div class="player-info">
-        <h4 style="margin:0; font-size:14px;">AYLIVA Mix</h4>
-        <p style="margin:0; font-size:11px; color:var(--primary);">Wird jetzt abgespielt...</p>
+      <h4 style="margin:0; font-size:14px;">AYLIVA Mix</h4>
+      <p style="margin:0; font-size:11px; color:var(--primary);">Wird jetzt abgespielt...</p>
     </div>
-    <iframe id="youtube-player" 
-        src="https://www.youtube.com/embed/videoseries?list=PLmS3u49Y0m6tY6oBskp38Zq1R_S-D39_A&enablejsapi=1" 
-        allow="autoplay">
-    </iframe>
+    <div id="yt-api-player"></div>
+  </div>
 </div>
 
-<div class="upload-section">
-  <label class="custom-file-upload">
-    <input type="file" id="fileInput" accept="image/*" style="display:none">
-    📸 Neue Erinnerung hinzufügen
-  </label>
-</div>
-
-<section class="gallery" id="gallery"></section>
-</div>
-
-<div id="lightbox" onclick="this.style.display='none'">
-  <img id="lightImg">
-</div>
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
 const SITE_PIN = "1004";
 const startDate = new Date("2025-04-10T00:00:00");
+let player;
 
-function checkPin() {
-  const input = document.getElementById("pinInput").value;
-  if(input === SITE_PIN) {
-    // MÜZİĞİ SESLİ BAŞLAT
-    const ytPlayer = document.getElementById("youtube-player");
-    // Linke autoplay ekle ve sayfayı yenilemeden src'yi güncelle
-    ytPlayer.src = ytPlayer.src + "&autoplay=1&mute=0"; 
-
-    document.getElementById("pin").style.opacity = "0";
-    setTimeout(() => {
-      document.getElementById("pin").style.display = "none";
-      const main = document.getElementById("main");
-      main.classList.remove("hidden");
-      setTimeout(() => main.style.opacity = "1", 50);
-    }, 800);
-  } else {
-    document.getElementById("pinMsg").textContent = "Falscher PIN, versuch's nochmal!";
-  }
+// YouTube API Hazırlığı
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('yt-api-player', {
+        height: '1',
+        width: '1',
+        videoId: 'ZAO2MH0dQtk', // Örnek Ayliva videosu
+        playerVars: {
+            'listType': 'playlist',
+            'list': 'RDEM_Gj6y9pC4o-18u1Yn2P9_w', // Ayliva Mix Listesi
+            'loop': 1
+        },
+        events: {
+            'onReady': (event) => { event.target.setVolume(100); }
+        }
+    });
 }
 
+function checkPin() {
+    const val = document.getElementById("pinInput").value;
+    if(val === SITE_PIN) {
+        // SESİ BAŞLAT
+        if (player && player.playVideo) {
+            player.unMute();
+            player.playVideo();
+        }
+
+        document.getElementById("pin").style.opacity = "0";
+        setTimeout(() => {
+            document.getElementById("pin").style.display = "none";
+            const m = document.getElementById("main");
+            m.classList.remove("hidden");
+            setTimeout(() => m.style.opacity = "1", 50);
+        }, 800);
+    } else {
+        document.getElementById("pinMsg").textContent = "Falscher PIN!";
+    }
+}
+
+// Sayaç Fonksiyonu
 function updateCounter() {
-  const diff = new Date() - startDate;
-  document.getElementById("days").textContent = Math.floor(diff / 86400000);
-  document.getElementById("hours").textContent = Math.floor((diff / 3600000) % 24);
-  document.getElementById("minutes").textContent = Math.floor((diff / 60000) % 60);
-  document.getElementById("seconds").textContent = Math.floor((diff / 1000) % 60);
+    const diff = new Date() - startDate;
+    document.getElementById("days").textContent = Math.floor(diff / 86400000);
+    document.getElementById("hours").textContent = Math.floor((diff / 3600000) % 24);
+    document.getElementById("minutes").textContent = Math.floor((diff / 60000) % 60);
+    document.getElementById("seconds").textContent = Math.floor((diff / 1000) % 60);
 }
 setInterval(updateCounter, 1000);
 
+// Galeri Yönetimi
 let photos = JSON.parse(localStorage.getItem("photos") || '[]');
 function renderGallery() {
-  const gallery = document.getElementById("gallery");
-  gallery.innerHTML = "";
-  photos.forEach((src, index) => {
-    const post = document.createElement("div");
-    post.className = "post";
-    post.innerHTML = `<img src="${src}" onclick="openLightbox(this.src)">`;
-    gallery.appendChild(post);
-  });
-}
-
-function openLightbox(url) {
-  document.getElementById("lightImg").src = url;
-  document.getElementById("lightbox").style.display = 'flex';
+    const gallery = document.getElementById("gallery");
+    gallery.innerHTML = "";
+    photos.forEach(src => {
+        const div = document.createElement("div");
+        div.className = "post";
+        div.innerHTML = `<img src="${src}">`;
+        gallery.appendChild(div);
+    });
 }
 
 document.getElementById("fileInput").onchange = (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      photos.unshift(event.target.result);
-      localStorage.setItem("photos", JSON.stringify(photos));
-      renderGallery();
-    };
-    reader.readAsDataURL(file);
-  }
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            photos.unshift(event.target.result);
+            localStorage.setItem("photos", JSON.stringify(photos));
+            renderGallery();
+        };
+        reader.readAsDataURL(file);
+    }
 };
-
-const quotes = ["Willst du meine Ewigkeit sein?", "Du bist meine schönste Aussicht.", "Ich liebe dich über alles."];
-let qi = 0;
-setInterval(() => {
-  const qEl = document.getElementById("quote");
-  qEl.style.opacity = 0;
-  setTimeout(() => {
-    qEl.textContent = quotes[++qi % quotes.length];
-    qEl.style.opacity = 1;
-  }, 500);
-}, 5000);
 
 renderGallery();
 updateCounter();
 </script>
-
 </body>
 </html>
