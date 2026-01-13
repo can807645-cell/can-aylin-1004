@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="tr">
+<html lang="de">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Can ❤️ Aylin | Anılarımız</title>
+<title>Can ❤️ Aylin | Unsere Erinnerungen</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
@@ -22,7 +22,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Giriş Ekranı */
+/* Giriş Ekranı (Login) */
 #pin {
     position: fixed;
     inset: 0;
@@ -85,7 +85,7 @@ header {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=2000') center/cover;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=2000') center/cover;
 }
 
 header h1 {
@@ -95,9 +95,9 @@ header h1 {
     text-shadow: 0 0 20px rgba(255, 79, 216, 0.6);
 }
 
-header p { font-size: 1.2em; font-weight: 300; margin-top: 10px; color: #ddd; }
+header p#quote { font-size: 1.2em; font-weight: 300; margin-top: 10px; color: #ddd; min-height: 1.5em; transition: opacity 0.5s; }
 
-/* Sayaç Kartı */
+/* Sayaç Kartı (Counter) */
 .counter-card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
@@ -135,9 +135,10 @@ header p { font-size: 1.2em; font-weight: 300; margin-top: 10px; color: #ddd; }
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    background: #1a1a1a; /* Kırık resim yerine koyu arka plan */
 }
 
-.post img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+.post img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; cursor: pointer; }
 .post:hover img { transform: scale(1.1) rotate(2deg); }
 
 .overlay {
@@ -159,10 +160,11 @@ header p { font-size: 1.2em; font-weight: 300; margin-top: 10px; color: #ddd; }
 
 .comment-input {
     margin-top: 10px;
-    padding: 5px;
+    padding: 8px;
     border-radius: 5px;
     border: none;
     width: 80%;
+    background: rgba(255,255,255,0.9);
 }
 
 /* Yükleme Butonu */
@@ -173,6 +175,7 @@ header p { font-size: 1.2em; font-weight: 300; margin-top: 10px; color: #ddd; }
     border-radius: 50px;
     cursor: pointer;
     font-weight: 500;
+    display: inline-block;
 }
 
 /* Lightbox */
@@ -193,33 +196,33 @@ header p { font-size: 1.2em; font-weight: 300; margin-top: 10px; color: #ddd; }
 <body>
 
 <div id="pin">
-  <h2>Aşk Defterimiz</h2>
-  <input type="password" id="pinInput" placeholder="****">
-  <button onclick="checkPin()">Giriş Yap</button>
-  <p id="pinMsg" style="color:red; margin-top:10px"></p>
+  <h2>Unser Liebesbuch</h2>
+  <input type="password" id="pinInput" placeholder="****" maxlength="4">
+  <button onclick="checkPin()">Einloggen</button>
+  <p id="pinMsg" style="color:#ff4f4f; margin-top:10px"></p>
 </div>
 
 <div id="main" class="hidden">
 
 <header>
   <h1>Can ❤️ Aylin</h1>
-  <p id="quote">"Biz iki kişilik bir dünyayız."</p>
+  <p id="quote">"Wir sind eine Welt für uns zwei."</p>
 </header>
 
 <div class="counter-card">
   <div class="counter-grid">
-    <div class="counter-item"><span id="days">0</span><label>Gün</label></div>
-    <div class="counter-item"><span id="hours">0</span><label>Saat</label></div>
-    <div class="counter-item"><span id="minutes">0</span><label>Dakika</label></div>
-    <div class="counter-item"><span id="seconds">0</span><label>Saniye</label></div>
+    <div class="counter-item"><span id="days">0</span><label>Tage</label></div>
+    <div class="counter-item"><span id="hours">0</span><label>Std</label></div>
+    <div class="counter-item"><span id="minutes">0</span><label>Min</label></div>
+    <div class="counter-item"><span id="seconds">0</span><label>Sek</label></div>
   </div>
-  <p style="margin-top:15px; font-size: 0.9em; opacity: 0.8;">10 Nisan 2025'ten beri birlikteyiz...</p>
+  <p style="margin-top:15px; font-size: 0.9em; opacity: 0.8;">Seit dem 10. April 2025 zusammen...</p>
 </div>
 
 <div class="upload-section">
   <label class="custom-file-upload">
     <input type="file" id="fileInput" accept="image/*" style="display:none">
-    📸 Yeni Bir Anı Ekle
+    📸 Neue Erinnerung hinzufügen
   </label>
 </div>
 
@@ -232,8 +235,9 @@ header p { font-size: 1.2em; font-weight: 300; margin-top: 10px; color: #ddd; }
 </div>
 
 <script>
-/* PIN - Güncellendi: 1904 */
-const SITE_PIN = "1904";
+/* Şifre Güncellendi: 1004 */
+const SITE_PIN = "1004";
+
 function checkPin() {
   const input = document.getElementById("pinInput").value;
   if(input === SITE_PIN) {
@@ -245,11 +249,11 @@ function checkPin() {
       main.style.opacity = "1";
     }, 500);
   } else {
-    document.getElementById("pinMsg").textContent = "Yanlış PIN, tekrar dene aşkım!";
+    document.getElementById("pinMsg").textContent = "Falscher PIN, versuch's nochmal, Schatz!";
   }
 }
 
-/* Sayaç Geliştirilmiş */
+/* Sayaç (Almanca) */
 const startDate = new Date("2025-04-10T00:00:00");
 function updateCounter() {
   const now = new Date();
@@ -267,8 +271,10 @@ function updateCounter() {
 }
 setInterval(updateCounter, 1000);
 
-/* Fotoğraflar ve Yerel Depolama */
-let photos = JSON.parse(localStorage.getItem("photos") || '["1P5NLAw-2s9ar9acN2Ifj3_NPrcHC0_Ax"]');
+/* Fotoğraflar ve Hata Düzeltme */
+// Drive linki kırık ise varsayılan bir görsel gösterilir
+const defaultImage = "https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=500";
+let photos = JSON.parse(localStorage.getItem("photos") || '[]');
 let votes = JSON.parse(localStorage.getItem("votes") || "{}");
 let comments = JSON.parse(localStorage.getItem("comments") || "{}");
 
@@ -278,7 +284,8 @@ function renderGallery() {
   
   photos.forEach(id => {
     const isLocal = id.startsWith("data:");
-    const url = isLocal ? id : `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
+    // Drive ID'lerini direkt linke çevirirken hata almamak için kontrol
+    const url = isLocal ? id : `https://lh3.googleusercontent.com/d/${id}`;
     
     const post = document.createElement("div");
     post.className = "post";
@@ -287,10 +294,10 @@ function renderGallery() {
     const cmt = comments[id] || "";
 
     post.innerHTML = `
-      <img src="${url}" onclick="openLightbox('${url}')">
+      <img src="${url}" onerror="this.src='${defaultImage}'" onclick="openLightbox(this.src)">
       <div class="overlay">
         <div class="heart-btn ${v > 0 ? 'liked' : ''}" onclick="likePhoto('${id}', this)">❤</div>
-        <input type="text" class="comment-input" placeholder="Yorum..." value="${cmt}" onchange="saveComment('${id}', this.value)">
+        <input type="text" class="comment-input" placeholder="Kommentar..." value="${cmt}" onchange="saveComment('${id}', this.value)">
       </div>
     `;
     gallery.appendChild(post);
@@ -304,7 +311,7 @@ function openLightbox(url) {
 
 function likePhoto(id, el) {
   votes[id] = (votes[id] || 0) + 1;
-  el.classList.add("liked");
+  el.classList.toggle("liked");
   localStorage.setItem("votes", JSON.stringify(votes));
 }
 
@@ -319,7 +326,8 @@ document.getElementById("fileInput").onchange = (e) => {
   if (file) {
     const reader = new FileReader();
     reader.onload = (event) => {
-      photos.unshift(event.target.result); // Yeni fotoğrafı başa ekle
+      const newPhotoId = event.target.result;
+      photos.unshift(newPhotoId);
       localStorage.setItem("photos", JSON.stringify(photos));
       renderGallery();
     };
@@ -327,23 +335,27 @@ document.getElementById("fileInput").onchange = (e) => {
   }
 };
 
-/* Sözler */
-const quotes = ["Sonsuzluğum olur musun?", "En güzel manzaram sensin.", "Her fotoğrafımız bir hikaye.", "Seni seviyorum."];
+/* Almanca Aşk Sözleri */
+const quotes = [
+  "Willst du meine Ewigkeit sein?",
+  "Du bist meine schönste Aussicht.",
+  "Jedes Foto erzählt unsere Geschichte.",
+  "Ich liebe dich über alles."
+];
 let qi = 0;
 setInterval(() => {
-  document.getElementById("quote").style.opacity = 0;
+  const qEl = document.getElementById("quote");
+  qEl.style.opacity = 0;
   setTimeout(() => {
-    document.getElementById("quote").textContent = quotes[++qi % quotes.length];
-    document.getElementById("quote").style.opacity = 1;
+    qEl.textContent = quotes[++qi % quotes.length];
+    qEl.style.opacity = 1;
   }, 500);
 }, 5000);
 
+// İlk yükleme
 renderGallery();
 updateCounter();
 </script>
 
 </body>
 </html>
-
-
-Almanca yap ve şifreyi 1004 yap hatayı düzelt kırık resim
