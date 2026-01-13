@@ -3,64 +3,227 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Can ❤ Aylin</title>
+<title>Can ❤️ Aylin | Anılarımız</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
 <style>
-body{margin:0;font-family:Poppins,sans-serif;background:#000;color:#fff;}
-.hidden{display:none;}
-#pin{position:fixed;inset:0;background:#000c;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9}
-#pin input{padding:12px;font-size:20px;border-radius:10px;border:none;width:120px;text-align:center}
-header{padding:20px;text-align:center}
-header h1{font-size:1.8em}
-header p{opacity:.8}
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;}
-@media(min-width:700px){.gallery{grid-template-columns:repeat(4,1fr)}}
-@media(min-width:1100px){.gallery{grid-template-columns:repeat(5,1fr)}}
-.post{position:relative;aspect-ratio:1/1;overflow:hidden;cursor:pointer}
-.post img{width:100%;height:100%;object-fit:cover;transition:.3s}
-.post:hover img{transform:scale(1.05)}
-.overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;justify-content:center;align-items:center;font-size:26px;opacity:0;transition:.3s}
-.post:hover .overlay{opacity:1}
-.liked{color:#ff4fd8}
-.comment-box{position:absolute;bottom:5px;width:100%;display:flex;justify-content:center;gap:5px}
-.comment-box input{flex:1;padding:4px;border-radius:5px;border:none;font-size:12px}
-.comment-box button{padding:4px 6px;border:none;background:#ff4fd8;color:#000;border-radius:5px;font-size:12px;cursor:pointer}
-#lightbox{position:fixed;inset:0;background:#000e;display:none;justify-content:center;align-items:center;z-index:10}
-#lightbox img{max-width:95%;max-height:95%;border-radius:12px}
-.counter{text-align:center;padding:20px;opacity:.8;margin-bottom:30px;}
-.upload-btn{display:block;text-align:center;margin:20px}
-.upload-btn input{display:none}
-button.upload{background:linear-gradient(45deg,#ff4fd8,#7a00ff);color:#fff;padding:10px 20px;border-radius:20px;border:none;cursor:pointer}
+:root {
+    --primary: #ff4fd8;
+    --secondary: #7a00ff;
+    --bg-dark: #0a0a0a;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-dark);
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* Giriş Ekranı */
+#pin {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: 0.5s;
+}
+
+#pin h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#pin input {
+    padding: 15px;
+    font-size: 24px;
+    border-radius: 15px;
+    border: 2px solid #333;
+    background: #111;
+    color: white;
+    width: 150px;
+    text-align: center;
+    letter-spacing: 5px;
+    outline: none;
+    transition: 0.3s;
+}
+
+#pin input:focus { border-color: var(--primary); }
+
+#pin button {
+    margin-top: 20px;
+    padding: 10px 30px;
+    border-radius: 25px;
+    border: none;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#pin button:hover { transform: scale(1.1); }
+
+/* Ana İçerik */
+.hidden { display: none; opacity: 0; }
+#main { padding-bottom: 50px; }
+
+header {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=2000') center/cover;
+}
+
+header h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4em;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(255, 79, 216, 0.6);
+}
+
+header p { font-size: 1.2em; font-weight: 300; margin-top: 10px; color: #ddd; }
+
+/* Sayaç Kartı */
+.counter-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    margin: -50px auto 30px;
+    width: 80%;
+    max-width: 600px;
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.counter-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.counter-item span { display: block; font-size: 1.5em; font-weight: bold; color: var(--primary); }
+.counter-item label { font-size: 0.7em; text-transform: uppercase; opacity: 0.7; }
+
+/* Galeri */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.post {
+    position: relative;
+    aspect-ratio: 1/1;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.post img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+.post:hover img { transform: scale(1.1) rotate(2deg); }
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.post:hover .overlay { opacity: 1; }
+
+.heart-btn { font-size: 30px; cursor: pointer; color: white; transition: 0.3s; }
+.heart-btn.liked { color: var(--primary); transform: scale(1.2); }
+
+.comment-input {
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    width: 80%;
+}
+
+/* Yükleme Butonu */
+.upload-section { text-align: center; margin: 40px 0; }
+.custom-file-upload {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    padding: 12px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* Lightbox */
+#lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#lightbox img { max-width: 90%; max-height: 80vh; border-radius: 10px; }
+
 </style>
 </head>
 <body>
 
 <div id="pin">
-  <h2>Giriş PIN</h2>
-  <input type="password" id="pinInput" placeholder="19422">
-  <button onclick="checkPin()">Giriş</button>
-  <p id="pinMsg"></p>
+  <h2>Aşk Defterimiz</h2>
+  <input type="password" id="pinInput" placeholder="****">
+  <button onclick="checkPin()">Giriş Yap</button>
+  <p id="pinMsg" style="color:red; margin-top:10px"></p>
 </div>
 
 <div id="main" class="hidden">
 
 <header>
-  <h1>Can ❤ Aylin</h1>
-  <p>10.04.2025’te başlayan hikâyemiz</p>
+  <h1>Can ❤️ Aylin</h1>
+  <p id="quote">"Biz iki kişilik bir dünyayız."</p>
 </header>
 
-<div class="upload-btn">
-  <label>
-    Fotoğraf Yükle
-    <input type="file" id="fileInput" accept="image/*">
+<div class="counter-card">
+  <div class="counter-grid">
+    <div class="counter-item"><span id="days">0</span><label>Gün</label></div>
+    <div class="counter-item"><span id="hours">0</span><label>Saat</label></div>
+    <div class="counter-item"><span id="minutes">0</span><label>Dakika</label></div>
+    <div class="counter-item"><span id="seconds">0</span><label>Saniye</label></div>
+  </div>
+  <p style="margin-top:15px; font-size: 0.9em; opacity: 0.8;">10 Nisan 2025'ten beri birlikteyiz...</p>
+</div>
+
+<div class="upload-section">
+  <label class="custom-file-upload">
+    <input type="file" id="fileInput" accept="image/*" style="display:none">
+    📸 Yeni Bir Anı Ekle
   </label>
-  <button class="upload" id="uploadBtn">Yükle</button>
 </div>
 
 <section class="gallery" id="gallery"></section>
-<div class="counter" id="counter"></div>
 
 </div>
 
@@ -69,90 +232,114 @@ button.upload{background:linear-gradient(45deg,#ff4fd8,#7a00ff);color:#fff;paddi
 </div>
 
 <script>
-/* PIN */
-const SITE_PIN="19422";
-function checkPin(){
-  if(pinInput.value===SITE_PIN){
-    pin.style.display="none";
-    main.classList.remove("hidden");
-  }else pinMsg.textContent="Yanlış PIN";
+/* PIN - Güncellendi: 1904 */
+const SITE_PIN = "1904";
+function checkPin() {
+  const input = document.getElementById("pinInput").value;
+  if(input === SITE_PIN) {
+    document.getElementById("pin").style.opacity = "0";
+    setTimeout(() => {
+      document.getElementById("pin").style.display = "none";
+      const main = document.getElementById("main");
+      main.classList.remove("hidden");
+      main.style.opacity = "1";
+    }, 500);
+  } else {
+    document.getElementById("pinMsg").textContent = "Yanlış PIN, tekrar dene aşkım!";
+  }
 }
 
-/* QUOTES (optional slider) */
-const quotes=[
-  "Biz iki kişilik bir dünyayız.",
-  "Bazı anılar sessizdir ama kalpte bağırır.",
-  "Bu fotoğraflar bizim zaman makinemiz.",
-  "Sonsuzluk bazen bir bakışta saklıdır."
-];
-let qi=0;
-setInterval(()=>{
-  if(document.getElementById('quote')) document.getElementById('quote').textContent=quotes[qi++%quotes.length];
-},4000);
+/* Sayaç Geliştirilmiş */
+const startDate = new Date("2025-04-10T00:00:00");
+function updateCounter() {
+  const now = new Date();
+  const diff = now - startDate;
 
-/* COUNTER */
-const start=new Date("2025-04-10");
-setInterval(()=>{
-  document.getElementById("counter").textContent=`Birlikte ${Math.floor((new Date()-start)/(1000*60*60*24))} gündür 💖`;
-},1000);
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((diff / (1000 * 60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
 
-/* PHOTOS */
-const photos=[
-  "1P5NLAw-2s9ar9acN2Ifj3_NPrcHC0_Ax"
-];
-let gallery=document.getElementById("gallery");
-let votes=JSON.parse(localStorage.getItem("votes")||"{}");
-let comments=JSON.parse(localStorage.getItem("comments")||"{}");
+  document.getElementById("days").textContent = d;
+  document.getElementById("hours").textContent = h;
+  document.getElementById("minutes").textContent = m;
+  document.getElementById("seconds").textContent = s;
+}
+setInterval(updateCounter, 1000);
 
-function renderGallery(){
-  gallery.innerHTML="";
-  photos.forEach(id=>{
-    const url=`https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
-    const post=document.createElement("div");
-    post.className="post";
-    let v=votes[id]||0;
-    let cmt=comments[id]||"";
-    post.innerHTML=`
-      <img src="${url}">
-      <div class="overlay ${v>0?'liked':''}">❤</div>
-      <div class="comment-box">
-        <input type="text" placeholder="Yorum ekle..." value="${cmt}">
-        <button>Gönder</button>
+/* Fotoğraflar ve Yerel Depolama */
+let photos = JSON.parse(localStorage.getItem("photos") || '["1P5NLAw-2s9ar9acN2Ifj3_NPrcHC0_Ax"]');
+let votes = JSON.parse(localStorage.getItem("votes") || "{}");
+let comments = JSON.parse(localStorage.getItem("comments") || "{}");
+
+function renderGallery() {
+  const gallery = document.getElementById("gallery");
+  gallery.innerHTML = "";
+  
+  photos.forEach(id => {
+    const isLocal = id.startsWith("data:");
+    const url = isLocal ? id : `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
+    
+    const post = document.createElement("div");
+    post.className = "post";
+    
+    const v = votes[id] || 0;
+    const cmt = comments[id] || "";
+
+    post.innerHTML = `
+      <img src="${url}" onclick="openLightbox('${url}')">
+      <div class="overlay">
+        <div class="heart-btn ${v > 0 ? 'liked' : ''}" onclick="likePhoto('${id}', this)">❤</div>
+        <input type="text" class="comment-input" placeholder="Yorum..." value="${cmt}" onchange="saveComment('${id}', this.value)">
       </div>
     `;
-    const overlay=post.querySelector(".overlay");
-    const input=post.querySelector("input");
-    const btn=post.querySelector("button");
-
-    overlay.onclick=e=>{e.stopPropagation();votes[id]=(votes[id]||0)+1;overlay.classList.add("liked"); localStorage.setItem("votes",JSON.stringify(votes));}
-    btn.onclick=e=>{
-      e.stopPropagation();
-      comments[id]=input.value;
-      localStorage.setItem("comments",JSON.stringify(comments));
-      alert("Yorum kaydedildi!");
-    }
-    post.querySelector("img").onclick=()=>{document.getElementById("lightImg").src=url;document.getElementById("lightbox").style.display='flex'}
     gallery.appendChild(post);
   });
 }
 
-renderGallery();
-
-/* UPLOAD (Cloudinary veya lokal test için) */
-const fileInput=document.getElementById("fileInput");
-const uploadBtn=document.getElementById("uploadBtn");
-uploadBtn.onclick=async()=>{
-  const file=fileInput.files[0];
-  if(!file)return alert("Fotoğraf seçin");
-  const reader=new FileReader();
-  reader.onload=e=>{
-    const newId="local"+Date.now();
-    photos.push(newId);
-    localStorage.setItem("photos",JSON.stringify(photos));
-    renderGallery();
-  };
-  reader.readAsDataURL(file);
+function openLightbox(url) {
+  document.getElementById("lightImg").src = url;
+  document.getElementById("lightbox").style.display = 'flex';
 }
+
+function likePhoto(id, el) {
+  votes[id] = (votes[id] || 0) + 1;
+  el.classList.add("liked");
+  localStorage.setItem("votes", JSON.stringify(votes));
+}
+
+function saveComment(id, val) {
+  comments[id] = val;
+  localStorage.setItem("comments", JSON.stringify(comments));
+}
+
+/* Yeni Fotoğraf Yükleme */
+document.getElementById("fileInput").onchange = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      photos.unshift(event.target.result); // Yeni fotoğrafı başa ekle
+      localStorage.setItem("photos", JSON.stringify(photos));
+      renderGallery();
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
+/* Sözler */
+const quotes = ["Sonsuzluğum olur musun?", "En güzel manzaram sensin.", "Her fotoğrafımız bir hikaye.", "Seni seviyorum."];
+let qi = 0;
+setInterval(() => {
+  document.getElementById("quote").style.opacity = 0;
+  setTimeout(() => {
+    document.getElementById("quote").textContent = quotes[++qi % quotes.length];
+    document.getElementById("quote").style.opacity = 1;
+  }, 500);
+}, 5000);
+
+renderGallery();
+updateCounter();
 </script>
 
 </body>
