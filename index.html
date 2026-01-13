@@ -23,7 +23,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Giriş Ekranı */
+/* Giriş Ekranı (PIN) */
 #pin {
     position: fixed;
     inset: 0;
@@ -33,7 +33,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 2000;
-    transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 0.8s ease-in-out;
 }
 
 #pin h2 {
@@ -56,10 +56,7 @@ body {
     text-align: center;
     letter-spacing: 5px;
     outline: none;
-    transition: 0.3s;
 }
-
-#pin input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(255, 79, 216, 0.3); }
 
 #pin button {
     margin-top: 25px;
@@ -71,14 +68,13 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
-    font-size: 1.1em;
 }
 
-#pin button:hover { transform: scale(1.05); filter: brightness(1.2); }
+#pin button:hover { transform: scale(1.05); }
 
 /* Ana İçerik */
 .hidden { display: none; opacity: 0; }
-#main { padding-bottom: 120px; transition: opacity 1s ease-in; }
+#main { padding-bottom: 150px; }
 
 header {
     height: 60vh;
@@ -99,7 +95,7 @@ header h1 {
 
 header p#quote { font-size: 1.3em; font-weight: 300; margin-top: 15px; color: #eee; min-height: 1.5em; transition: 0.5s; }
 
-/* Sayaç Kartı */
+/* Sayaç */
 .counter-card {
     background: var(--glass);
     backdrop-filter: blur(15px);
@@ -110,65 +106,12 @@ header p#quote { font-size: 1.3em; font-weight: 300; margin-top: 15px; color: #e
     border-radius: 25px;
     border: 1px solid rgba(255,255,255,0.1);
     text-align: center;
-    position: relative;
     z-index: 10;
 }
 
-.counter-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-}
-
+.counter-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
 .counter-item span { display: block; font-size: 1.8em; font-weight: bold; color: var(--primary); }
-.counter-item label { font-size: 0.75em; text-transform: uppercase; opacity: 0.8; letter-spacing: 1px; }
-
-/* Galeri */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-    padding: 25px;
-}
-
-.post {
-    position: relative;
-    aspect-ratio: 1/1;
-    border-radius: 20px;
-    overflow: hidden;
-    background: #1a1a1a;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-}
-
-.post img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s cubic-bezier(0.2, 1, 0.3, 1); cursor: pointer; }
-.post:hover img { transform: scale(1.1); }
-
-.overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: 0.4s;
-}
-
-.post:hover .overlay { opacity: 1; }
-
-.heart-btn { font-size: 35px; cursor: pointer; color: white; transition: 0.3s; text-shadow: 0 0 10px rgba(0,0,0,0.5); }
-.heart-btn.liked { color: var(--primary); transform: scale(1.2); }
-
-.comment-input {
-    margin-top: 15px;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    width: 85%;
-    background: rgba(255,255,255,0.9);
-    font-family: inherit;
-}
+.counter-item label { font-size: 0.75em; text-transform: uppercase; opacity: 0.8; }
 
 /* Apple Music Player */
 .music-player {
@@ -177,7 +120,7 @@ header p#quote { font-size: 1.3em; font-weight: 300; margin-top: 15px; color: #e
     left: 50%;
     transform: translateX(-50%);
     width: 320px;
-    background: rgba(20, 20, 20, 0.75);
+    background: rgba(20, 20, 20, 0.8);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
@@ -194,28 +137,22 @@ header p#quote { font-size: 1.3em; font-weight: 300; margin-top: 15px; color: #e
     height: 50px;
     border-radius: 10px;
     background: url('https://i.scdn.co/image/ab67616d0000b2739343936630f92275990f19a3') center/cover;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     animation: musicPulse 2s infinite ease-in-out;
 }
 
 @keyframes musicPulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
-    50% { transform: scale(1.05); box-shadow: 0 4px 20px var(--primary); }
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); box-shadow: 0 0 15px var(--primary); }
 }
 
-.player-info { flex: 1; overflow: hidden; }
-.player-info h4 { margin: 0; font-size: 14px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.player-info p { margin: 0; font-size: 11px; color: var(--primary); font-weight: 600; text-transform: uppercase; }
+#youtube-player { position: absolute; width: 1px; height: 1px; opacity: 0; }
 
-#youtube-player {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    pointer-events: none;
-}
+/* Galeri */
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 25px; }
+.post { position: relative; aspect-ratio: 1/1; border-radius: 20px; overflow: hidden; background: #1a1a1a; }
+.post img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; cursor: pointer; }
+.post:hover img { transform: scale(1.1); }
 
-/* Yükleme Butonu */
 .upload-section { text-align: center; margin: 40px 0; }
 .custom-file-upload {
     background: linear-gradient(45deg, var(--primary), var(--secondary));
@@ -223,21 +160,10 @@ header p#quote { font-size: 1.3em; font-weight: 300; margin-top: 15px; color: #e
     border-radius: 50px;
     cursor: pointer;
     font-weight: 600;
-    display: inline-block;
-    box-shadow: 0 5px 15px rgba(122, 0, 255, 0.3);
 }
 
-#lightbox {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.95);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 3000;
-}
-#lightbox img { max-width: 90%; max-height: 85vh; border-radius: 15px; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
-
+#lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; justify-content: center; align-items: center; z-index: 3000; }
+#lightbox img { max-width: 90%; max-height: 85vh; border-radius: 15px; }
 </style>
 </head>
 <body>
@@ -246,11 +172,10 @@ header p#quote { font-size: 1.3em; font-weight: 300; margin-top: 15px; color: #e
   <h2>Unser Liebesbuch</h2>
   <input type="password" id="pinInput" placeholder="****" maxlength="4">
   <button onclick="checkPin()">Einloggen</button>
-  <p id="pinMsg" style="color:#ff4f4f; margin-top:15px; font-weight: 500;"></p>
+  <p id="pinMsg" style="color:#ff4f4f; margin-top:15px;"></p>
 </div>
 
 <div id="main" class="hidden">
-
 <header>
   <h1>Can ❤️ Aylin</h1>
   <p id="quote">"Wir sind eine Welt für uns zwei."</p>
@@ -269,13 +194,12 @@ header p#quote { font-size: 1.3em; font-weight: 300; margin-top: 15px; color: #e
 <div class="music-player">
     <div class="album-art"></div>
     <div class="player-info">
-        <h4>AYLIVA Mix</h4>
-        <p>Wird jetzt abgespielt...</p>
+        <h4 style="margin:0; font-size:14px;">AYLIVA Mix</h4>
+        <p style="margin:0; font-size:11px; color:var(--primary);">Wird jetzt abgespielt...</p>
     </div>
     <iframe id="youtube-player" 
-        src="https://www.youtube.com/embed/videoseries?list=PLy8_yvH6A2S8E1_k6F9Ld_807W7Z5jN1G&enablejsapi=1" 
-        frameborder="0" 
-        allow="autoplay; encrypted-media">
+        src="https://www.youtube.com/embed/videoseries?list=PLmS3u49Y0m6tY6oBskp38Zq1R_S-D39_A&enablejsapi=1" 
+        allow="autoplay">
     </iframe>
 </div>
 
@@ -287,7 +211,6 @@ header p#quote { font-size: 1.3em; font-weight: 300; margin-top: 15px; color: #e
 </div>
 
 <section class="gallery" id="gallery"></section>
-
 </div>
 
 <div id="lightbox" onclick="this.style.display='none'">
@@ -295,18 +218,16 @@ header p#quote { font-size: 1.3em; font-weight: 300; margin-top: 15px; color: #e
 </div>
 
 <script>
-/* Ayarlar */
 const SITE_PIN = "1004";
 const startDate = new Date("2025-04-10T00:00:00");
-const defaultImage = "https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=500";
 
-/* PIN Kontrolü ve Müzik Başlatma */
 function checkPin() {
   const input = document.getElementById("pinInput").value;
   if(input === SITE_PIN) {
-    // Müziği oynat (Autoplay için kullanıcı etkileşimi şarttır, buton tıklaması bunu sağlar)
+    // MÜZİĞİ SESLİ BAŞLAT
     const ytPlayer = document.getElementById("youtube-player");
-    ytPlayer.src += "&autoplay=1";
+    // Linke autoplay ekle ve sayfayı yenilemeden src'yi güncelle
+    ytPlayer.src = ytPlayer.src + "&autoplay=1&mute=0"; 
 
     document.getElementById("pin").style.opacity = "0";
     setTimeout(() => {
@@ -316,55 +237,27 @@ function checkPin() {
       setTimeout(() => main.style.opacity = "1", 50);
     }, 800);
   } else {
-    document.getElementById("pinMsg").textContent = "Falscher PIN, versuch's nochmal, Schatz!";
-    document.getElementById("pinInput").value = "";
+    document.getElementById("pinMsg").textContent = "Falscher PIN, versuch's nochmal!";
   }
 }
 
-/* Sayaç Fonksiyonu */
 function updateCounter() {
-  const now = new Date();
-  const diff = now - startDate;
-
-  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const m = Math.floor((diff / (1000 * 60)) % 60);
-  const s = Math.floor((diff / 1000) % 60);
-
-  document.getElementById("days").textContent = d;
-  document.getElementById("hours").textContent = h;
-  document.getElementById("minutes").textContent = m;
-  document.getElementById("seconds").textContent = s;
+  const diff = new Date() - startDate;
+  document.getElementById("days").textContent = Math.floor(diff / 86400000);
+  document.getElementById("hours").textContent = Math.floor((diff / 3600000) % 24);
+  document.getElementById("minutes").textContent = Math.floor((diff / 60000) % 60);
+  document.getElementById("seconds").textContent = Math.floor((diff / 1000) % 60);
 }
 setInterval(updateCounter, 1000);
 
-/* Fotoğraf Yönetimi */
-let photos = JSON.parse(localStorage.getItem("photos") || '["1P5NLAw-2s9ar9acN2Ifj3_NPrcHC0_Ax"]');
-let votes = JSON.parse(localStorage.getItem("votes") || "{}");
-let comments = JSON.parse(localStorage.getItem("comments") || "{}");
-
+let photos = JSON.parse(localStorage.getItem("photos") || '[]');
 function renderGallery() {
   const gallery = document.getElementById("gallery");
   gallery.innerHTML = "";
-  
-  photos.forEach(id => {
-    const isLocal = id.startsWith("data:");
-    // Google Drive resimleri için geliştirilmiş link yapısı
-    const url = isLocal ? id : `https://lh3.googleusercontent.com/d/${id}`;
-    
+  photos.forEach((src, index) => {
     const post = document.createElement("div");
     post.className = "post";
-    
-    const v = votes[id] || 0;
-    const cmt = comments[id] || "";
-
-    post.innerHTML = `
-      <img src="${url}" onerror="this.src='${defaultImage}'" onclick="openLightbox(this.src)">
-      <div class="overlay">
-        <div class="heart-btn ${v > 0 ? 'liked' : ''}" onclick="likePhoto('${id}', this)">❤</div>
-        <input type="text" class="comment-input" placeholder="Schreibe etwas..." value="${cmt}" onchange="saveComment('${id}', this.value)">
-      </div>
-    `;
+    post.innerHTML = `<img src="${src}" onclick="openLightbox(this.src)">`;
     gallery.appendChild(post);
   });
 }
@@ -374,18 +267,6 @@ function openLightbox(url) {
   document.getElementById("lightbox").style.display = 'flex';
 }
 
-function likePhoto(id, el) {
-  votes[id] = (votes[id] || 0) + 1;
-  el.classList.toggle("liked");
-  localStorage.setItem("votes", JSON.stringify(votes));
-}
-
-function saveComment(id, val) {
-  comments[id] = val;
-  localStorage.setItem("comments", JSON.stringify(comments));
-}
-
-/* Dosya Yükleme */
 document.getElementById("fileInput").onchange = (e) => {
   const file = e.target.files[0];
   if (file) {
@@ -399,14 +280,7 @@ document.getElementById("fileInput").onchange = (e) => {
   }
 };
 
-/* Almanca Aşk Sözleri */
-const quotes = [
-  "Willst du meine Ewigkeit sein?",
-  "Du bist meine schönste Aussicht.",
-  "Jedes Foto erzählt unsere Geschichte.",
-  "Ich liebe dich über alles.",
-  "Für immer an deiner Seite."
-];
+const quotes = ["Willst du meine Ewigkeit sein?", "Du bist meine schönste Aussicht.", "Ich liebe dich über alles."];
 let qi = 0;
 setInterval(() => {
   const qEl = document.getElementById("quote");
@@ -417,7 +291,6 @@ setInterval(() => {
   }, 500);
 }, 5000);
 
-// Başlat
 renderGallery();
 updateCounter();
 </script>
